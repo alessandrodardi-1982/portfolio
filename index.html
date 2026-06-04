@@ -9,15 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* Palette tema scuro — estratta dalla headline LinkedIn "Service Manager" */
-    --paper:#001A33;      /* sfondo principale (navy) */
-    --paper-2:#04223F;    /* sezioni e card */
-    --ink:#EAF1FA;        /* testo principale */
-    --ink-soft:#9DB2CC;   /* testo secondario */
-    --line:#173A63;       /* bordi */
-    --amber:#2E9BEC;      /* accento azzurro brillante (numeri, badge, dettagli) */
-    --teal:#5FB0EF;       /* azzurro chiaro (titoli in evidenza, tag) */
-    --teal-soft:#4FA8EE;  /* azzurro hover */
+    --paper:#001A33;
+    --paper-2:#04223F;
+    --ink:#EAF1FA;
+    --ink-soft:#9DB2CC;
+    --line:#173A63;
+    --amber:#2E9BEC;
+    --teal:#5FB0EF;
+    --teal-soft:#4FA8EE;
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -28,7 +27,6 @@
   .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
   .mono{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 
-  /* NAV */
   nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,26,51,.82);
     backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px}
@@ -39,7 +37,6 @@
   .navlinks a:hover{color:var(--amber)}
   @media(max-width:680px){.navlinks{display:none}}
 
-  /* HERO */
   header.hero{padding:160px 0 80px;position:relative}
   .eyebrow{color:var(--amber);margin-bottom:26px;display:flex;align-items:center;gap:12px}
   .eyebrow::before{content:"";width:34px;height:1px;background:var(--amber)}
@@ -56,7 +53,6 @@
   .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
   .btn-ghost:hover{border-color:var(--amber);background:rgba(46,155,236,.12);color:var(--ink)}
 
-  /* SECTION */
   section{padding:80px 0;position:relative}
   .sec-num{color:var(--amber);margin-bottom:14px;display:block}
   .sec-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.7rem);
@@ -67,7 +63,6 @@
     padding:14px 18px;margin:34px 0 46px;font-size:.88rem;color:var(--amber)}
   .demo-banner b{font-weight:700}
 
-  /* GRUPPO SOFTWARE */
   .swgroup{margin-bottom:54px}
   .swgroup-head{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
     padding-bottom:16px;border-bottom:2px solid var(--amber);margin-bottom:26px}
@@ -76,7 +71,6 @@
   .swgroup-head .swdesc{color:var(--ink-soft);font-size:.95rem;margin-left:auto}
   @media(max-width:560px){.swgroup-head .swdesc{margin-left:0;flex-basis:100%}}
 
-  /* CARD LAVORO */
   .work{background:var(--paper-2);border:1px solid var(--line);border-radius:5px;overflow:hidden;
     transition:transform .25s ease,border-color .25s ease}
   .work:hover{transform:translateY(-3px);border-color:var(--teal)}
@@ -99,18 +93,15 @@
     border:1px solid rgba(95,176,239,.35);padding:4px 9px;border-radius:2px}
   @media(max-width:680px){.work-rows{grid-template-columns:1fr;gap:16px}.work-body{padding:24px}}
 
-  /* SLOT VUOTO */
   .sw-empty{border:1px dashed var(--line);border-radius:5px;padding:30px;text-align:center;
     color:var(--ink-soft);font-size:.92rem}
   .sw-empty .mono{color:var(--amber);display:block;margin-bottom:8px}
 
-  /* STRUMENTI */
   #strumenti{background:var(--paper-2)}
   .tools{display:flex;flex-wrap:wrap;gap:11px;margin-top:30px}
   .tool{font-size:.9rem;font-weight:500;padding:9px 16px;border:1px solid var(--line);border-radius:2px;background:var(--paper)}
   .tool .mono{color:var(--ink-soft);margin-left:7px}
 
-  /* CONTATTI */
   #contatti{padding-bottom:60px}
   .contact-box{text-align:center;max-width:620px;margin:0 auto}
   .contact-box h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(2rem,5vw,3.2rem);
@@ -125,7 +116,6 @@
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
 
-  /* ANALISI DATI */
   #analisi-dati{background:var(--paper)}
   .dash-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;margin-top:42px}
   .dash-card{background:var(--paper-2);border:1px solid var(--line);border-radius:5px;overflow:hidden;
@@ -148,7 +138,8 @@
     border:1px solid rgba(95,176,239,.3);padding:3px 8px;border-radius:2px}
   .dash-link{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:10px 18px;
     background:transparent;border:1px solid var(--line);border-radius:2px;color:var(--ink);
-    text-decoration:none;font-size:.82rem;font-weight:600;transition:all .2s;align-self:flex-start}
+    text-decoration:none;font-size:.82rem;font-weight:600;transition:all .2s;align-self:flex-start;
+    position:relative;z-index:5}
   .dash-link:hover{border-color:var(--amber);background:rgba(46,155,236,.12);color:var(--amber)}
 </style>
 </head>
@@ -173,14 +164,13 @@
     <h1 class="reveal">Ogni obiettivo ha lo <em>strumento giusto</em> per raggiungerlo.</h1>
     <p class="lead reveal">Penso la soluzione, scelgo lo strumento per costruirla. Vengo dalle operations industriali: <strong>qui sotto non trovi un curriculum, trovi le prove.</strong></p>
     <div class="cta reveal">
-      <!-- INSERISCI IL LINK AL TUO PROFILO LINKEDIN -->
       <a class="btn btn-primary" href="#" target="_blank">LinkedIn →</a>
       <a class="btn btn-ghost" href="#analisi-dati">Vedi i lavori</a>
     </div>
   </div>
 </header>
 
-<!-- ===================== SEZIONE LAVORI — NASCOSTA TEMPORANEAMENTE ===================== -->
+<!-- SEZIONE LAVORI -->
 <section id="lavori">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -189,7 +179,6 @@
       <p class="sec-sub">Strumenti diversi per problemi diversi: imparo quello che serve di volta in volta. Ogni blocco raccoglie i lavori fatti con quello strumento.</p>
     </div>
 
-    <!-- ===================== GRUPPO SOFTWARE: n8n ===================== -->
     <div class="swgroup reveal">
       <div class="swgroup-head">
         <span class="swtick">A1</span>
@@ -213,7 +202,6 @@
       </div>
     </div>
 
-    <!-- ===================== GRUPPO SOFTWARE: Tableau ===================== -->
     <div class="swgroup reveal" style="display:none">
       <div class="swgroup-head">
         <span class="swtick">A2</span>
@@ -234,7 +222,6 @@
       </div>
     </div>
 
-    <!-- ===================== GRUPPO SOFTWARE: Excel ===================== -->
     <div class="swgroup reveal" style="display:none">
       <div class="swgroup-head">
         <span class="swtick">A3</span>
@@ -247,7 +234,6 @@
       </div>
     </div>
 
-    <!-- ===================== GRUPPO SOFTWARE: AI ===================== -->
     <div class="swgroup reveal" style="display:none">
       <div class="swgroup-head">
         <span class="swtick">A4</span>
@@ -263,7 +249,7 @@
   </div>
 </section>
 
-<!-- ===================== SEZIONE: ANALISI DATI ===================== -->
+<!-- SEZIONE ANALISI DATI -->
 <section id="analisi-dati">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -271,10 +257,8 @@
       <h2>Dashboard generate con AI.</h2>
       <p class="sec-sub">Report interattivi costruiti con Claude API a partire da dati reali: KPI operativi, interventi tecnici, analisi geografiche.</p>
     </div>
-
     <div class="dash-grid">
 
-      <!-- Dashboard Manutenzione -->
       <div class="dash-card reveal">
         <div class="dash-preview">
           <iframe src="https://alessandrodardi-1982.github.io/portfolio/dashboard_manutenzione_v2.html" loading="lazy" title="Dashboard Manutenzione"></iframe>
@@ -284,14 +268,11 @@
         <div class="dash-body">
           <h4>Dashboard CRM — Interventi Tecnici</h4>
           <p>Nel mio lavoro coordinavo interventi tecnici su impianti di aria compressa e refrigerazione. I dati erano distribuiti tra Excel e CRM, senza una vista unificata. Ho ricreato la struttura del problema con dati rappresentativi e costruito questo report automatico tramite Claude API.</p>
-          <div class="dash-tags">
-            <span>Claude API</span><span>CSV</span><span>KPI operativi</span>
-          </div>
+          <div class="dash-tags"><span>Claude API</span><span>CSV</span><span>KPI operativi</span></div>
           <a class="dash-link" href="https://alessandrodardi-1982.github.io/portfolio/dashboard_manutenzione_v2.html" target="_blank">Apri dashboard →</a>
         </div>
       </div>
 
-      <!-- Dashboard CEO -->
       <div class="dash-card reveal">
         <div class="dash-preview">
           <iframe src="https://alessandrodardi-1982.github.io/portfolio/dashboard_ceo_v2.html" loading="lazy" title="Dashboard CEO"></iframe>
@@ -301,14 +282,11 @@
         <div class="dash-body">
           <h4>Dashboard CEO — KPI Aziendali</h4>
           <p>Simulazione di un report executive costruito per supportare decisioni strategiche. L'obiettivo era dimostrare come trasformare dati grezzi in una vista chiara per chi deve decidere: margini, andamenti e aree critiche in un colpo d'occhio.</p>
-          <div class="dash-tags">
-            <span>Claude API</span><span>D3.js</span><span>Mappa USA</span>
-          </div>
+          <div class="dash-tags"><span>Claude API</span><span>D3.js</span><span>Mappa USA</span></div>
           <a class="dash-link" href="https://alessandrodardi-1982.github.io/portfolio/dashboard_ceo_v2.html" target="_blank">Apri dashboard →</a>
         </div>
       </div>
 
-      <!-- Mappa USA -->
       <div class="dash-card reveal">
         <div class="dash-preview">
           <iframe src="https://alessandrodardi-1982.github.io/portfolio/mappa_usa_v2.html" loading="lazy" title="Mappa USA"></iframe>
@@ -318,14 +296,11 @@
         <div class="dash-body">
           <h4>Mappa Choropleth — USA per Stato</h4>
           <p>Estensione visiva della dashboard CEO: stessa base dati, rappresentata geograficamente stato per stato. L'obiettivo era rendere immediatamente leggibile dove il business performa e dove no — senza tabelle, solo colore e impatto visivo.</p>
-          <div class="dash-tags">
-            <span>D3.js</span><span>TopoJSON</span><span>Interattiva</span>
-          </div>
+          <div class="dash-tags"><span>D3.js</span><span>TopoJSON</span><span>Interattiva</span></div>
           <a class="dash-link" href="https://alessandrodardi-1982.github.io/portfolio/mappa_usa_v2.html" target="_blank">Apri dashboard →</a>
         </div>
       </div>
 
-      <!-- Dashboard ITA -->
       <div class="dash-card reveal">
         <div class="dash-preview">
           <iframe src="https://alessandrodardi-1982.github.io/portfolio/dashboard_ita_v2.html" loading="lazy" title="Dashboard ITA"></iframe>
@@ -335,9 +310,7 @@
         <div class="dash-body">
           <h4>Dashboard Italiana — Analisi Operativa</h4>
           <p>Un esempio più essenziale rispetto agli altri: mostra che lo stesso approccio — dati CSV, Claude API, output HTML — funziona anche per report operativi semplici, non solo per viste executive elaborate.</p>
-          <div class="dash-tags">
-            <span>Claude API</span><span>Italiano</span><span>Automazione</span>
-          </div>
+          <div class="dash-tags"><span>Claude API</span><span>Italiano</span><span>Automazione</span></div>
           <a class="dash-link" href="https://alessandrodardi-1982.github.io/portfolio/dashboard_ita_v2.html" target="_blank">Apri dashboard →</a>
         </div>
       </div>
@@ -346,8 +319,7 @@
   </div>
 </section>
 
-
-<!-- ===================== SEZIONE: APPLICATIVI ===================== -->
+<!-- SEZIONE APPLICATIVI -->
 <section id="applicativi" style="background:var(--paper-2)">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -357,20 +329,17 @@
     </div>
 
     <div class="dash-grid" style="margin-top:42px">
-
-      <!-- CRM PMI -->
-      <div class="dash-card reveal" style="grid-column: 1 / -1; max-width: 640px;">
-        <div class="dash-preview" style="aspect-ratio:16/7; background: linear-gradient(135deg, #0a0f1e 0%, #161d2e 60%, #1c2538 100%); display:flex; align-items:center; justify-content:center; flex-direction:column; gap:10px;">
-          <span style="font-family:'JetBrains Mono',monospace; font-size:1.1rem; color:#2ca1fe; letter-spacing:0.05em;">◆ CRM Suite</span>
-          <span style="font-family:'JetBrains Mono',monospace; font-size:0.7rem; color:#4e5d78; letter-spacing:0.12em; text-transform:uppercase;">Clienti · Interventi · Pipeline</span>
-          <div style="display:flex; gap:8px; margin-top:6px;">
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#22c55e; border:1px solid rgba(34,197,94,0.25); padding:3px 9px; border-radius:3px;">12 clienti</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#2ca1fe; border:1px solid rgba(44,161,254,0.25); padding:3px 9px; border-radius:3px;">38 interventi</span>
-            <span style="font-family:'JetBrains Mono',monospace; font-size:0.65rem; color:#a78bfa; border:1px solid rgba(167,139,250,0.25); padding:3px 9px; border-radius:3px;">9 opportunità</span>
+      <div class="dash-card reveal" style="grid-column:1/-1;max-width:640px;">
+        <div class="dash-preview" style="aspect-ratio:16/7;background:linear-gradient(135deg,#0a0f1e 0%,#161d2e 60%,#1c2538 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+          <span class="dash-preview-icon">CRM Operativo</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:1.1rem;color:#2ca1fe;letter-spacing:0.05em;">◆ CRM Suite</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:0.7rem;color:#4e5d78;letter-spacing:0.12em;text-transform:uppercase;">Clienti · Interventi · Pipeline</span>
+          <div style="display:flex;gap:8px;margin-top:6px;">
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#22c55e;border:1px solid rgba(34,197,94,0.25);padding:3px 9px;border-radius:3px;">12 clienti</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#2ca1fe;border:1px solid rgba(44,161,254,0.25);padding:3px 9px;border-radius:3px;">38 interventi</span>
+            <span style="font-family:'JetBrains Mono',monospace;font-size:0.65rem;color:#a78bfa;border:1px solid rgba(167,139,250,0.25);padding:3px 9px;border-radius:3px;">9 opportunità</span>
           </div>
         </div>
-        <div class="dash-preview-overlay"></div>
-        <span class="dash-preview-icon">CRM Operativo</span>
         <div class="dash-body">
           <h4>CRM per PMI — Gestione Clienti, Interventi e Pipeline</h4>
           <p>Le piccole e medie imprese di servizi tecnici spesso gestiscono clienti, interventi e opportunità commerciali su fogli Excel separati. Ho progettato un CRM operativo completo che centralizza tutto in un unico strumento: anagrafica clienti, storico interventi tecnici (con filtri per stato e priorità), pipeline commerciale Kanban e dashboard KPI. Dati e navigazione funzionano interamente nel browser, senza backend.</p>
@@ -380,11 +349,11 @@
           <a class="dash-link" href="https://alessandrodardi-1982.github.io/portfolio/crm_pmi.html" target="_blank">Apri il CRM →</a>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
+<!-- SEZIONE STRUMENTI -->
 <section id="strumenti">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -406,6 +375,7 @@
   </div>
 </section>
 
+<!-- SEZIONE CONTATTI -->
 <section id="contatti">
   <div class="wrap">
     <div class="contact-box reveal">
@@ -413,7 +383,6 @@
       <h2>Cerco il contesto giusto<br>dove <em>fare la differenza</em>.</h2>
       <p>Aperto a nuove opportunità in operations, digital transformation e automazione dei processi. Se cerchi un profilo che unisce esperienza industriale e mentalità digitale, scrivimi.</p>
       <div class="contact-links">
-        <!-- INSERISCI I TUOI LINK REALI -->
         <a class="btn btn-primary" href="#" target="_blank">LinkedIn →</a>
         <a class="btn btn-ghost" href="mailto:tua@email.it">Scrivimi</a>
       </div>
