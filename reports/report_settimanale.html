@@ -1,1 +1,661 @@
-<!-- placeholder -->
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Interventi Tecnici</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #0a0e1a;
+    color: #e0e8f0;
+    min-height: 100vh;
+  }
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: #0d1225; }
+  ::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+
+  /* HEADER */
+  .header {
+    background: linear-gradient(135deg, #0d1b35 0%, #112244 50%, #0d1b35 100%);
+    border-bottom: 2px solid #1e4080;
+    padding: 20px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .header-left { display: flex; align-items: center; gap: 16px; }
+  .header-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #1565c0, #42a5f5);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(66,165,245,0.3);
+  }
+  .header h1 { font-size: 1.6rem; font-weight: 700; color: #e3f2fd; letter-spacing: 0.5px; }
+  .header p { font-size: 0.82rem; color: #7eb3d8; margin-top: 2px; }
+  .header-right { text-align: right; }
+  .header-right .badge {
+    background: linear-gradient(135deg, #1565c0, #0d47a1);
+    border: 1px solid #42a5f5;
+    color: #90caf9;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+  .last-update { font-size: 0.75rem; color: #546e8a; margin-top: 6px; }
+
+  /* LAYOUT */
+  .main { padding: 28px 32px; max-width: 1600px; margin: 0 auto; }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #42a5f5;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, #1e3a5f, transparent);
+  }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: linear-gradient(135deg, #0d1b35 0%, #111e38 100%);
+    border: 1px solid #1a3055;
+    border-radius: 14px;
+    padding: 22px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-3px); box-shadow: 0 8px 30px rgba(21,101,192,0.2); }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .kpi-card.blue::before { background: linear-gradient(90deg, #1565c0, #42a5f5); }
+  .kpi-card.green::before { background: linear-gradient(90deg, #1b5e20, #66bb6a); }
+  .kpi-card.orange::before { background: linear-gradient(90deg, #e65100, #ffa726); }
+  .kpi-card.purple::before { background: linear-gradient(90deg, #4a148c, #ab47bc); }
+  .kpi-card.teal::before { background: linear-gradient(90deg, #004d40, #26c6da); }
+  .kpi-card.red::before { background: linear-gradient(90deg, #b71c1c, #ef5350); }
+  .kpi-card.yellow::before { background: linear-gradient(90deg, #f57f17, #ffee58); }
+  .kpi-label { font-size: 0.72rem; color: #6b93b8; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; margin-bottom: 10px; }
+  .kpi-value { font-size: 2rem; font-weight: 800; color: #e3f2fd; line-height: 1; }
+  .kpi-sub { font-size: 0.78rem; color: #4a7fa5; margin-top: 6px; }
+  .kpi-icon {
+    position: absolute;
+    right: 16px; top: 18px;
+    font-size: 2rem;
+    opacity: 0.15;
+  }
+  .status-mini { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
+  .status-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; }
+  .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; margin-right: 5px; }
+  .dot-green { background: #66bb6a; }
+  .dot-orange { background: #ffa726; }
+  .dot-blue { background: #42a5f5; }
+
+  /* CHARTS GRID */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .chart-card {
+    background: linear-gradient(135deg, #0d1b35 0%, #111e38 100%);
+    border: 1px solid #1a3055;
+    border-radius: 14px;
+    padding: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .chart-card::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 160px; height: 160px;
+    background: radial-gradient(circle, rgba(21,101,192,0.06) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .chart-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #b0cfe8;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chart-title .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .chart-container { position: relative; height: 280px; }
+
+  /* TABLE */
+  .table-card {
+    background: linear-gradient(135deg, #0d1b35 0%, #111e38 100%);
+    border: 1px solid #1a3055;
+    border-radius: 14px;
+    padding: 22px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .table-wrapper { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 0.8rem; }
+  thead tr { background: linear-gradient(90deg, #0d2447, #112b52); }
+  thead th {
+    padding: 12px 14px;
+    text-align: left;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #42a5f5;
+    border-bottom: 2px solid #1e3a5f;
+    white-space: nowrap;
+  }
+  tbody tr {
+    border-bottom: 1px solid #0f1e35;
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: rgba(21,101,192,0.08); }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 11px 14px; color: #c8dff0; white-space: nowrap; }
+  tbody td.mono { font-family: 'Courier New', monospace; font-size: 0.75rem; color: #5b9bd5; }
+  .badge-stato {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .badge-completato { background: rgba(56,142,60,0.2); color: #81c784; border: 1px solid rgba(56,142,60,0.4); }
+  .badge-in-corso { background: rgba(245,124,0,0.2); color: #ffb74d; border: 1px solid rgba(245,124,0,0.4); }
+  .badge-in-attesa { background: rgba(21,101,192,0.2); color: #64b5f6; border: 1px solid rgba(21,101,192,0.4); }
+  .badge-priorita {
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+  .prio-alta { background: rgba(183,28,28,0.2); color: #ef9a9a; border: 1px solid rgba(183,28,28,0.3); }
+  .prio-media { background: rgba(249,168,37,0.15); color: #ffe082; border: 1px solid rgba(249,168,37,0.3); }
+  .prio-bassa { background: rgba(27,94,32,0.2); color: #a5d6a7; border: 1px solid rgba(27,94,32,0.3); }
+  .cost-val { color: #80cbc4; font-weight: 600; }
+  .dur-val { color: #ce93d8; }
+
+  /* FOOTER */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.72rem;
+    color: #2c4a6a;
+    border-top: 1px solid #0f1e35;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .charts-grid { grid-template-columns: 1fr; }
+    .main { padding: 20px 16px; }
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .header { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 500px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="header-icon">⚙️</div>
+    <div>
+      <h1>Dashboard Interventi Tecnici</h1>
+      <p>Monitoraggio impianti industriali · Periodo: Maggio–Giugno 2026</p>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="badge">🔵 LIVE REPORT</div>
+    <div class="last-update">Aggiornamento: 03 Giugno 2026</div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- KPI -->
+  <div class="section-title">📊 Indicatori Chiave di Prestazione</div>
+  <div class="kpi-grid">
+
+    <div class="kpi-card blue">
+      <div class="kpi-icon">🔧</div>
+      <div class="kpi-label">Totale Interventi</div>
+      <div class="kpi-value">35</div>
+      <div class="kpi-sub">Periodo 26/05 – 03/06/2026</div>
+    </div>
+
+    <div class="kpi-card green">
+      <div class="kpi-icon">💶</div>
+      <div class="kpi-label">Costo Totale</div>
+      <div class="kpi-value">€ 15.274</div>
+      <div class="kpi-sub">Media: € 436,40 / intervento</div>
+    </div>
+
+    <div class="kpi-card orange">
+      <div class="kpi-icon">⏱️</div>
+      <div class="kpi-label">Durata Media</div>
+      <div class="kpi-value">3,0 h</div>
+      <div class="kpi-sub">Totale ore: 104,5 h</div>
+    </div>
+
+    <div class="kpi-card purple">
+      <div class="kpi-icon">✅</div>
+      <div class="kpi-label">Completati</div>
+      <div class="kpi-value">22</div>
+      <div class="kpi-sub">62,9% del totale</div>
+    </div>
+
+    <div class="kpi-card teal">
+      <div class="kpi-icon">🔄</div>
+      <div class="kpi-label">In Corso</div>
+      <div class="kpi-value">2</div>
+      <div class="kpi-sub">5,7% del totale</div>
+    </div>
+
+    <div class="kpi-card yellow">
+      <div class="kpi-icon">⏳</div>
+      <div class="kpi-label">In Attesa</div>
+      <div class="kpi-value">11</div>
+      <div class="kpi-sub">31,4% del totale</div>
+    </div>
+
+    <div class="kpi-card red">
+      <div class="kpi-icon">🚨</div>
+      <div class="kpi-label">Priorità Alta</div>
+      <div class="kpi-value">14</div>
+      <div class="kpi-sub">40,0% del totale</div>
+    </div>
+
+  </div>
+
+  <!-- CHARTS -->
+  <div class="section-title">📈 Analisi Grafica</div>
+  <div class="charts-grid">
+
+    <div class="chart-card">
+      <div class="chart-title">
+        <span class="dot" style="background:#42a5f5"></span>
+        Interventi per Tipo
+      </div>
+      <div class="chart-container">
+        <canvas id="chartTipo"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">
+        <span class="dot" style="background:#66bb6a"></span>
+        Interventi e Costo per Tecnico
+      </div>
+      <div class="chart-container">
+        <canvas id="chartTecnico"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">
+        <span class="dot" style="background:#ffa726"></span>
+        Distribuzione per Stato
+      </div>
+      <div class="chart-container">
+        <canvas id="chartStato"></canvas>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-title">
+        <span class="dot" style="background:#ab47bc"></span>
+        Ore lavorate per Tecnico
+      </div>
+      <div class="chart-container">
+        <canvas id="chartOre"></canvas>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="section-title">📋 Tabella Riepilogativa Interventi</div>
+  <div class="table-card">
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Azienda</th>
+            <th>Città</th>
+            <th>Macchinario</th>
+            <th>Tipo Intervento</th>
+            <th>Priorità</th>
+            <th>Data</th>
+            <th>Tecnico</th>
+            <th>Durata (h)</th>
+            <th>Stato</th>
+            <th>Costo (€)</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Dashboard Interventi Tecnici · Dati aggiornati al 03/06/2026 · 35 record totali
+</div>
+
+<script>
+// ===================== DATI =====================
+const data = [
+  {id:"INT-001",azienda:"Rossi Impianti Srl",citta:"Milano",macchinario:"Compressore Atlas 30kW",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-05-26",tecnico:"Mario Bianchi",durata:3.5,stato:"Completato",costo:420},
+  {id:"INT-002",azienda:"Fratelli Galli Spa",citta:"Torino",macchinario:"Essiccatore a refrigerazione",tipo:"Guasto",priorita:"Alta",data:"2026-05-26",tecnico:"Luca Ferretti",durata:2.0,stato:"Completato",costo:310},
+  {id:"INT-003",azienda:"Tecnomec Bologna",citta:"Bologna",macchinario:"Compressore Kaeser 15kW",tipo:"Manutenzione programmata",priorita:"Bassa",data:"2026-05-27",tecnico:"Marco Ricci",durata:4.0,stato:"Completato",costo:480},
+  {id:"INT-004",azienda:"Impianti Sud Srl",citta:"Napoli",macchinario:"Gruppo frigorifero Carrier",tipo:"Guasto",priorita:"Alta",data:"2026-05-27",tecnico:"Paolo Esposito",durata:5.5,stato:"Completato",costo:870},
+  {id:"INT-005",azienda:"Nord Industrie Srl",citta:"Brescia",macchinario:"Compressore Atlas 55kW",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-05-27",tecnico:"Mario Bianchi",durata:1.5,stato:"Completato",costo:180},
+  {id:"INT-006",azienda:"Meccanica Verdi",citta:"Verona",macchinario:"Filtro aria compressa",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-05-28",tecnico:"Luca Ferretti",durata:2.5,stato:"Completato",costo:290},
+  {id:"INT-007",azienda:"Avio Componenti Spa",citta:"Torino",macchinario:"Compressore Ingersoll 45kW",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-05-28",tecnico:"Marco Ricci",durata:4.5,stato:"Completato",costo:540},
+  {id:"INT-008",azienda:"Plastiche Veneto Srl",citta:"Padova",macchinario:"Essiccatore a adsorbimento",tipo:"Guasto",priorita:"Alta",data:"2026-05-28",tecnico:"Paolo Esposito",durata:3.0,stato:"Completato",costo:650},
+  {id:"INT-009",azienda:"Rossi Impianti Srl",citta:"Milano",macchinario:"Gruppo frigorifero Trane",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-05-29",tecnico:"Mario Bianchi",durata:1.0,stato:"Completato",costo:120},
+  {id:"INT-010",azienda:"Carpenteria Lombarda",citta:"Bergamo",macchinario:"Compressore Atlas 30kW",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-05-29",tecnico:"Luca Ferretti",durata:3.0,stato:"Completato",costo:410},
+  {id:"INT-011",azienda:"Fonderia Bresciana Spa",citta:"Brescia",macchinario:"Compressore Kaeser 30kW",tipo:"Guasto",priorita:"Alta",data:"2026-05-29",tecnico:"Marco Ricci",durata:6.0,stato:"Completato",costo:980},
+  {id:"INT-012",azienda:"Impianti Centro Srl",citta:"Firenze",macchinario:"Essiccatore a refrigerazione",tipo:"Manutenzione programmata",priorita:"Bassa",data:"2026-05-29",tecnico:"Paolo Esposito",durata:2.5,stato:"Completato",costo:300},
+  {id:"INT-013",azienda:"Tecnomec Bologna",citta:"Bologna",macchinario:"Compressore Atlas 15kW",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-05-30",tecnico:"Mario Bianchi",durata:1.5,stato:"Completato",costo:180},
+  {id:"INT-014",azienda:"Elettrica Piemonte Srl",citta:"Torino",macchinario:"Gruppo frigorifero Carrier",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-05-30",tecnico:"Luca Ferretti",durata:4.0,stato:"Completato",costo:620},
+  {id:"INT-015",azienda:"Gomma & Plastica Srl",citta:"Modena",macchinario:"Compressore Ingersoll 22kW",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-05-30",tecnico:"Marco Ricci",durata:3.5,stato:"Completato",costo:420},
+  {id:"INT-016",azienda:"Fratelli Galli Spa",citta:"Torino",macchinario:"Compressore Atlas 55kW",tipo:"Guasto",priorita:"Alta",data:"2026-05-30",tecnico:"Paolo Esposito",durata:4.5,stato:"In corso",costo:750},
+  {id:"INT-017",azienda:"Metalli Pregiati Srl",citta:"Vicenza",macchinario:"Essiccatore a adsorbimento",tipo:"Manutenzione programmata",priorita:"Bassa",data:"2026-06-02",tecnico:"Mario Bianchi",durata:2.0,stato:"Completato",costo:240},
+  {id:"INT-018",azienda:"Industrie Riunite Spa",citta:"Milano",macchinario:"Compressore Kaeser 55kW",tipo:"Guasto",priorita:"Alta",data:"2026-06-02",tecnico:"Luca Ferretti",durata:7.0,stato:"Completato",costo:1120},
+  {id:"INT-019",azienda:"Sud Impianti Srl",citta:"Bari",macchinario:"Filtro aria compressa",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-06-02",tecnico:"Paolo Esposito",durata:1.5,stato:"Completato",costo:175},
+  {id:"INT-020",azienda:"Carpenteria Lombarda",citta:"Bergamo",macchinario:"Gruppo frigorifero Trane",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-06-02",tecnico:"Marco Ricci",durata:1.0,stato:"Completato",costo:120},
+  {id:"INT-021",azienda:"Avio Componenti Spa",citta:"Torino",macchinario:"Compressore Atlas 30kW",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-06-02",tecnico:"Mario Bianchi",durata:3.5,stato:"Completato",costo:420},
+  {id:"INT-022",azienda:"Meccanica Verdi",citta:"Verona",macchinario:"Compressore Ingersoll 45kW",tipo:"Guasto",priorita:"Alta",data:"2026-06-02",tecnico:"Luca Ferretti",durata:5.0,stato:"In corso",costo:820},
+  {id:"INT-023",azienda:"Plastiche Veneto Srl",citta:"Padova",macchinario:"Compressore Kaeser 15kW",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-06-03",tecnico:"Mario Bianchi",durata:1.5,stato:"In attesa",costo:180},
+  {id:"INT-024",azienda:"Fonderia Bresciana Spa",citta:"Brescia",macchinario:"Essiccatore a refrigerazione",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-06-03",tecnico:"Marco Ricci",durata:3.0,stato:"In attesa",costo:360},
+  {id:"INT-025",azienda:"Rossi Impianti Srl",citta:"Milano",macchinario:"Compressore Atlas 55kW",tipo:"Sostituzione componenti",priorita:"Alta",data:"2026-06-03",tecnico:"Paolo Esposito",durata:4.0,stato:"In attesa",costo:680},
+  {id:"INT-026",azienda:"Gomma & Plastica Srl",citta:"Modena",macchinario:"Gruppo frigorifero Carrier",tipo:"Guasto",priorita:"Alta",data:"2026-06-03",tecnico:"Luca Ferretti",durata:3.5,stato:"In attesa",costo:590},
+  {id:"INT-027",azienda:"Impianti Sud Srl",citta:"Napoli",macchinario:"Compressore Atlas 30kW",tipo:"Manutenzione programmata",priorita:"Bassa",data:"2026-06-03",tecnico:"Mario Bianchi",durata:2.5,stato:"In attesa",costo:300},
+  {id:"INT-028",azienda:"Tecnomec Bologna",citta:"Bologna",macchinario:"Filtro aria compressa",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-06-03",tecnico:"Marco Ricci",durata:1.0,stato:"In attesa",costo:120},
+  {id:"INT-029",azienda:"Elettrica Piemonte Srl",citta:"Torino",macchinario:"Compressore Kaeser 30kW",tipo:"Guasto",priorita:"Alta",data:"2026-06-03",tecnico:"Paolo Esposito",durata:6.0,stato:"In attesa",costo:960},
+  {id:"INT-030",azienda:"Nord Industrie Srl",citta:"Brescia",macchinario:"Essiccatore a adsorbimento",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-06-03",tecnico:"Luca Ferretti",durata:2.0,stato:"In attesa",costo:265},
+  {id:"INT-031",azienda:"Metalli Pregiati Srl",citta:"Vicenza",macchinario:"Compressore Ingersoll 22kW",tipo:"Manutenzione programmata",priorita:"Media",data:"2026-06-03",tecnico:"Mario Bianchi",durata:3.0,stato:"In attesa",costo:360},
+  {id:"INT-032",azienda:"Industrie Riunite Spa",citta:"Milano",macchinario:"Gruppo frigorifero Trane",tipo:"Controllo periodico",priorita:"Bassa",data:"2026-06-03",tecnico:"Marco Ricci",durata:1.5,stato:"In attesa",costo:180},
+  {id:"INT-033",azienda:"Fratelli Galli Spa",citta:"Torino",macchinario:"Compressore Atlas 15kW",tipo:"Guasto",priorita:"Alta",data:"2026-06-03",tecnico:"Paolo Esposito",durata:4.0,stato:"In attesa",costo:640},
+  {id:"INT-034",azienda:"Carpenteria Lombarda",citta:"Bergamo",macchinario:"Essiccatore a refrigerazione",tipo:"Manutenzione programmata",priorita:"Bassa",data:"2026-06-03",tecnico:"Luca Ferretti",durata:2.5,stato:"In attesa",costo:300},
+  {id:"INT-035",azienda:"Sud Impianti Srl",citta:"Bari",macchinario:"Compressore Kaeser 55kW",tipo:"Sostituzione componenti",priorita:"Media",data:"2026-06-03",tecnico:"Mario Bianchi",durata:3.5,stato:"In attesa",costo:490}
+];
+
+// ===================== TABLE =====================
+const tbody = document.getElementById('tableBody');
+data.forEach(r => {
+  const statoClass = r.stato === 'Completato' ? 'badge-completato' : r.stato === 'In corso' ? 'badge-in-corso' : 'badge-in-attesa';
+  const prioClass = r.priorita === 'Alta' ? 'prio-alta' : r.priorita === 'Media' ? 'prio-media' : 'prio-bassa';
+  const dateF = r.data.split('-').reverse().join('/');
+  tbody.innerHTML += `<tr>
+    <td class="mono">${r.id}</td>
+    <td>${r.azienda}</td>
+    <td>${r.citta}</td>
+    <td style="max-width:160px;white-space:normal;line-height:1.3">${r.macchinario}</td>
+    <td>${r.tipo}</td>
+    <td><span class="badge-priorita ${prioClass}">${r.priorita}</span></td>
+    <td>${dateF}</td>
+    <td>${r.tecnico}</td>
+    <td class="dur-val">${r.durata.toFixed(1)}</td>
+    <td><span class="badge-stato ${statoClass}">${r.stato}</span></td>
+    <td class="cost-val">€ ${r.costo.toLocaleString('it-IT')}</td>
+  </tr>`;
+});
+
+// ===================== CHART DEFAULTS =====================
+Chart.defaults.color = '#6b93b8';
+Chart.defaults.font.family = "'Segoe UI', sans-serif";
+Chart.defaults.font.size = 12;
+
+const gridColor = 'rgba(30,64,128,0.35)';
+const tooltipBg = '#0d1b35';
+const tooltipBorder = '#1e4080';
+
+function baseTooltip() {
+  return {
+    backgroundColor: tooltipBg,
+    borderColor: tooltipBorder,
+    borderWidth: 1,
+    titleColor: '#90caf9',
+    bodyColor: '#b0cfe8',
+    padding: 10,
+    cornerRadius: 8
+  };
+}
+
+// ===================== CHART 1: TIPO INTERVENTO =====================
+const tipiUniq = [...new Set(data.map(d => d.tipo))];
+const tipiCount = tipiUniq.map(t => data.filter(d => d.tipo === t).length);
+const tipiCosti = tipiUniq.map(t => data.filter(d => d.tipo === t).reduce((s,d)=>s+d.costo,0));
+
+new Chart(document.getElementById('chartTipo'), {
+  type: 'bar',
+  data: {
+    labels: tipiUniq,
+    datasets: [{
+      label: 'N° Interventi',
+      data: tipiCount,
+      backgroundColor: [
+        'rgba(66,165,245,0.75)',
+        'rgba(239,83,80,0.75)',
+        'rgba(255,167,38,0.75)',
+        'rgba(102,187,106,0.75)',
+        'rgba(171,71,188,0.75)'
+      ],
+      borderColor: [
+        '#42a5f5','#ef5350','#ffa726','#66bb6a','#ab47bc'
+      ],
+      borderWidth: 2,
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { ...baseTooltip() }
+    },
+    scales: {
+      x: {
+        grid: { color: gridColor },
+        ticks: { maxRotation: 20, font: { size: 10 } }
+      },
+      y: {
+        grid: { color: gridColor },
+        beginAtZero: true,
+        ticks: { stepSize: 1, precision: 0 }
+      }
+    }
+  }
+});
+
+// ===================== CHART 2: TECNICO (interventi + costo) =====================
+const tecniciUniq = [...new Set(data.map(d => d.tecnico))];
+const tecniciCount = tecniciUniq.map(t => data.filter(d => d.tecnico === t).length);
+const tecniciCosti = tecniciUniq.map(t => data.filter(d => d.tecnico === t).reduce((s,d)=>s+d.costo,0));
+
+new Chart(document.getElementById('chartTecnico'), {
+  type: 'bar',
+  data: {
+    labels: tecniciUniq,
+    datasets: [
+      {
+        label: 'N° Interventi',
+        data: tecniciCount,
+        backgroundColor: 'rgba(102,187,106,0.75)',
+        borderColor: '#66bb6a',
+        borderWidth: 2,
+        borderRadius: 6,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Costo Totale (€)',
+        data: tecniciCosti,
+        backgroundColor: 'rgba(66,165,245,0.45)',
+        borderColor: '#42a5f5',
+        borderWidth: 2,
+        borderRadius: 6,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'top',
+        labels: { color: '#8ab4d4', font: { size: 11 }, boxWidth: 12, padding: 14 }
+      },
+      tooltip: { ...baseTooltip() }
+    },
+    scales: {
+      x: { grid: { color: gridColor } },
+      y: {
+        grid: { color: gridColor },
+        beginAtZero: true,
+        ticks: { stepSize: 1, precision: 0 },
+        title: { display: true, text: 'Interventi', color: '#66bb6a', font: { size: 10 } }
+      },
+      y1: {
+        position: 'right',
+        grid: { drawOnChartArea: false },
+        beginAtZero: true,
+        ticks: { callback: v => '€'+v.toLocaleString('it-IT') },
+        title: { display: true, text: 'Costo (€)', color: '#42a5f5', font: { size: 10 } }
+      }
+    }
+  }
+});
+
+// ===================== CHART 3: STATO (doughnut) =====================
+new Chart(document.getElementById('chartStato'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Completato', 'In corso', 'In attesa'],
+    datasets: [{
+      data: [22, 2, 11],
+      backgroundColor: [
+        'rgba(102,187,106,0.8)',
+        'rgba(255,167,38,0.8)',
+        'rgba(66,165,245,0.8)'
+      ],
+      borderColor: ['#66bb6a','#ffa726','#42a5f5'],
+      borderWidth: 2,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: {
+          color: '#8ab4d4',
+          font: { size: 11 },
+          boxWidth: 14,
+          padding: 16,
+          usePointStyle: true
+        }
+      },
+      tooltip: {
+        ...baseTooltip(),
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.parsed} interventi (${((ctx.parsed/35)*100).toFixed(1)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ===================== CHART 4: ORE PER TECNICO =====================
+const tecniciOre = tecniciUniq.map(t => data.filter(d => d.tecnico === t).reduce((s,d)=>s+d.durata,0));
+
+new Chart(document.getElementById('chartOre'), {
+  type: 'bar',
+  data: {
+    labels: tecniciUniq,
+    datasets: [{
+      label: 'Ore Lavorate',
+      data: tecniciOre,
+      backgroundColor: [
+        'rgba(171,71,188,0.75)',
+        'rgba(38,198,218,0.75)',
+        'rgba(255,167,38,0.75)',
+        'rgba(239,83,80,0.75)'
+      ],
+      borderColor: ['#ab47bc','#26c6da','#ffa726','#ef5350'],
+      borderWidth: 2,
+      borderRadius: 6,
+      borderSkipped: false
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    indexAxis: 'y',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        ...baseTooltip(),
+        callbacks: { label: ctx => ` ${ctx.parsed.x.toFixed(1)} ore` }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: gridColor },
+        beginAtZero: true,
+        ticks: { callback: v => v + ' h' }
+      },
+      y: { grid: { color: gridColor } }
+    }
+  }
+});
+</script>
+</body>
+</html>
