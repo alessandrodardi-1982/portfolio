@@ -1,16 +1,20 @@
-export default async (request) => {
-  if (request.method === 'OPTIONS') {
-    return new Response(null, {
+const fetch = require('node-fetch');
+
+exports.handler = async (event) => {
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
       headers: {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST',
         'Access-Control-Allow-Headers': 'Content-Type',
-      }
-    });
+      },
+      body: ''
+    };
   }
 
-  const apiKey = Netlify.env.get('ANTHROPIC_API_KEY');
-  const body = await request.json();
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const body = JSON.parse(event.body);
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -24,12 +28,12 @@ export default async (request) => {
 
   const data = await response.json();
 
-  return new Response(JSON.stringify(data), {
+  return {
+    statusCode: 200,
     headers: {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-    }
-  });
+    },
+    body: JSON.stringify(data)
+  };
 };
-
-export const config = { path: '/api/claude' };
