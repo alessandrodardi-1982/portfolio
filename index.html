@@ -33,8 +33,9 @@
   .brand{font-family:'Fraunces',serif;font-weight:500;font-size:1.05rem;letter-spacing:-.01em}
   .brand b{color:var(--amber)}
   .navlinks{display:flex;gap:28px}
-  .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s}
+  .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s,font-size .2s,font-weight .2s}
   .navlinks a:hover{color:var(--amber)}
+  .navlinks a.nav-active{color:#2ca1fe;font-size:.92rem;font-weight:700}
   @media(max-width:680px){.navlinks{display:none}}
 
   header.hero{padding:160px 0 80px;position:relative}
@@ -576,6 +577,24 @@
       btn.style.fontWeight = i===idx ? '700' : '400';
     });
   }
+
+  // Navbar active section tracking
+  const navLinks = document.querySelectorAll('.navlinks a');
+  const sectionIds = ['chi-sono','lavori','analisi-dati','applicativi','agente-ai','strumenti','contatti'];
+  const sections = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(a => {
+          a.classList.toggle('nav-active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px', threshold: 0 });
+
+  sections.forEach(s => navObserver.observe(s));
 
   const io=new IntersectionObserver((es)=>{
     es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})
