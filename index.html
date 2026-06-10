@@ -36,7 +36,18 @@
   .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:.82rem;font-weight:500;transition:color .2s,font-size .2s,font-weight .2s}
   .navlinks a:hover{color:var(--amber)}
   .navlinks a.nav-active{color:#2ca1fe;font-size:.92rem;font-weight:700}
-  @media(max-width:680px){.navlinks{display:none}}
+  .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
+  .hamburger span{display:block;height:2px;width:100%;background:var(--ink-soft);border-radius:2px;transition:transform .25s,opacity .25s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:680px){
+    .navlinks{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(0,26,51,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:20px 24px 28px;gap:0}
+    .navlinks.open{display:flex}
+    .navlinks a{font-size:1rem;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .navlinks a:last-child{border-bottom:none}
+    .hamburger{display:flex}
+  }
 
   header.hero{padding:160px 0 80px;position:relative}
   .eyebrow{color:var(--amber);margin-bottom:26px;display:flex;align-items:center;gap:12px}
@@ -160,6 +171,9 @@
       <a href="#strumenti">Strumenti</a>
       <a href="#contatti">Contatti</a>
     </div>
+    <button class="hamburger" aria-label="Menu" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
@@ -577,6 +591,20 @@
       btn.style.fontWeight = i===idx ? '700' : '400';
     });
   }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const navlinksEl = document.querySelector('.navlinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navlinksEl.classList.toggle('open');
+  });
+  navlinksEl.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navlinksEl.classList.remove('open');
+    });
+  });
 
   // Navbar active section tracking
   const navLinks = document.querySelectorAll('.navlinks a');
