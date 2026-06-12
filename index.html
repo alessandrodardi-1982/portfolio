@@ -385,6 +385,63 @@
       </div>
     </div>
 
+    <div class="swgroup reveal">
+      <div class="swgroup-head">
+        <span class="swtick">A5</span>
+        <span class="swname">Python / Machine Learning</span>
+        <span class="swdesc">Modelli predittivi su dati operativi</span>
+      </div>
+      <div class="work">
+        <div class="work-media" style="aspect-ratio:16/7;padding:0;background:var(--paper);display:block;position:relative;overflow:hidden;">
+          <iframe src="dashboard_manutenzione_predittiva.html" loading="lazy" title="Dashboard Manutenzione Predittiva" style="width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:none;pointer-events:none;display:block;"></iframe>
+          <div class="dash-preview-overlay"></div>
+          <span class="dash-preview-icon">Manutenzione Predittiva — Random Forest</span>
+        </div>
+        <div class="work-body">
+          <div class="work-top"><span class="badge-learned">Strumento nuovo per me</span></div>
+          <h4>Manutenzione predittiva — previsione guasti con Random Forest</h4>
+          <div class="work-rows">
+            <div class="row"><span class="mono">Problema</span><p>In manutenzione si interviene <strong>quando il guasto è già successo.</strong> Capire in anticipo quali macchinari rischiano di fermarsi permette di programmare gli interventi invece di subirli.</p></div>
+            <div class="row"><span class="mono">Come</span><p>Un modello Random Forest (scikit-learn) addestrato su 500 interventi pesa età, ore di utilizzo, frequenza guasti recenti e tipo di macchinario per stimare la probabilità di guasto imminente di ciascuno.</p></div>
+            <div class="row"><span class="mono">Risultato</span><p>Parco macchine ordinato per rischio, con la motivazione in chiaro e il tecnico consigliato per specializzazione. 75% di accuratezza sul test, lista esportabile in CSV.</p></div>
+          </div>
+          <div class="work-aux"><span>+ Python</span><span>+ pandas</span><span>+ scikit-learn</span><span>+ Random Forest</span></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <a class="dash-link" href="dashboard_manutenzione_predittiva.html" target="_blank">Apri la dashboard →</a>
+            <a class="dash-link" href="come_funziona_ml.html" target="_blank">Come funziona →</a>
+          </div>
+          <p class="work-note"><b>Nota:</b> Dataset fittizio realistico (500 interventi). Il modello illustra l'approccio metodologico, non una previsione operativa reale — l'AI individua i candidati a rischio, la decisione resta all'uomo.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="swgroup reveal">
+      <div class="swgroup-head">
+        <span class="swtick">A6</span>
+        <span class="swname">Leaflet.js / Gestione operativa</span>
+        <span class="swdesc">Controllo territoriale interventi tecnici</span>
+      </div>
+      <div class="work">
+        <div class="work-media" style="aspect-ratio:16/7;padding:0;background:var(--paper);display:block;position:relative;overflow:hidden;">
+          <iframe src="https://tencoservice-mappa.netlify.app/mappa_operativa.html" loading="lazy" title="Mappa Operativa TecnoService" style="width:200%;height:200%;transform:scale(.5);transform-origin:top left;border:none;pointer-events:none;display:block;"></iframe>
+          <div class="dash-preview-overlay"></div>
+          <span class="dash-preview-icon">Mappa Operativa — Gestione interventi Emilia-Romagna</span>
+        </div>
+        <div class="work-body">
+          <div class="work-top"><span class="badge-learned">Strumento nuovo per me</span></div>
+          <h4>Mappa operativa interventi — dal foglio Excel alla dashboard geografica</h4>
+          <div class="work-rows">
+            <div class="row"><span class="mono">Problema</span><p>Coordinare tecnici su un territorio ampio con centinaia di attività aperte — manutenzioni, chiamate urgenti, interventi — significa dover rispondere in tempo reale a una domanda semplice: <strong>chi ho disponibile vicino a quel cliente?</strong></p></div>
+            <div class="row"><span class="mono">Come</span><p>La soluzione originale era un DB Excel con una colonna Zona — un numero che identificava l'area geografica del cliente tramite lookup città→zona. Questo strumento ne è l'evoluzione: gli stessi dati proiettati su una mappa interattiva, con filtri per tecnico, tipo attività e stato, e un popup di dettaglio su ogni intervento.</p></div>
+            <div class="row"><span class="mono">Risultato</span><p>Dashboard operativa single-file: 200 interventi su mappa, filtri multipli combinabili, lista laterale scrollabile sincronizzata con la mappa. Zero dipendenze backend.</p></div>
+          </div>
+          <div class="work-aux"><span>+ Leaflet.js</span><span>+ OpenStreetMap</span><span>+ HTML/CSS/JS</span><span>+ Excel → JSON</span></div>
+          <a class="dash-link" href="https://tencoservice-mappa.netlify.app/mappa_operativa.html" target="_blank">Apri la mappa →</a>
+          <p class="work-note"><b>Nota:</b> Dataset fittizio realistico — aziende, attività e tecnici sono tutti inventati. Le città e le coordinate geografiche sono reali (hinterland bolognese e province limitrofe).</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -543,11 +600,13 @@
       <span class="tool">Tableau</span>
       <span class="tool">Excel avanzato</span>
       <span class="tool">Data analysis</span>
+      <span class="tool">Python <span class="mono">base</span></span>
       <span class="tool">JavaScript <span class="mono">base</span></span>
       <span class="tool">CRM</span>
       <span class="tool">Docker <span class="mono">base</span></span>
       <span class="tool">GitHub <span class="mono">pages</span></span>
       <span class="tool">Netlify</span>
+      <span class="tool">Leaflet.js</span>
     </div>
   </div>
 </section>
