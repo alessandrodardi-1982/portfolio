@@ -1,3 +1,4 @@
+[README (2).md](https://github.com/user-attachments/files/28883221/README.2.md)
 # Portfolio — Operations, Automazione, AI applicata
 
 Portfolio professionale di **Alessandro Dardi** — riposizionamento da Service Manager industriale verso ruoli ibridi Operations + Digital.
@@ -17,6 +18,7 @@ Il principio è semplice: il portfolio non dichiara competenze, le dimostra. Ogn
 | A3 | **Excel avanzato** | Dashboard costi manutenzione con formule avanzate e KPI |
 | A4 | **AI applicata** | Chat conversazionale che trasforma una richiesta libera in un ticket strutturato |
 | A5 | **Python / Machine Learning** | Manutenzione predittiva: stima la probabilità di guasto e suggerisce il tecnico |
+| A6 | **Leaflet.js / Gestione operativa** | Mappa operativa interventi tecnici sul territorio — evoluzione digitale di un DB Excel reale |
 
 ---
 
@@ -49,9 +51,60 @@ Lo script genera il dataset, addestra il modello, ne stampa la valutazione (accu
 
 ---
 
+## A6 — Mappa operativa interventi
+
+Dashboard operativa web con mappa geografica interattiva per la gestione degli interventi tecnici sul territorio. Nasce da un problema reale: coordinare tecnici su un'area ampia con centinaia di attività aperte (chiamate urgenti, manutenzioni programmate, interventi) senza avere una visione geografica immediata.
+
+La soluzione originale era un DB Excel con una colonna "Zona" — un numero che identificava l'area geografica del cliente, assegnato tramite VLOOKUP su una tabella lookup città→zona. Questo strumento ne è l'evoluzione digitale.
+
+**Stack:** Leaflet.js · OpenStreetMap · HTML/CSS/JS · Excel → JSON
+
+**Funzionalità:**
+- Mappa interattiva con marker colorati per stato (Da fare, Pianificata, Stand by, Da ripianificare, Chiusa)
+- Filtri a selezione multipla per Stato, Tipo attività e Tecnico
+- Priorità assegnabile dal coordinatore direttamente dal popup (Alta / Media / Bassa) con persistenza in localStorage
+- Bordo colorato sui marker in base alla priorità assegnata
+- Lista laterale scrollabile sincronizzata con la mappa
+- KPI in header: attività aperte, da pianificare, pianificate, totale
+
+🔗 **Dashboard:** https://tencoservice-mappa.netlify.app/mappa_operativa.html
+
+**File:**
+- `mappa_operativa.html` — applicativo completo single-file (repo separata: `tecnoservice-mappa`)
+
+---
+
+## Agente AI — Triage supporto tecnico
+
+Agente per la gestione delle richieste di supporto tecnico industriale (scenario fittizio: TecnoService Industriale Srl). Flusso a 6 step con revisione umana prima dell'assegnazione al tecnico.
+
+🔗 **Live:** https://tecnoservice-chat.netlify.app/chat_assistenza.html
+
+**Concetto chiave:** L'AI suggerisce — l'umano decide.
+
+---
+
+## CRM per PMI
+
+CRM single-file HTML per aziende industriali medio-piccole. Mobile-responsive, zero dipendenze server. Anagrafica clienti, storico interventi, stati pipeline, filtri, export.
+
+🔗 **Live:** https://alessandro-dardi.netlify.app/crm_pmi.html
+
+---
+
 ## Stack del progetto
 
-`HTML/CSS/JS` · `Python` · `pandas` · `scikit-learn` · `n8n` · `Claude API` · `Tableau` · `GitHub Pages` · `Netlify`
+`HTML/CSS/JS` · `Python` · `pandas` · `scikit-learn` · `Leaflet.js` · `n8n` · `Claude API` · `Tableau` · `GitHub` · `Netlify` · `Docker`
+
+---
+
+## Repos
+
+| Repo | Ruolo |
+|---|---|
+| `alessandrodardi-1982/portfolio` | Portfolio principale — deploy su `alessandro-dardi.netlify.app` |
+| `alessandrodardi-1982/tecnoservice-mappa` | Mappa operativa — deploy su `tencoservice-mappa.netlify.app` |
+| `alessandrodardi-1982/tecnoservice-chat` | Agente AI triage — deploy su `tecnoservice-chat.netlify.app` |
 
 ---
 
