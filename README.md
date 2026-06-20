@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/29162312/README.md)
 [readme_aggiornato.md](https://github.com/user-attachments/files/29089521/readme_aggiornato.md)
 # Portfolio — Operations, Automazione, AI applicata
 
@@ -20,6 +21,7 @@ Il principio è semplice: il portfolio non dichiara competenze, le dimostra. Ogn
 | A5 | **Python / Machine Learning** | Manutenzione predittiva: stima la probabilità di guasto e suggerisce il tecnico |
 | A6 | **Leaflet.js / Gestione operativa** | Mappa operativa interventi tecnici sul territorio — evoluzione digitale di un DB Excel reale |
 | A7 | **Strategia AI** | AI Readiness Assessment per PMI industriale: maturità, use case map, roadmap 18 mesi, governance |
+| A8 | **Analisi energetica / AI** | Dashboard con diagnosi AI su consumi energetici: trend per reparto, anomalie rilevate, azioni correttive |
 
 ---
 
@@ -99,6 +101,25 @@ Il caso Meridian Industries è fittizio ma costruito su pattern reali di PMI man
 
 **File:**
 - `meridian_ai_assessment.html` — documento completo single-file
+
+---
+
+## A8 — Analisi consumi energetici
+
+Dashboard interattiva con AI integrata per il monitoraggio e la diagnosi dei consumi energetici di un impianto industriale (scenario fittizio: Termoflex Srl). I dati ci sono in quasi tutte le aziende — il problema è che nessuno li legge in modo sistematico.
+
+**Stack:** HTML/CSS/JS · Chart.js · Claude API · Netlify Functions
+
+**Funzionalità:**
+- Trend mensili per 4 reparti (Produzione, Refrigerazione, Compressori, Servizi generali)
+- 3 anomalie rilevate con scostamento percentuale e descrizione operativa
+- Bottone "Analizza con AI": Claude riceve i dati e restituisce una diagnosi con azioni correttive concrete
+- KPI header: consumo totale (942.504 kWh), costo stimato, anomalie, risparmio potenziale
+
+🔗 **Dashboard:** https://cheery-froyo-86386e.netlify.app/dashboard_energia.html
+
+**File:**
+- `dashboard_energia.html` — dashboard completa single-file (repo: `energia-consumi`)
 
 ---
 
