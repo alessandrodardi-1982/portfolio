@@ -1,3 +1,4 @@
+[README (1).md](https://github.com/user-attachments/files/29162960/README.1.md)
 [README.md](https://github.com/user-attachments/files/29162312/README.md)
 [readme_aggiornato.md](https://github.com/user-attachments/files/29089521/readme_aggiornato.md)
 # Portfolio — Operations, Automazione, AI applicata
@@ -22,6 +23,8 @@ Il principio è semplice: il portfolio non dichiara competenze, le dimostra. Ogn
 | A6 | **Leaflet.js / Gestione operativa** | Mappa operativa interventi tecnici sul territorio — evoluzione digitale di un DB Excel reale |
 | A7 | **Strategia AI** | AI Readiness Assessment per PMI industriale: maturità, use case map, roadmap 18 mesi, governance |
 | A8 | **Analisi energetica / AI** | Dashboard con diagnosi AI su consumi energetici: trend per reparto, anomalie rilevate, azioni correttive |
+| A9 | **Gestione magazzino / AI** | Dashboard ricambi con ABC analysis, alert stock critico e suggerimenti riordino AI |
+| A10 | **Preventivatore AI** | Da una richiesta in linguaggio naturale a una bozza preventivo strutturata con voci, prezzi e IVA |
 
 ---
 
@@ -120,6 +123,46 @@ Dashboard interattiva con AI integrata per il monitoraggio e la diagnosi dei con
 
 **File:**
 - `dashboard_energia.html` — dashboard completa single-file (repo: `energia-consumi`)
+
+---
+
+## A9 — Gestione ricambi e magazzino
+
+Dashboard interattiva con AI integrata per il monitoraggio del magazzino ricambi (scenario fittizio: Termoflex Srl). Il ricambio giusto deve esserci al momento del guasto — rotture di stock significano downtime, magazzino sovraccarico significa capitale immobilizzato.
+
+**Stack:** HTML/CSS/JS · Chart.js · Claude API · Netlify Functions
+
+**Funzionalità:**
+- ABC analysis su 20 articoli (18 mesi di storico utilizzi)
+- Alert automatici: 1 articolo esaurito, 3 sotto scorta, 4 fermi da troppo tempo
+- Suggerimenti riordino con quantità, costo stimato e lead time
+- Bottone "Analizza con AI": Claude sintetizza le criticità e le priorità operative
+- KPI header: articoli totali, esauriti, sotto scorta, valore magazzino, valore fermo
+
+🔗 **Dashboard:** https://benevolent-malasada-6e21e2.netlify.app/dashboard_magazzino.html
+
+**File:**
+- `dashboard_magazzino.html` — dashboard completa single-file (repo: `magazzino-ricambi`)
+
+---
+
+## A10 — Preventivatore AI
+
+Applicativo web con AI integrata per la generazione assistita di preventivi tecnici (scenario fittizio: Termoflex Srl). Costruire un preventivo è un processo lento e inconsistente — l'AI lo accelera partendo da una descrizione in linguaggio naturale.
+
+**Stack:** HTML/CSS/JS · Claude API · Netlify Functions
+
+**Funzionalità:**
+- Form con descrizione libera della richiesta cliente, tipo impianto e livello urgenza
+- 4 esempi rapidi cliccabili (compressore, frigo, manutenzione programmata, pompa)
+- Listino Termoflex completo nel prompt (manodopera, maggiorazioni, ricambi principali)
+- Output strutturato: tabella voci, quantità, prezzi, IVA, note operative, numero preventivo
+- Bottone stampa / salva PDF
+
+🔗 **Applicativo:** https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html
+
+**File:**
+- `preventivatore_ai.html` — applicativo completo single-file (repo: `preventivatore-ai`)
 
 ---
 
