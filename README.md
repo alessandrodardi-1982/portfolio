@@ -25,6 +25,7 @@ Il principio è semplice: il portfolio non dichiara competenze, le dimostra. Ogn
 | A8 | **Analisi energetica / AI** | Dashboard con diagnosi AI su consumi energetici: trend per reparto, anomalie rilevate, azioni correttive |
 | A9 | **Gestione magazzino / AI** | Dashboard ricambi con ABC analysis, alert stock critico e suggerimenti riordino AI |
 | A10 | **Preventivatore AI** | Da una richiesta in linguaggio naturale a una bozza preventivo strutturata con voci, prezzi e IVA |
+| A11 | **Audit impianti / AI** | Ispezione tecnica guidata con checklist interattiva e verbale professionale generato da AI |
 
 ---
 
@@ -163,6 +164,27 @@ Applicativo web con AI integrata per la generazione assistita di preventivi tecn
 
 **File:**
 - `preventivatore_ai.html` — applicativo completo single-file (repo: `preventivatore-ai`)
+
+---
+
+## A11 — Audit impianti
+
+Applicativo web con AI integrata per la conduzione guidata di ispezioni tecniche su impianti industriali (scenario fittizio: Termoflex Srl). Le ispezioni producono note sparse — questo strumento le trasforma in un verbale professionale strutturato.
+
+**Stack:** HTML/CSS/JS · Claude API · Netlify Functions
+
+**Funzionalità:**
+- Checklist interattiva per 3 tipi impianto: compressore, gruppo frigo, impianto meccanico
+- Stato per ogni voce: OK / Da monitorare / Critico + campo note libere
+- Punteggio aggiornato in tempo reale con barra verde/giallo/rosso
+- Verbale AI: sintesi, criticità con livello di gravità, raccomandazioni, prossima revisione
+- Storico audit con cruscotto KPI e trend per impianto
+- Stampa / export PDF
+
+🔗 **Applicativo:** https://magenta-profiterole-37db8f.netlify.app/audit_impianti.html
+
+**File:**
+- `audit_impianti.html` — applicativo completo single-file (repo: `audit-impianti`)
 
 ---
 
