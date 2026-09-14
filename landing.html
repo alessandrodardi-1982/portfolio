@@ -341,6 +341,10 @@
 
   footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  .btn-pair{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+  .btn-full{color:var(--ink-soft) !important;border-color:rgba(255,255,255,0.06) !important;}
+  .btn-full:hover{border-color:var(--accent) !important;color:var(--ink) !important;}
 </style>
 </head>
 <body>
@@ -424,7 +428,7 @@
           <span class="pg-name">Agente triage</span>
           <span class="pg-benefit">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti.</span>
           <span class="pg-cost">Costo API: pochi centesimi a richiesta</span>
-          <button class="btn-demo-open" onclick="openModal('modal-triage');event.preventDefault();">Prova la demo</button>
+          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-triage');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">Versione completa</a></div>
         </span>
       </a>
       <a class="progetto" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">
@@ -433,7 +437,7 @@
           <span class="pg-name">CRM per PMI</span>
           <span class="pg-benefit">Centralizza clienti e interventi in un posto solo, zero abbonamenti software.</span>
           <span class="pg-cost">Costo: zero — gira nel browser, nessun server</span>
-          <button class="btn-demo-open" onclick="openModal('modal-crm');event.preventDefault();">Prova la demo</button>
+          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-crm');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">Versione completa</a></div>
         </span>
       </a>
       <a class="progetto" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">
@@ -442,7 +446,7 @@
           <span class="pg-name">Preventivatore AI</span>
           <span class="pg-benefit">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale.</span>
           <span class="pg-cost">Costo API: pochi centesimi a preventivo</span>
-          <button class="btn-demo-open" onclick="openModal('modal-prev');event.preventDefault();">Prova la demo</button>
+          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-prev');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Versione completa</a></div>
         </span>
       </a>
       <a class="progetto" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">
@@ -451,7 +455,7 @@
           <span class="pg-name">Rapportino intervento</span>
           <span class="pg-benefit">Il tecnico chiude il rapportino sul campo. Niente carta, niente trascrizione in ufficio.</span>
           <span class="pg-cost">Costo API: pochi centesimi a rapportino</span>
-          <button class="btn-demo-open" onclick="openModal('modal-rapp');event.preventDefault();">Prova la demo</button>
+          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-rapp');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a></div>
         </span>
       </a>
     </div>
