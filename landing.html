@@ -114,6 +114,43 @@
     .progetti{grid-template-columns:1fr}
     .contacts{gap:20px;flex-direction:column;align-items:center}
   }
+
+  /* BOTTOM BAR FISSA */
+  .bottom-bar{
+    position:fixed;
+    bottom:0;left:0;right:0;
+    z-index:50;
+    background:rgba(0,26,51,.95);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--line);
+    padding:14px 20px;
+  }
+  .bottom-bar .contacts{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    align-items:center;
+    gap:24px;
+    flex-wrap:nowrap;
+  }
+  .bottom-bar .contacts a{
+    font-family:'Hanken Grotesk',sans-serif;
+    font-size:.9rem;
+    font-weight:600;
+    color:var(--ink);
+    text-decoration:none;
+    transition:color .15s;
+    white-space:nowrap;
+  }
+  .bottom-bar .contacts a:hover{color:var(--teal)}
+
+  /* Spazio in fondo alla pagina per non coprire contenuto */
+  body{padding-bottom:70px;}
+
+  @media(max-width:480px){
+    .bottom-bar .contacts{gap:14px}
+    .bottom-bar .contacts a{font-size:.78rem}
+  }
 </style>
 </head>
 <body>
@@ -233,16 +270,7 @@
   </div>
 </section>
 
-<!-- CONTATTI -->
-<section class="contatti" id="contatti">
-  <div class="wrap">
-    <nav class="contacts">
-      <a href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn</a>
-      <a href="mailto:alessandro.dardi@gmail.com">alessandro.dardi@gmail.com</a>
-      <a href="tel:+393357057649">+39 335 705 7649</a>
-    </nav>
-  </div>
-</section>
+
 
 <script>
   const hamburger = document.getElementById('hamburger');
@@ -259,5 +287,14 @@
   });
 </script>
 
+
+<!-- BOTTOM BAR FISSA -->
+<div class="bottom-bar">
+  <nav class="contacts">
+    <a href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn</a>
+    <a href="mailto:alessandro.dardi@gmail.com">alessandro.dardi@gmail.com</a>
+    <a href="tel:+393357057649">+39 335 705 7649</a>
+  </nav>
+</div>
 </body>
 </html>
