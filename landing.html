@@ -1,314 +1,175 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alessandro Dardi</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alessandro Dardi — Operations & Automazione</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="7a2837f0-c1d5-4eaf-b0c4-a9f93e444e4a"></script>
+<style>
+  :root{
+    --paper:#001A33;
+    --paper-2:#04223F;
+    --ink:#EAF1FA;
+    --ink-soft:#9DB2CC;
+    --line:#173A63;
+    --amber:#2E9BEC;
+    --teal:#5FB0EF;
+    --teal-soft:#4FA8EE;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',sans-serif;
+    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.18;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+  .mono{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
 
-    :root {
-      --paper:     #001A33;
-      --paper-2:   #04223F;
-      --ink:       #EAF1FA;
-      --ink-soft:  #9DB2CC;
-      --line:      #173A63;
-      --accent:    #2E9BEC;
-      --teal:      #5FB0EF;
-      --teal-soft: #4FA8EE;
-      --amber:     #2E9BEC;
-    }
+  /* NAV — identica al portfolio */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,26,51,.82);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;gap:32px;max-width:1400px;padding:0 20px}
+  .brand{font-family:'Fraunces',serif;font-weight:500;font-size:1.05rem;letter-spacing:-.01em;white-space:nowrap}
+  .brand b{color:var(--amber)}
+  .navlinks{display:flex;gap:22px;flex-wrap:nowrap}
+  .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:.82rem;font-weight:500;white-space:nowrap;transition:color .2s}
+  .navlinks a:hover{color:var(--amber)}
+  .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
+  .hamburger span{display:block;height:2px;width:100%;background:var(--ink-soft);border-radius:2px;transition:transform .25s,opacity .25s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  @media(max-width:880px){
+    .navlinks{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(0,26,51,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:20px 24px 28px;gap:0}
+    .navlinks.open{display:flex}
+    .navlinks a{font-size:1rem;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .navlinks a:last-child{border-bottom:none}
+    .hamburger{display:flex}
+  }
 
-    html, body {
-      min-height: 100%;
-      background: var(--paper-2);
-      color: var(--ink);
-      font-family: 'Hanken Grotesk', sans-serif;
-      -webkit-font-smoothing: antialiased;
-    }
+  /* SEZIONE CHI SONO — identica al portfolio */
+  .chi-sono{background:var(--paper-2);padding:104px 0 72px}
+  .sec-num{color:var(--amber);margin-bottom:14px;display:block}
+  .sec-head{margin-bottom:32px}
+  .sec-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.7rem);
+    letter-spacing:-.02em;line-height:1.2}
+  .sec-head h2 em{font-style:italic;color:var(--teal)}
 
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 72px 24px;
-    }
+  /* SEZIONE AZIONI */
+  .azioni{background:var(--paper);padding:56px 0 72px}
 
-    .wrap {
-      max-width: 760px;
-      width: 100%;
-    }
+  /* FRASE VALORE */
+  .value-line{
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    font-weight:300;
+    font-size:1.2rem;
+    color:var(--teal);
+    line-height:1.5;
+    margin-bottom:32px;
+  }
 
-    /* SEC HEAD — identico al portfolio */
-    .sec-head {
-      margin-bottom: 32px;
-    }
+  /* PILLOLE */
+  .pillole{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
+  .pillola{background:var(--paper-2);border:1px solid var(--line);border-radius:5px;padding:18px 14px;text-align:center}
+  .pillola .num{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--amber);line-height:1;margin-bottom:6px}
+  .pillola .label{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);line-height:1.45}
 
-    .sec-num {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .72rem;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      display: block;
-      margin-bottom: 10px;
-    }
+  /* BOTTONI — identici al portfolio */
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:2px;
+    font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:.97rem;text-decoration:none;transition:background .15s,border-color .15s}
+  .btn-primary{background:var(--amber);color:var(--paper)}
+  .btn-primary:hover{background:var(--teal-soft)}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+  .btn-ghost:hover{border-color:var(--amber);background:rgba(46,155,236,.12);color:var(--ink)}
+  .btn-block{display:flex;width:100%;justify-content:center;margin-bottom:10px}
 
-    h2 {
-      font-family: 'Fraunces', serif;
-      font-weight: 400;
-      font-size: clamp(1.8rem, 4vw, 2.7rem);
-      letter-spacing: -.02em;
-      line-height: 1.15;
-    }
+  .arrow{transition:transform .15s}
+  .btn-primary:hover .arrow{transform:translateX(3px)}
 
-    h2 em {
-      font-style: italic;
-      color: var(--teal);
-    }
+  /* GRIGLIA PROGETTI */
+  .progetti{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
+  .progetto{display:flex;align-items:center;gap:12px;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:5px;padding:14px 16px;text-decoration:none;color:var(--ink-soft);font-size:.88rem;
+    transition:border-color .15s,color .15s,transform .15s}
+  .progetto:hover{border-color:var(--teal);color:var(--ink);transform:translateY(-2px)}
+  .progetto .icon{font-size:1.1rem;flex-shrink:0}
+  .pg-name{font-weight:500;color:var(--ink);font-size:.88rem;display:block}
+  .pg-desc{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--ink-soft);margin-top:2px;display:block}
 
-    /* PROFILO ROW — identico al portfolio */
-    .profile-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 48px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+  /* CONTATTI */
+  .contatti{background:var(--paper-2);padding:48px 0;border-top:1px solid var(--line)}
+  .contacts{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;text-align:center}
+  .contacts a{font-family:'Hanken Grotesk',sans-serif;font-size:1.05rem;font-weight:500;
+    color:var(--ink-soft);text-decoration:none;transition:color .15s}
+  .contacts a:hover{color:var(--teal)}
+  @media(max-width:600px){
+    .contacts{flex-direction:column;align-items:center;gap:20px}
+  }
 
-    .photo {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center top;
-      border: 2px solid var(--line);
-      display: block;
-      flex-shrink: 0;
-    }
-
-    .profile-text {
-      max-width: 640px;
-      flex: 1;
-      min-width: 260px;
-    }
-
-    .profile-text p {
-      font-size: 1.08rem;
-      line-height: 1.8;
-      color: var(--ink-soft);
-      text-align: justify;
-      hyphens: auto;
-      margin-bottom: 22px;
-    }
-
-    .profile-text p:last-child {
-      margin-bottom: 0;
-    }
-
-    .profile-text p strong {
-      color: var(--ink);
-      font-weight: 600;
-    }
-
-    /* DIVIDER */
-    .divider {
-      border: none;
-      border-top: 1px solid var(--line);
-      margin: 36px 0;
-    }
-
-    /* PILLOLE */
-    .pillole {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .pillola {
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 5px;
-      padding: 18px 14px;
-      text-align: center;
-    }
-
-    .pillola .num {
-      font-family: 'Fraunces', serif;
-      font-weight: 600;
-      font-size: 1.9rem;
-      color: var(--accent);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .pillola .label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .66rem;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      line-height: 1.45;
-    }
-
-    /* BOTTONE PRIMARIO — identico al portfolio */
-    .btn-primary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--amber);
-      color: var(--paper);
-      font-family: 'Hanken Grotesk', sans-serif;
-      font-weight: 600;
-      font-size: .97rem;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 3px;
-      margin-bottom: 10px;
-      transition: background .15s;
-    }
-
-    .btn-primary:hover { background: var(--teal-soft); }
-
-    .arrow { transition: transform .15s; }
-    .btn-primary:hover .arrow { transform: translateX(3px); }
-
-    /* GRIGLIA 4 PROGETTI */
-    .progetti {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-
-    .progetto {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-radius: 5px;
-      padding: 14px 16px;
-      text-decoration: none;
-      color: var(--ink-soft);
-      font-size: .88rem;
-      transition: border-color .15s, color .15s, transform .15s;
-    }
-
-    .progetto:hover {
-      border-color: var(--teal);
-      color: var(--ink);
-      transform: translateY(-2px);
-    }
-
-    .progetto .icon { font-size: 1.1rem; flex-shrink: 0; }
-
-    .pg-name {
-      font-weight: 500;
-      color: var(--ink);
-      font-size: .88rem;
-      display: block;
-    }
-
-    .pg-desc {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .65rem;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--ink-soft);
-      margin-top: 2px;
-      display: block;
-    }
-
-    /* BOTTONE GHOST — identico al portfolio */
-    .btn-ghost {
-      display: block;
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--line);
-      border-radius: 3px;
-      font-family: 'Hanken Grotesk', sans-serif;
-      font-size: .92rem;
-      font-weight: 500;
-      text-decoration: none;
-      padding: 13px 24px;
-      text-align: center;
-      transition: border-color .15s, background .15s;
-    }
-
-    .btn-ghost:hover {
-      border-color: var(--amber);
-      background: rgba(46,155,236,.12);
-    }
-
-    /* CONTATTI */
-    .contacts {
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-      margin-top: 32px;
-    }
-
-    .contacts a {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: .73rem;
-      color: var(--ink-soft);
-      text-decoration: none;
-      letter-spacing: .01em;
-      transition: color .15s;
-    }
-
-    .contacts a:hover { color: var(--teal); }
-
-    @media (max-width: 520px) {
-      .profile-row { gap: 24px; }
-      .photo { width: 100px; height: 100px; }
-      .progetti { grid-template-columns: 1fr; }
-      .pillole { gap: 8px; }
-    }
-  </style>
-  <script defer src="https://cloud.umami.is/script.js" data-website-id="7a2837f0-c1d5-4eaf-b0c4-a9f93e444e4a"></script>
+  @media(max-width:600px){
+    .pillole{gap:8px}
+    .pillola .num{font-size:1.5rem}
+    .progetti{grid-template-columns:1fr}
+    .contacts{gap:20px;flex-direction:column;align-items:center}
+  }
+</style>
 </head>
 <body>
-  <div class="wrap">
 
-    <!-- SEC HEAD -->
+<!-- NAV FISSA -->
+<nav>
+  <div class="wrap">
+    <div class="brand">Alessandro <b>·</b> Dardi</div>
+    <div class="navlinks" id="navlinks">
+      <a href="#chi-sono">Chi sono</a>
+      <a href="#azioni">Progetti</a>
+      <a href="#contatti">Contatti</a>
+      <a href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Portfolio completo</a>
+    </div>
+    <button class="hamburger" aria-label="Menu" id="hamburger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- CHI SONO — identico al portfolio -->
+<section class="chi-sono" id="chi-sono">
+  <div class="wrap">
     <div class="sec-head">
-      <span class="sec-num">00 / Chi sono</span>
+      <span class="sec-num mono">00 / Chi sono</span>
       <h2>Dall'industria all'<em>automazione</em>.</h2>
     </div>
-
-    <!-- PROFILO -->
-    <div class="profile-row">
-      <img class="photo"
-           src="foto_profilo.png"
-           alt="Alessandro Dardi">
-      <div class="profile-text">
-        <p>
-          Laurea in Ingegneria Gestionale a Bologna, otto anni nelle operations industriali:
-          aria compressa, refrigerazione, impianti, dove ho coordinato tecnici, gestito fornitori,
-          seguito clienti dalla preventivazione alla chiusura intervento. Ho imparato a leggere
-          i problemi prima che diventino emergenze e a tenere insieme persone, dati e scadenze.
+    <div style="display:flex;align-items:flex-start;gap:48px;margin-top:32px;flex-wrap:wrap;">
+      <div style="flex-shrink:0;">
+        <img src="foto_profilo.png" alt="Alessandro Dardi"
+          style="width:160px;height:160px;border-radius:50%;object-fit:cover;object-position:center top;
+          border:2px solid var(--line);display:block;">
+      </div>
+      <div style="max-width:640px;flex:1;min-width:260px;">
+        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);margin-bottom:22px;text-align:justify;hyphens:auto;">
+          Laurea in Ingegneria Gestionale a Bologna, otto anni nelle operations industriali — aria compressa, refrigerazione, impianti — dove ho coordinato tecnici, gestito fornitori, seguito clienti dalla preventivazione alla chiusura intervento. Ho imparato a leggere i problemi prima che diventino emergenze e a tenere insieme persone, dati e scadenze.
         </p>
-        <p>
-          Negli ultimi anni ho aggiunto un layer diverso: automazione dei processi, analisi dati,
-          AI applicata. Non per cambiare mestiere, ma per fare meglio quello che so già fare
-          e per portare quella mentalità in contesti che ne hanno bisogno.
+        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);margin-bottom:22px;text-align:justify;hyphens:auto;">
+          Negli ultimi anni ho aggiunto un layer diverso: automazione dei processi, analisi dati, AI applicata. Non per cambiare mestiere, ma per fare meglio quello che so già fare — e per portare quella mentalità in contesti che ne hanno bisogno.
         </p>
-        <p>
-          Cerco un ruolo dove contino entrambe le cose: l'esperienza sul campo
-          e la capacità di trasformarla in strumenti.
+        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);text-align:justify;hyphens:auto;">
+          Cerco un ruolo dove contino entrambe le cose: l'esperienza sul campo e la capacità di trasformarla in strumenti.
         </p>
       </div>
     </div>
+  </div>
+</section>
 
-    <hr class="divider">
+<!-- AZIONI -->
+<section class="azioni" id="azioni">
+  <div class="wrap">
+
+    <p class="value-line">Le aziende industriali hanno i dati. Manca chi sa trasformarli in decisioni.</p>
 
     <!-- PILLOLE -->
     <div class="pillole">
@@ -327,11 +188,10 @@
     </div>
 
     <!-- CTA PRIMARIA -->
-    <a class="btn-primary"
+    <a class="btn btn-primary btn-block"
        href="https://tecnoservice-chat.netlify.app/chat_assistenza.html"
        target="_blank">
-      Prova l'agente AI per il supporto tecnico
-      <span class="arrow">→</span>
+      Prova l'agente AI per il supporto tecnico <span class="arrow">→</span>
     </a>
 
     <!-- GRIGLIA PROGETTI -->
@@ -367,19 +227,40 @@
     </div>
 
     <!-- CTA SECONDARIA -->
-    <a class="btn-ghost"
+    <a class="btn btn-ghost btn-block"
        href="https://alessandrodardi-1982.github.io/portfolio/"
        target="_blank">
       Tutti i 12 progetti
     </a>
 
-    <!-- CONTATTI -->
+  </div>
+</section>
+
+<!-- CONTATTI -->
+<section class="contatti" id="contatti">
+  <div class="wrap">
     <nav class="contacts">
       <a href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn</a>
       <a href="mailto:alessandro.dardi@gmail.com">alessandro.dardi@gmail.com</a>
       <a href="tel:+393357057649">+39 335 705 7649</a>
     </nav>
-
   </div>
+</section>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navlinks = document.getElementById('navlinks');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    navlinks.classList.toggle('open');
+  });
+  navlinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      navlinks.classList.remove('open');
+    });
+  });
+</script>
+
 </body>
 </html>
