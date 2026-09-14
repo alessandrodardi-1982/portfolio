@@ -92,14 +92,15 @@
 
   /* GRIGLIA PROGETTI */
   .progetti{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
-  .progetto{display:flex;align-items:center;gap:12px;background:var(--paper-2);border:1px solid var(--line);
-    border-radius:5px;padding:14px 16px;text-decoration:none;color:var(--ink-soft);font-size:.88rem;
+  .progetto{display:flex;align-items:flex-start;gap:12px;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:5px;padding:16px;text-decoration:none;color:var(--ink-soft);font-size:.88rem;
     transition:border-color .15s,color .15s,transform .15s}
   .progetto:hover{border-color:var(--teal);color:var(--ink);transform:translateY(-2px)}
   .progetto .icon{font-size:1.1rem;flex-shrink:0}
-  .pg-name{font-weight:500;color:var(--ink);font-size:.88rem;display:block}
-  .pg-desc{font-family:'JetBrains Mono',monospace;font-size:.65rem;letter-spacing:.04em;
-    text-transform:uppercase;color:var(--ink-soft);margin-top:2px;display:block}
+  .pg-name{font-weight:600;color:var(--ink);font-size:.9rem;display:block;margin-bottom:4px}
+  .pg-benefit{font-size:.83rem;color:var(--ink-soft);display:block;line-height:1.4;margin-bottom:6px}
+  .pg-cost{font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.04em;
+    text-transform:uppercase;color:var(--accent);display:block}
 
   /* CONTATTI */
   .contatti{background:var(--paper-2);padding:48px 0;border-top:1px solid var(--line)}
@@ -232,28 +233,32 @@
         <span class="icon">🤖</span>
         <span>
           <span class="pg-name">Agente triage</span>
-          <span class="pg-desc">AI suggerisce, umano decide</span>
+          <span class="pg-benefit">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti.</span>
+          <span class="pg-cost">Costo API: pochi centesimi a richiesta</span>
         </span>
       </a>
       <a class="progetto" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">
         <span class="icon">📋</span>
         <span>
           <span class="pg-name">CRM per PMI</span>
-          <span class="pg-desc">Gestione clienti, zero server</span>
+          <span class="pg-benefit">Centralizza clienti e interventi in un posto solo, zero abbonamenti software.</span>
+          <span class="pg-cost">Costo: zero — gira nel browser, nessun server</span>
         </span>
       </a>
       <a class="progetto" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">
         <span class="icon">💶</span>
         <span>
           <span class="pg-name">Preventivatore AI</span>
-          <span class="pg-desc">Da richiesta a bozza in secondi</span>
+          <span class="pg-benefit">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale.</span>
+          <span class="pg-cost">Costo API: pochi centesimi a preventivo</span>
         </span>
       </a>
       <a class="progetto" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">
         <span class="icon">📱</span>
         <span>
           <span class="pg-name">Rapportino intervento</span>
-          <span class="pg-desc">App offline per tecnici sul campo</span>
+          <span class="pg-benefit">Il tecnico chiude il rapportino sul campo. Niente carta, niente trascrizione in ufficio.</span>
+          <span class="pg-cost">Costo API: pochi centesimi a rapportino</span>
         </span>
       </a>
     </div>
