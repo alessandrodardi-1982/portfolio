@@ -103,13 +103,10 @@
 
   /* CONTATTI */
   .contatti{background:var(--paper-2);padding:48px 0;border-top:1px solid var(--line)}
-  .contacts{display:flex;gap:36px;flex-wrap:wrap;justify-content:center;text-align:center}
-  .contacts a{font-family:'Hanken Grotesk',sans-serif;font-size:1.05rem;font-weight:500;
-    color:var(--ink-soft);text-decoration:none;transition:color .15s}
+  .contacts{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
+  .contacts a{font-family:'Hanken Grotesk',sans-serif;font-size:1.15rem;font-weight:600;
+    color:var(--ink);text-decoration:none;transition:color .15s}
   .contacts a:hover{color:var(--teal)}
-  @media(max-width:600px){
-    .contacts{flex-direction:column;align-items:center;gap:20px}
-  }
 
   @media(max-width:600px){
     .pillole{gap:8px}
