@@ -92,7 +92,7 @@
 
   /* GRIGLIA PROGETTI */
   .progetti{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
-  .progetto{display:flex;align-items:flex-start;gap:12px;background:var(--paper-2);border:1px solid var(--line);
+  .progetto{display:flex;align-items:stretch;gap:16px;background:var(--paper-2);border:1px solid var(--line);
     border-radius:5px;padding:16px;text-decoration:none;color:var(--ink-soft);font-size:.88rem;
     transition:border-color .15s,color .15s,transform .15s}
   .progetto:hover{border-color:var(--teal);color:var(--ink);transform:translateY(-2px)}
@@ -342,9 +342,35 @@
   footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft)}
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
-  .btn-pair{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
-  .btn-full{color:var(--ink-soft) !important;border-color:rgba(255,255,255,0.06) !important;}
-  .btn-full:hover{border-color:var(--accent) !important;color:var(--ink) !important;}
+  .btn-pair{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    margin-top:10px;
+    align-self:stretch;
+    justify-content:center;
+  }
+  .btn-demo-open{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.68rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:600;
+    background:none;
+    border:1px solid rgba(255,255,255,0.25);
+    border-radius:3px;
+    padding:10px 14px;
+    cursor:pointer;
+    transition:border-color .15s,color .15s;
+    text-decoration:none;
+    white-space:nowrap;
+    flex:1;
+  }
+  .btn-demo-open:hover{border-color:var(--accent);color:var(--teal);}
 </style>
 </head>
 <body>
