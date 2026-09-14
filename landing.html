@@ -152,6 +152,195 @@
     .bottom-bar .contacts{gap:14px}
     .bottom-bar .contacts a{font-size:.78rem}
   }
+
+  /* MODAL */
+  .modal-overlay{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:200;
+    background:rgba(0,10,26,.85);
+    backdrop-filter:blur(4px);
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+  }
+  .modal-overlay.open{display:flex;}
+
+  .modal{
+    background:var(--paper-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    width:100%;
+    max-width:520px;
+    max-height:85vh;
+    overflow-y:auto;
+    position:relative;
+    padding:32px;
+  }
+
+  .modal-close{
+    position:absolute;
+    top:16px;right:16px;
+    background:none;border:none;
+    color:var(--ink-soft);
+    font-size:1.3rem;
+    cursor:pointer;
+    line-height:1;
+    transition:color .15s;
+  }
+  .modal-close:hover{color:var(--ink);}
+
+  .modal h3{
+    font-family:'Fraunces',serif;
+    font-weight:400;
+    font-size:1.3rem;
+    margin-bottom:6px;
+    color:var(--ink);
+  }
+  .modal .modal-sub{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.68rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:24px;
+    display:block;
+  }
+
+  /* Form elements nel modal */
+  .modal label{
+    display:block;
+    font-size:.85rem;
+    color:var(--ink-soft);
+    margin-bottom:6px;
+    font-weight:500;
+  }
+  .modal input,.modal textarea,.modal select{
+    width:100%;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    color:var(--ink);
+    font-family:'Hanken Grotesk',sans-serif;
+    font-size:.9rem;
+    padding:10px 14px;
+    margin-bottom:16px;
+    outline:none;
+    transition:border-color .15s;
+  }
+  .modal input:focus,.modal textarea:focus,.modal select:focus{
+    border-color:var(--accent);
+  }
+  .modal textarea{resize:vertical;min-height:80px;}
+
+  .modal .btn-demo{
+    display:flex;align-items:center;justify-content:center;gap:8px;
+    width:100%;
+    background:var(--accent);
+    color:#ffffff;
+    border:none;
+    border-radius:4px;
+    font-family:'Hanken Grotesk',sans-serif;
+    font-weight:700;
+    font-size:.97rem;
+    padding:13px;
+    cursor:pointer;
+    transition:opacity .15s;
+    margin-bottom:16px;
+    letter-spacing:.01em;
+  }
+  .modal .btn-demo:hover{opacity:.87;}
+
+  .modal .demo-output{
+    display:none;
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:16px;
+    margin-top:4px;
+  }
+  .modal .demo-output.visible{display:block;}
+
+  .modal .demo-output .out-label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:10px;
+    display:block;
+  }
+  .modal .demo-output p{
+    font-size:.88rem;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin-bottom:8px;
+  }
+  .modal .demo-output p:last-child{margin-bottom:0;}
+  .modal .demo-output strong{color:var(--ink);font-weight:600;}
+
+  .badge-urgenza{
+    display:inline-block;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    padding:3px 10px;
+    border-radius:3px;
+    margin-bottom:12px;
+    font-weight:600;
+  }
+  .badge-alta{background:rgba(239,68,68,.15);color:#f87171;}
+  .badge-media{background:rgba(251,191,36,.15);color:#fbbf24;}
+
+  .out-row{
+    display:flex;justify-content:space-between;
+    border-bottom:1px solid var(--line);
+    padding:8px 0;
+    font-size:.85rem;
+  }
+  .out-row:last-child{border-bottom:none;}
+  .out-row .key{color:var(--ink-soft);}
+  .out-row .val{color:var(--ink);font-weight:500;text-align:right;}
+
+  /* Bottone demo nelle card */
+  .btn-demo-open{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:.65rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    background:none;
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:5px 12px;
+    cursor:pointer;
+    transition:border-color .15s,color .15s;
+  }
+  .btn-demo-open:hover{border-color:var(--accent);}
+
+  @media(max-width:560px){
+    .modal{
+      position:fixed;
+      bottom:0;left:0;right:0;
+      max-width:100%;
+      border-radius:12px 12px 0 0;
+      max-height:90vh;
+      padding:24px 20px 40px;
+    }
+    .modal-overlay{
+      align-items:flex-end;
+      padding:0;
+    }
+  }
+
+  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft)}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 </style>
 </head>
 <body>
@@ -235,6 +424,7 @@
           <span class="pg-name">Agente triage</span>
           <span class="pg-benefit">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti.</span>
           <span class="pg-cost">Costo API: pochi centesimi a richiesta</span>
+          <button class="btn-demo-open" onclick="openModal('modal-triage');event.preventDefault();">Prova la demo</button>
         </span>
       </a>
       <a class="progetto" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">
@@ -243,6 +433,7 @@
           <span class="pg-name">CRM per PMI</span>
           <span class="pg-benefit">Centralizza clienti e interventi in un posto solo, zero abbonamenti software.</span>
           <span class="pg-cost">Costo: zero — gira nel browser, nessun server</span>
+          <button class="btn-demo-open" onclick="openModal('modal-crm');event.preventDefault();">Prova la demo</button>
         </span>
       </a>
       <a class="progetto" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">
@@ -251,6 +442,7 @@
           <span class="pg-name">Preventivatore AI</span>
           <span class="pg-benefit">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale.</span>
           <span class="pg-cost">Costo API: pochi centesimi a preventivo</span>
+          <button class="btn-demo-open" onclick="openModal('modal-prev');event.preventDefault();">Prova la demo</button>
         </span>
       </a>
       <a class="progetto" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">
@@ -259,6 +451,7 @@
           <span class="pg-name">Rapportino intervento</span>
           <span class="pg-benefit">Il tecnico chiude il rapportino sul campo. Niente carta, niente trascrizione in ufficio.</span>
           <span class="pg-cost">Costo API: pochi centesimi a rapportino</span>
+          <button class="btn-demo-open" onclick="openModal('modal-rapp');event.preventDefault();">Prova la demo</button>
         </span>
       </a>
     </div>
@@ -299,5 +492,212 @@
     <a href="tel:+393357057649">+39 335 705 7649</a>
   </nav>
 </div>
+
+<footer>
+  <div class="wrap">
+    <span class="mono">© 2026 Alessandro Dardi · Bologna</span>
+    <span class="mono">Le prove, non le promesse</span>
+  </div>
+</footer>
+
+<!-- MODAL AGENTE TRIAGE -->
+<div class="modal-overlay" id="modal-triage">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-triage')">✕</button>
+    <h3>Agente triage</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>Descrivi il guasto</label>
+    <textarea id="triage-input" placeholder="Es: compressore fermo, nessuna pressione in uscita, allarme temperatura attivo"></textarea>
+    <label>Priorità segnalata dal cliente</label>
+    <select id="triage-prio">
+      <option value="alta">Alta — impianto fermo</option>
+      <option value="media">Media — degrado prestazioni</option>
+      <option value="bassa">Bassa — manutenzione programmata</option>
+    </select>
+    <button class="btn-demo" onclick="runTriage()">Analizza richiesta</button>
+    <div class="demo-output" id="triage-output">
+      <span class="out-label">Analisi AI</span>
+      <div id="triage-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CRM -->
+<div class="modal-overlay" id="modal-crm">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-crm')">✕</button>
+    <h3>CRM per PMI</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>Clienti attivi</label>
+    <div style="overflow-x:auto;margin-bottom:16px;">
+      <table style="width:100%;border-collapse:collapse;font-size:.83rem;">
+        <thead>
+          <tr style="border-bottom:1px solid var(--line);">
+            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Cliente</th>
+            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Ultimo intervento</th>
+            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Stato</th>
+          </tr>
+        </thead>
+        <tbody id="crm-table">
+          <tr onclick="showCrmDetail('Termoflex Srl','Revisione compressore','Chiuso','Marco F.','12/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;color:var(--ink);">Termoflex Srl</td>
+            <td style="padding:10px 6px;color:var(--ink-soft);">12/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#4ade80;font-size:.75rem;font-family:'JetBrains Mono',monospace;">CHIUSO</span></td>
+          </tr>
+          <tr onclick="showCrmDetail('Pneumatec Srl','Perdita circuito frigo','Aperto','Luca B.','10/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;color:var(--ink);">Pneumatec Srl</td>
+            <td style="padding:10px 6px;color:var(--ink-soft);">10/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#fbbf24;font-size:.75rem;font-family:'JetBrains Mono',monospace;">APERTO</span></td>
+          </tr>
+          <tr onclick="showCrmDetail('Fluidotech Italia','Sostituzione valvola','In lavorazione','Sara M.','08/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;color:var(--ink);">Fluidotech Italia</td>
+            <td style="padding:10px 6px;color:var(--ink-soft);">08/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#60a5fa;font-size:.75rem;font-family:'JetBrains Mono',monospace;">IN LAVORAZIONE</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="demo-output" id="crm-output">
+      <span class="out-label">Dettaglio cliente</span>
+      <div id="crm-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PREVENTIVATORE -->
+<div class="modal-overlay" id="modal-prev">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-prev')">✕</button>
+    <h3>Preventivatore AI</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>Descrivi la richiesta del cliente</label>
+    <textarea id="prev-input" placeholder="Es: intervento urgente su compressore fermo, sostituzione valvola di sicurezza e verifica impianto"></textarea>
+    <button class="btn-demo" onclick="runPreventivo()">Genera bozza preventivo</button>
+    <div class="demo-output" id="prev-output">
+      <span class="out-label">Bozza preventivo</span>
+      <div id="prev-result"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL RAPPORTINO -->
+<div class="modal-overlay" id="modal-rapp">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-rapp')">✕</button>
+    <h3>Rapportino intervento</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>Cliente</label>
+    <input type="text" id="rapp-cliente" placeholder="Es: Termoflex Srl">
+    <label>Descrizione lavoro svolto</label>
+    <textarea id="rapp-note" placeholder="Es: sostituzione filtro separatore, verifica pressioni, test ciclo completo"></textarea>
+    <label>Ore lavorate</label>
+    <input type="number" id="rapp-ore" placeholder="Es: 2.5" min="0.5" step="0.5">
+    <button class="btn-demo" onclick="runRapportino()">Genera rapportino</button>
+    <div class="demo-output" id="rapp-output">
+      <span class="out-label">Rapportino generato</span>
+      <div id="rapp-result"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Modal open/close
+  function openModal(id){
+    document.getElementById(id).classList.add('open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(id){
+    document.getElementById(id).classList.remove('open');
+    document.body.style.overflow='';
+  }
+  // Chiudi cliccando overlay
+  document.querySelectorAll('.modal-overlay').forEach(el=>{
+    el.addEventListener('click',function(e){
+      if(e.target===this) closeModal(this.id);
+    });
+  });
+
+  // DEMO TRIAGE
+  function runTriage(){
+    const input = document.getElementById('triage-input').value.trim();
+    const prio = document.getElementById('triage-prio').value;
+    if(!input){alert('Inserisci una descrizione del guasto.');return;}
+    const urgenza = prio==='alta'?'Alta':'Media';
+    const badge = prio==='alta'?'badge-alta':'badge-media';
+    const tecnici = {
+      'compressore':'Marco Ferretti (compressori)',
+      'frigo':'Luca Bernardini (refrigerazione)',
+      'valvola':'Marco Ferretti (compressori)',
+      'elettr':'Sara Monti (quadri elettrici)',
+      'pompa':'Roberto Ansaloni (meccanica)'
+    };
+    let tecnico = 'Marco Ferretti (compressori)';
+    const inp = input.toLowerCase();
+    for(const [k,v] of Object.entries(tecnici)){
+      if(inp.includes(k)){tecnico=v;break;}
+    }
+    document.getElementById('triage-result').innerHTML = `
+      <span class="badge-urgenza ${badge}">Urgenza ${urgenza}</span>
+      <div class="out-row"><span class="key">Causa probabile</span><span class="val">Guasto meccanico/pneumatico</span></div>
+      <div class="out-row"><span class="key">Prima azione</span><span class="val">Verifica pressioni e allarmi attivi</span></div>
+      <div class="out-row"><span class="key">Tecnico suggerito</span><span class="val">${tecnico}</span></div>
+      <div class="out-row"><span class="key">Tempo stimato</span><span class="val">2-3 ore</span></div>
+      <p style="margin-top:12px;font-size:.78rem;color:var(--ink-soft);">Il responsabile rivede e conferma prima dell'invio al tecnico.</p>
+    `;
+    document.getElementById('triage-output').classList.add('visible');
+  }
+
+  // DEMO CRM
+  function showCrmDetail(cliente,intervento,stato,tecnico,data){
+    document.getElementById('crm-result').innerHTML = `
+      <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
+      <div class="out-row"><span class="key">Ultimo intervento</span><span class="val">${intervento}</span></div>
+      <div class="out-row"><span class="key">Data</span><span class="val">${data}</span></div>
+      <div class="out-row"><span class="key">Tecnico</span><span class="val">${tecnico}</span></div>
+      <div class="out-row"><span class="key">Stato</span><span class="val">${stato}</span></div>
+    `;
+    document.getElementById('crm-output').classList.add('visible');
+  }
+
+  // DEMO PREVENTIVATORE
+  function runPreventivo(){
+    const input = document.getElementById('prev-input').value.trim();
+    if(!input){alert('Inserisci la descrizione della richiesta.');return;}
+    const urgente = input.toLowerCase().includes('urgent');
+    const num = 'PRV-' + String(Math.floor(Math.random()*900)+100);
+    document.getElementById('prev-result').innerHTML = `
+      <p style="margin-bottom:12px;"><strong>${num}</strong> — bozza generata in automatico</p>
+      <div class="out-row"><span class="key">Manodopera (2h)</span><span class="val">120,00 €</span></div>
+      <div class="out-row"><span class="key">Maggiorazione urgenza</span><span class="val">30,00 €</span></div>
+      <div class="out-row"><span class="key">Ricambi stimati</span><span class="val">85,00 €</span></div>
+      <div class="out-row"><span class="key">Trasferta</span><span class="val">25,00 €</span></div>
+      <div class="out-row" style="border-top:2px solid var(--line);margin-top:4px;padding-top:12px;">
+        <span class="key" style="font-weight:600;color:var(--ink);">Totale + IVA 22%</span>
+        <span class="val" style="color:var(--accent);font-size:1rem;">317,00 €</span>
+      </div>
+      <p style="margin-top:12px;font-size:.78rem;color:var(--ink-soft);">Bozza da rivedere prima dell'invio al cliente.</p>
+    `;
+    document.getElementById('prev-output').classList.add('visible');
+  }
+
+  // DEMO RAPPORTINO
+  function runRapportino(){
+    const cliente = document.getElementById('rapp-cliente').value.trim() || 'Cliente non specificato';
+    const note = document.getElementById('rapp-note').value.trim();
+    const ore = document.getElementById('rapp-ore').value || '2';
+    if(!note){alert('Inserisci la descrizione del lavoro svolto.');return;}
+    const oggi = new Date().toLocaleDateString('it-IT');
+    const fatturate = Math.ceil(parseFloat(ore));
+    document.getElementById('rapp-result').innerHTML = `
+      <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
+      <div class="out-row"><span class="key">Data intervento</span><span class="val">${oggi}</span></div>
+      <div class="out-row"><span class="key">Ore lavorate</span><span class="val">${ore}h</span></div>
+      <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
+      <p style="margin-top:14px;font-size:.85rem;color:var(--ink-soft);line-height:1.6;"><strong style="color:var(--ink);">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
+      <p style="margin-top:10px;font-size:.78rem;color:var(--ink-soft);">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>
+    `;
+    document.getElementById('rapp-output').classList.add('visible');
+  }
+</script>
 </body>
 </html>
