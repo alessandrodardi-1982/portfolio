@@ -3,530 +3,549 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Alessandro Dardi · Operations & Automazione</title>
+<title>Alessandro Dardi · Operations & AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script defer src="https://cloud.umami.is/script.js" data-website-id="7a2837f0-c1d5-4eaf-b0c4-a9f93e444e4a"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#001A33;
-    --paper-2:#04223F;
-    --ink:#EAF1FA;
-    --ink-soft:#9DB2CC;
-    --line:#173A63;
-    --amber:#2E9BEC;
-    --teal:#5FB0EF;
-    --teal-soft:#4FA8EE;
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:#fff;
+  color:#1a1a2e;
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ——— NAV ——— */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(255,255,255,0.96);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #e8e8ee;
+}
+.nav-inner{
+  max-width:1100px;margin:0 auto;padding:0 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  height:68px;
+}
+.brand{
+  font-family:'Playfair Display',serif;
+  font-weight:600;font-size:1.15rem;
+  color:#1a1a2e;text-decoration:none;
+  letter-spacing:-.02em;
+}
+.navlinks{display:flex;gap:32px;list-style:none}
+.navlinks a{
+  color:#555;text-decoration:none;
+  font-size:.875rem;font-weight:500;
+  transition:color .2s;
+}
+.navlinks a:hover{color:#1a1a2e}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
+.hamburger span{display:block;height:2px;width:24px;background:#1a1a2e;border-radius:2px;transition:transform .25s,opacity .25s}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+@media(max-width:768px){
+  .navlinks{
+    display:none;flex-direction:column;
+    position:fixed;top:68px;left:0;right:0;
+    background:#fff;border-bottom:1px solid #e8e8ee;
+    padding:24px 32px 32px;gap:0;
   }
-  *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:'Hanken Grotesk',sans-serif;
-    font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.18;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E")}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
-  .mono{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase}
+  .navlinks.open{display:flex}
+  .navlinks a{font-size:1rem;padding:14px 0;border-bottom:1px solid #f0f0f5}
+  .navlinks a:last-child{border-bottom:none}
+  .hamburger{display:flex}
+}
 
-  /* NAV — identica al portfolio */
-  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(0,26,51,.82);
-    backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  nav .wrap{display:flex;justify-content:space-between;align-items:center;height:64px;gap:32px;max-width:1400px;padding:0 20px}
-  .brand{font-family:'Fraunces',serif;font-weight:500;font-size:1.05rem;letter-spacing:-.01em;white-space:nowrap}
-  .brand b{color:var(--amber)}
-  .navlinks{display:flex;gap:22px;flex-wrap:nowrap}
-  .navlinks a{color:var(--ink-soft);text-decoration:none;font-size:.82rem;font-weight:500;white-space:nowrap;transition:color .2s}
-  .navlinks a:hover{color:var(--amber)}
-  .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:36px;height:36px;cursor:pointer;background:none;border:none;padding:4px}
-  .hamburger span{display:block;height:2px;width:100%;background:var(--ink-soft);border-radius:2px;transition:transform .25s,opacity .25s}
-  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .hamburger.open span:nth-child(2){opacity:0}
-  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-  @media(max-width:880px){
-    .navlinks{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(0,26,51,.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:20px 24px 28px;gap:0}
-    .navlinks.open{display:flex}
-    .navlinks a{font-size:1rem;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06)}
-    .navlinks a:last-child{border-bottom:none}
-    .hamburger{display:flex}
-  }
+/* ——— HERO ——— */
+.hero{
+  padding:128px 0 80px;
+  background:#fff;
+}
+.hero-inner{
+  max-width:1100px;margin:0 auto;padding:0 32px;
+  display:grid;grid-template-columns:1fr auto;
+  align-items:center;gap:64px;
+}
+.hero-text h1{
+  font-family:'Playfair Display',serif;
+  font-weight:700;
+  font-size:clamp(2.2rem,5vw,3.4rem);
+  line-height:1.18;
+  letter-spacing:-.03em;
+  color:#1a1a2e;
+  margin-bottom:20px;
+}
+.hero-text p{
+  font-size:1.1rem;
+  color:#555;
+  max-width:520px;
+  margin-bottom:36px;
+  line-height:1.7;
+}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+.btn-dark{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#1a1a2e;color:#fff;
+  padding:14px 28px;border-radius:6px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.95rem;
+  text-decoration:none;transition:background .2s;
+  border:2px solid #1a1a2e;
+}
+.btn-dark:hover{background:#2d2d4e}
+.btn-outline{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:#1a1a2e;
+  padding:14px 28px;border-radius:6px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.95rem;
+  text-decoration:none;transition:border-color .2s,color .2s;
+  border:2px solid #d0d0e0;
+}
+.btn-outline:hover{border-color:#1a1a2e}
+.hero-photo img{
+  width:240px;height:240px;
+  border-radius:50%;object-fit:cover;object-position:center top;
+  border:4px solid #f0f0f5;
+}
+@media(max-width:768px){
+  .hero{padding:100px 0 60px}
+  .hero-inner{grid-template-columns:1fr;text-align:center;gap:40px}
+  .hero-photo{order:-1;display:flex;justify-content:center}
+  .hero-photo img{width:180px;height:180px}
+  .hero-text p{margin:0 auto 36px}
+  .hero-cta{justify-content:center}
+}
 
-  /* SEZIONE CHI SONO — identica al portfolio */
-  .chi-sono{background:var(--paper-2);padding:104px 0 72px}
-  .sec-num{color:var(--amber);margin-bottom:14px;display:block}
-  .sec-head{margin-bottom:32px}
-  .sec-head h2{font-family:'Fraunces',serif;font-weight:400;font-size:clamp(1.8rem,4vw,2.7rem);
-    letter-spacing:-.02em;line-height:1.2}
-  .sec-head h2 em{font-style:italic;color:var(--teal)}
+/* ——— LOGO BAND ——— */
+.logo-band{
+  background:#f7f7fb;
+  padding:48px 0;
+  border-top:1px solid #e8e8ee;
+  border-bottom:1px solid #e8e8ee;
+}
+.logo-band-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.logo-band h3{
+  font-size:.75rem;font-weight:600;
+  color:#aaa;letter-spacing:.12em;text-transform:uppercase;
+  text-align:center;margin-bottom:32px;
+}
+.pill-row{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:12px;
+}
+.pill{
+  background:#fff;border:1px solid #e0e0ea;
+  border-radius:24px;padding:8px 20px;
+  font-size:.875rem;font-weight:500;color:#555;
+  white-space:nowrap;
+}
 
-  /* SEZIONE AZIONI */
-  .azioni{background:var(--paper);padding:56px 0 72px}
+/* ——— CHI SONO ——— */
+.about{padding:88px 0;background:#fff}
+.about-inner{
+  max-width:760px;margin:0 auto;padding:0 32px;
+}
+.about-photo{display:none;}
+.section-label{
+  font-size:.75rem;font-weight:600;
+  color:#888;letter-spacing:.12em;text-transform:uppercase;
+  margin-bottom:16px;display:block;
+}
+.about h2{
+  font-family:'Playfair Display',serif;
+  font-weight:700;font-size:clamp(1.7rem,3.5vw,2.4rem);
+  line-height:1.25;letter-spacing:-.02em;
+  color:#1a1a2e;margin-bottom:24px;
+}
+.about p{
+  color:#555;line-height:1.8;font-size:1rem;
+  margin-bottom:18px;
+}
+.about p:last-child{margin-bottom:0}
 
-  /* FRASE VALORE */
-  .value-line{
-    font-family:'Fraunces',serif;
-    font-style:italic;
-    font-weight:300;
-    font-size:1.2rem;
-    color:var(--teal);
-    line-height:1.5;
-    margin-bottom:32px;
-  }
 
-  /* PILLOLE */
-  .pillole{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px}
-  .pillola{background:var(--paper-2);border:1px solid var(--line);border-radius:5px;padding:18px 14px;text-align:center}
-  .pillola .num{font-family:'Fraunces',serif;font-weight:600;font-size:1.9rem;color:var(--amber);line-height:1;margin-bottom:6px}
-  .pillola .label{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);line-height:1.45}
+/* ——— STAT ROW ——— */
+.stats{
+  background:#f7f7fb;
+  padding:56px 0;
+  border-top:1px solid #e8e8ee;
+  border-bottom:1px solid #e8e8ee;
+}
+.stats-inner{
+  max-width:1100px;margin:0 auto;padding:0 32px;
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:32px;
+}
+.stat{text-align:center}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.8rem;font-weight:700;
+  color:#1a1a2e;line-height:1;
+  margin-bottom:8px;display:block;
+}
+.stat-label{
+  font-size:.8rem;font-weight:600;
+  color:#999;letter-spacing:.1em;text-transform:uppercase;
+}
+@media(max-width:520px){
+  .stats-inner{grid-template-columns:1fr;gap:24px}
+  .stat-num{font-size:2.2rem}
+}
 
-  /* BOTTONI — identici al portfolio */
-  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:2px;
-    font-family:'Hanken Grotesk',sans-serif;font-weight:600;font-size:.97rem;text-decoration:none;transition:background .15s,border-color .15s}
-  .btn-primary{background:var(--amber);color:var(--paper)}
-  .btn-primary:hover{background:var(--teal-soft)}
-  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-  .btn-ghost:hover{border-color:var(--amber);background:rgba(46,155,236,.12);color:var(--ink)}
-  .btn-block{display:flex;width:100%;justify-content:center;margin-bottom:10px}
+/* ——— PROGETTI ——— */
+.projects{padding:88px 0;background:#fff}
+.projects-inner{max-width:1100px;margin:0 auto;padding:0 32px}
+.projects h2{
+  font-family:'Playfair Display',serif;
+  font-weight:700;font-size:clamp(1.7rem,3.5vw,2.4rem);
+  letter-spacing:-.02em;color:#1a1a2e;
+  margin-bottom:12px;
+}
+.projects-intro{color:#555;font-size:1rem;margin-bottom:48px;max-width:580px}
+.project-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:24px;margin-bottom:32px;
+}
+.project-card{
+  background:#fff;border:1.5px solid #e0e0ea;
+  border-radius:10px;padding:28px 24px;
+  text-decoration:none;color:inherit;
+  transition:border-color .2s,box-shadow .2s;
+  display:flex;flex-direction:column;
+}
+.project-card:hover{
+  border-color:#1a1a2e;
+  box-shadow:0 4px 20px rgba(26,26,46,.08);
+}
+.card-icon{font-size:1.5rem;margin-bottom:14px}
+.card-name{
+  font-weight:700;font-size:1.05rem;color:#1a1a2e;
+  margin-bottom:8px;display:block;
+}
+.card-desc{
+  color:#666;font-size:.9rem;line-height:1.65;
+  margin-bottom:14px;flex:1;
+}
+.card-cost{
+  font-size:.75rem;font-weight:600;
+  color:#aaa;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:16px;display:block;
+}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-card-demo{
+  font-size:.8rem;font-weight:600;color:#1a1a2e;
+  background:none;border:1.5px solid #d0d0e0;
+  border-radius:5px;padding:7px 14px;cursor:pointer;
+  transition:border-color .2s;font-family:'Inter',sans-serif;
+}
+.btn-card-demo:hover{border-color:#1a1a2e}
+.btn-card-full{
+  font-size:.8rem;font-weight:600;color:#555;
+  background:none;border:1.5px solid #d0d0e0;
+  border-radius:5px;padding:7px 14px;
+  text-decoration:none;transition:border-color .2s;
+}
+.btn-card-full:hover{border-color:#1a1a2e;color:#1a1a2e}
+.projects-cta-row{
+  display:flex;justify-content:center;
+  margin-top:16px;
+}
+@media(max-width:640px){
+  .project-grid{grid-template-columns:1fr}
+}
 
-  .arrow{transition:transform .15s}
-  .btn-primary:hover .arrow{transform:translateX(3px)}
+/* ——— MODAL ——— */
+.modal-overlay{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(26,26,46,.5);
+  backdrop-filter:blur(4px);
+  align-items:center;justify-content:center;
+  padding:20px;
+}
+.modal-overlay.open{display:flex}
+.modal{
+  background:#fff;border-radius:12px;
+  width:100%;max-width:520px;max-height:88vh;
+  overflow-y:auto;position:relative;padding:36px;
+  box-shadow:0 20px 60px rgba(0,0,0,.15);
+}
+.modal-close{
+  position:absolute;top:18px;right:18px;
+  background:none;border:none;font-size:1.2rem;
+  color:#aaa;cursor:pointer;transition:color .15s;
+}
+.modal-close:hover{color:#1a1a2e}
+.modal h3{
+  font-family:'Playfair Display',serif;
+  font-size:1.35rem;font-weight:700;
+  color:#1a1a2e;margin-bottom:6px;
+}
+.modal-sub{
+  font-size:.75rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:#999;display:block;margin-bottom:24px;
+}
+.modal label{
+  display:block;font-size:.85rem;font-weight:600;
+  color:#444;margin-bottom:6px;
+}
+.modal input,.modal textarea,.modal select{
+  width:100%;background:#f7f7fb;
+  border:1.5px solid #e0e0ea;border-radius:6px;
+  color:#1a1a2e;font-family:'Inter',sans-serif;
+  font-size:.9rem;padding:10px 14px;
+  margin-bottom:16px;outline:none;
+  transition:border-color .15s;
+}
+.modal input:focus,.modal textarea:focus,.modal select:focus{
+  border-color:#1a1a2e;background:#fff;
+}
+.modal textarea{resize:vertical;min-height:80px}
+.btn-modal-run{
+  width:100%;background:#1a1a2e;color:#fff;
+  border:none;border-radius:6px;
+  font-family:'Inter',sans-serif;font-weight:700;
+  font-size:.95rem;padding:13px;cursor:pointer;
+  transition:background .15s;margin-bottom:16px;
+}
+.btn-modal-run:hover{background:#2d2d4e}
+.demo-output{
+  display:none;background:#f7f7fb;
+  border:1.5px solid #e0e0ea;border-radius:6px;
+  padding:16px;margin-top:4px;
+}
+.demo-output.visible{display:block}
+.out-label{
+  font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:#999;margin-bottom:10px;display:block;
+}
+.out-row{
+  display:flex;justify-content:space-between;
+  border-bottom:1px solid #e8e8ee;
+  padding:8px 0;font-size:.875rem;
+}
+.out-row:last-child{border-bottom:none}
+.out-row .key{color:#888}
+.out-row .val{color:#1a1a2e;font-weight:600;text-align:right}
+.badge-urgenza{
+  display:inline-block;font-size:.7rem;
+  font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;margin-bottom:12px;
+}
+.badge-alta{background:#fef2f2;color:#dc2626}
+.badge-media{background:#fffbeb;color:#d97706}
+@media(max-width:560px){
+  .modal{position:fixed;bottom:0;left:0;right:0;max-width:100%;
+    border-radius:12px 12px 0 0;padding:28px 20px 40px}
+  .modal-overlay{align-items:flex-end;padding:0}
+}
 
-  /* GRIGLIA PROGETTI */
-  .progetti{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:10px}
-  .progetto{display:flex;align-items:stretch;gap:16px;background:var(--paper-2);border:1px solid var(--line);
-    border-radius:5px;padding:16px;text-decoration:none;color:var(--ink-soft);font-size:.88rem;
-    transition:border-color .15s,color .15s,transform .15s}
-  .progetto:hover{border-color:var(--teal);color:var(--ink);transform:translateY(-2px)}
-  .progetto .icon{font-size:1.1rem;flex-shrink:0}
-  .pg-name{font-weight:600;color:var(--ink);font-size:.9rem;display:block;margin-bottom:4px}
-  .pg-benefit{font-size:.83rem;color:var(--ink-soft);display:block;line-height:1.4;margin-bottom:6px}
-  .pg-cost{font-family:'JetBrains Mono',monospace;font-size:.63rem;letter-spacing:.04em;
-    text-transform:uppercase;color:var(--accent);display:block}
-
-  /* CONTATTI */
-  .contatti{background:var(--paper-2);padding:48px 0;border-top:1px solid var(--line)}
-  .contacts{display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
-  .contacts a{font-family:'Hanken Grotesk',sans-serif;font-size:1.15rem;font-weight:600;
-    color:var(--ink);text-decoration:none;transition:color .15s}
-  .contacts a:hover{color:var(--teal)}
-
-  @media(max-width:600px){
-    .pillole{gap:8px}
-    .pillola .num{font-size:1.5rem}
-    .progetti{grid-template-columns:1fr}
-    .contacts{gap:20px;flex-direction:column;align-items:center}
-  }
-
-  /* BOTTOM BAR FISSA */
-  .bottom-bar{
-    position:fixed;
-    bottom:0;left:0;right:0;
-    z-index:50;
-    background:rgba(0,26,51,.95);
-    backdrop-filter:blur(10px);
-    border-top:1px solid var(--line);
-    padding:14px 20px;
-  }
-  .bottom-bar .contacts{
-    display:flex;
-    flex-direction:row;
-    justify-content:center;
-    align-items:center;
-    gap:24px;
-    flex-wrap:nowrap;
-  }
-  .bottom-bar .contacts a{
-    font-family:'Hanken Grotesk',sans-serif;
-    font-size:.9rem;
-    font-weight:600;
-    color:var(--ink);
-    text-decoration:none;
-    transition:color .15s;
-    white-space:nowrap;
-  }
-  .bottom-bar .contacts a:hover{color:var(--teal)}
-
-  /* Spazio in fondo alla pagina per non coprire contenuto */
-  body{padding-bottom:70px;}
-
-  @media(max-width:480px){
-    .bottom-bar .contacts{gap:14px}
-    .bottom-bar .contacts a{font-size:.78rem}
-  }
-
-  /* MODAL */
-  .modal-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    z-index:200;
-    background:rgba(0,10,26,.85);
-    backdrop-filter:blur(4px);
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-  }
-  .modal-overlay.open{display:flex;}
-
-  .modal{
-    background:var(--paper-2);
-    border:1px solid var(--line);
-    border-radius:8px;
-    width:100%;
-    max-width:520px;
-    max-height:85vh;
-    overflow-y:auto;
-    position:relative;
-    padding:32px;
-  }
-
-  .modal-close{
-    position:absolute;
-    top:16px;right:16px;
-    background:none;border:none;
-    color:var(--ink-soft);
-    font-size:1.3rem;
-    cursor:pointer;
-    line-height:1;
-    transition:color .15s;
-  }
-  .modal-close:hover{color:var(--ink);}
-
-  .modal h3{
-    font-family:'Fraunces',serif;
-    font-weight:400;
-    font-size:1.3rem;
-    margin-bottom:6px;
-    color:var(--ink);
-  }
-  .modal .modal-sub{
-    font-family:'JetBrains Mono',monospace;
-    font-size:.68rem;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:24px;
-    display:block;
-  }
-
-  /* Form elements nel modal */
-  .modal label{
-    display:block;
-    font-size:.85rem;
-    color:var(--ink-soft);
-    margin-bottom:6px;
-    font-weight:500;
-  }
-  .modal input,.modal textarea,.modal select{
-    width:100%;
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:4px;
-    color:var(--ink);
-    font-family:'Hanken Grotesk',sans-serif;
-    font-size:.9rem;
-    padding:10px 14px;
-    margin-bottom:16px;
-    outline:none;
-    transition:border-color .15s;
-  }
-  .modal input:focus,.modal textarea:focus,.modal select:focus{
-    border-color:var(--accent);
-  }
-  .modal textarea{resize:vertical;min-height:80px;}
-
-  .modal .btn-demo{
-    display:flex;align-items:center;justify-content:center;gap:8px;
-    width:100%;
-    background:var(--accent);
-    color:#ffffff;
-    border:none;
-    border-radius:4px;
-    font-family:'Hanken Grotesk',sans-serif;
-    font-weight:700;
-    font-size:.97rem;
-    padding:13px;
-    cursor:pointer;
-    transition:opacity .15s;
-    margin-bottom:16px;
-    letter-spacing:.01em;
-  }
-  .modal .btn-demo:hover{opacity:.87;}
-
-  .modal .demo-output{
-    display:none;
-    background:var(--paper);
-    border:1px solid var(--line);
-    border-radius:4px;
-    padding:16px;
-    margin-top:4px;
-  }
-  .modal .demo-output.visible{display:block;}
-
-  .modal .demo-output .out-label{
-    font-family:'JetBrains Mono',monospace;
-    font-size:.65rem;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:10px;
-    display:block;
-  }
-  .modal .demo-output p{
-    font-size:.88rem;
-    color:var(--ink-soft);
-    line-height:1.6;
-    margin-bottom:8px;
-  }
-  .modal .demo-output p:last-child{margin-bottom:0;}
-  .modal .demo-output strong{color:var(--ink);font-weight:600;}
-
-  .badge-urgenza{
-    display:inline-block;
-    font-family:'JetBrains Mono',monospace;
-    font-size:.65rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    padding:3px 10px;
-    border-radius:3px;
-    margin-bottom:12px;
-    font-weight:600;
-  }
-  .badge-alta{background:rgba(239,68,68,.15);color:#f87171;}
-  .badge-media{background:rgba(251,191,36,.15);color:#fbbf24;}
-
-  .out-row{
-    display:flex;justify-content:space-between;
-    border-bottom:1px solid var(--line);
-    padding:8px 0;
-    font-size:.85rem;
-  }
-  .out-row:last-child{border-bottom:none;}
-  .out-row .key{color:var(--ink-soft);}
-  .out-row .val{color:var(--ink);font-weight:500;text-align:right;}
-
-  /* Bottone demo nelle card */
-  .btn-demo-open{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    margin-top:10px;
-    font-family:'JetBrains Mono',monospace;
-    font-size:.65rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--accent);
-    background:none;
-    border:1px solid var(--line);
-    border-radius:3px;
-    padding:5px 12px;
-    cursor:pointer;
-    transition:border-color .15s,color .15s;
-  }
-  .btn-demo-open:hover{border-color:var(--accent);}
-
-  @media(max-width:560px){
-    .modal{
-      position:fixed;
-      bottom:0;left:0;right:0;
-      max-width:100%;
-      border-radius:12px 12px 0 0;
-      max-height:90vh;
-      padding:24px 20px 40px;
-    }
-    .modal-overlay{
-      align-items:flex-end;
-      padding:0;
-    }
-  }
-
-  footer{border-top:1px solid var(--line);padding:30px 0;color:var(--ink-soft)}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-
-  .btn-pair{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
-    margin-top:10px;
-    align-self:stretch;
-    justify-content:center;
-  }
-  .btn-demo-open{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-family:'JetBrains Mono',monospace;
-    font-size:.68rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--ink);
-    font-weight:600;
-    background:none;
-    border:1px solid rgba(255,255,255,0.25);
-    border-radius:3px;
-    padding:10px 14px;
-    cursor:pointer;
-    transition:border-color .15s,color .15s;
-    text-decoration:none;
-    white-space:nowrap;
-    flex:1;
-  }
-  .btn-demo-open:hover{border-color:var(--accent);color:var(--teal);}
+/* ——— FOOTER ——— */
+.footer{
+  background:#1a1a2e;
+  color:#fff;
+  padding:64px 0 40px;
+}
+.footer-inner{
+  max-width:1100px;margin:0 auto;padding:0 32px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:48px;margin-bottom:48px;
+}
+.footer-col h4{
+  font-weight:700;font-size:.8rem;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.4);margin-bottom:16px;
+}
+.footer-col a,.footer-col p{
+  display:block;color:rgba(255,255,255,.75);
+  font-size:.95rem;text-decoration:none;
+  margin-bottom:8px;transition:color .2s;
+}
+.footer-col a:hover{color:#fff}
+.footer-bottom{
+  max-width:1100px;margin:0 auto;padding:24px 32px 0;
+  border-top:1px solid rgba(255,255,255,.1);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.footer-bottom span{
+  color:rgba(255,255,255,.35);
+  font-size:.8rem;
+}
+@media(max-width:768px){
+  .footer-inner{grid-template-columns:1fr;gap:32px}
+  .footer-bottom{flex-direction:column;gap:4px}
+}
 </style>
 </head>
 <body>
 
-<!-- NAV FISSA -->
+<!-- NAV -->
 <nav>
-  <div class="wrap">
-    <div class="brand">Alessandro <b>·</b> Dardi</div>
-    <div class="navlinks" id="navlinks">
-      <a href="#azioni">Progetti</a>
-      <a href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Portfolio completo</a>
-    </div>
-    <button class="hamburger" aria-label="Menu" id="hamburger">
+  <div class="nav-inner">
+    <a class="brand" href="#">Alessandro Dardi</a>
+    <ul class="navlinks" id="navlinks">
+      <li><a href="#about">Chi sono</a></li>
+      <li><a href="#progetti">Progetti</a></li>
+      <li><a href="#footer">Contatti</a></li>
+      <li><a href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Portfolio completo</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- CHI SONO — identico al portfolio -->
-<section class="chi-sono" id="chi-sono">
-  <div class="wrap">
-    <div class="sec-head">
-      <span class="sec-num mono">Chi sono</span>
-      <h2>Dall'industria all'<em>automazione</em>.</h2>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Problema nuovo, contesto nuovo. Mi oriento lo stesso.</h1>
+      <p>Otto anni a tenere insieme tecnici, dati e scadenze nell'industria. Adesso faccio lo stesso con strumenti migliori.</p>
+      <div class="hero-cta">
+        <a class="btn-dark" href="#progetti">Guarda i progetti</a>
+        <a class="btn-outline" href="#footer">Contattami</a>
+      </div>
     </div>
-    <div style="display:flex;align-items:flex-start;gap:48px;margin-top:32px;flex-wrap:wrap;">
-      <div style="flex-shrink:0;">
-        <img src="foto_profilo.png" alt="Alessandro Dardi"
-          style="width:160px;height:160px;border-radius:50%;object-fit:cover;object-position:center top;
-          border:2px solid var(--line);display:block;">
-      </div>
-      <div style="max-width:640px;flex:1;min-width:260px;">
-        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);margin-bottom:22px;text-align:justify;hyphens:auto;">
-          Laurea in Ingegneria Gestionale a Bologna, otto anni nelle operations industriali: aria compressa, refrigerazione, impianti, dove ho coordinato tecnici, gestito fornitori, seguito clienti dalla preventivazione alla chiusura intervento. Ho imparato a leggere i problemi prima che diventino emergenze e a tenere insieme persone, dati e scadenze.
-        </p>
-        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);margin-bottom:22px;text-align:justify;hyphens:auto;">
-          Negli ultimi anni ho aggiunto un layer diverso: automazione dei processi, analisi dati, AI applicata. Non per cambiare mestiere, ma per fare meglio quello che so già fare e per portare quella mentalità in contesti che ne hanno bisogno.
-        </p>
-        <p style="font-size:1.08rem;line-height:1.8;color:var(--ink-soft);text-align:justify;hyphens:auto;">
-          I problemi che ho imparato a gestire nell'industria (coordinamento, priorità, dati dispersi, persone da tenere allineate) li ritrovo ovunque. Il settore cambia, il metodo no.
-        </p>
-      </div>
+    <div class="hero-photo">
+      <img src="data:image/jpeg;base64,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" alt="Alessandro Dardi">
     </div>
   </div>
 </section>
 
-<!-- AZIONI -->
-<section class="azioni" id="azioni">
-  <div class="wrap">
-
-    <p class="value-line">Le aziende industriali hanno i dati. Manca chi sa trasformarli in decisioni.</p>
-
-    <!-- PILLOLE -->
-    <div class="pillole">
-      <div class="pillola">
-        <div class="num">12</div>
-        <div class="label">strumenti<br>costruiti</div>
-      </div>
-      <div class="pillola">
-        <div class="num">8</div>
-        <div class="label">anni<br>operations</div>
-      </div>
-      <div class="pillola">
-        <div class="num">ER</div>
-        <div class="label">Emilia-<br>Romagna</div>
-      </div>
+<!-- LOGO BAND — stack usati -->
+<section class="logo-band">
+  <div class="logo-band-inner">
+    <h3>Tecnologie e strumenti</h3>
+    <div class="pill-row">
+      <span class="pill">Claude API</span>
+      <span class="pill">n8n</span>
+      <span class="pill">Netlify Functions</span>
+      <span class="pill">GitHub Pages</span>
+      <span class="pill">Leaflet.js</span>
+      <span class="pill">Chart.js</span>
+      <span class="pill">Google Sheets</span>
+      <span class="pill">Docker</span>
+      <span class="pill">HTML / CSS / JS</span>
+      <span class="pill">Excel avanzato</span>
     </div>
-
-    <!-- CTA PRIMARIA -->
-    <a class="btn btn-primary btn-block"
-       href="https://tecnoservice-chat.netlify.app/chat_assistenza.html"
-       target="_blank">
-      Prova l'agente AI per il supporto tecnico <span class="arrow">→</span>
-    </a>
-
-    <!-- GRIGLIA PROGETTI -->
-    <div class="progetti">
-      <a class="progetto" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">
-        <span class="icon">🤖</span>
-        <span>
-          <span class="pg-name">Agente triage</span>
-          <span class="pg-benefit">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti.</span>
-          <span class="pg-cost">Costo API: pochi centesimi a richiesta</span>
-          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-triage');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">Versione completa</a></div>
-        </span>
-      </a>
-      <a class="progetto" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">
-        <span class="icon">📋</span>
-        <span>
-          <span class="pg-name">CRM per PMI</span>
-          <span class="pg-benefit">Centralizza clienti e interventi in un posto solo, zero abbonamenti software.</span>
-          <span class="pg-cost">Costo: zero — gira nel browser, nessun server</span>
-          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-crm');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">Versione completa</a></div>
-        </span>
-      </a>
-      <a class="progetto" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">
-        <span class="icon">💶</span>
-        <span>
-          <span class="pg-name">Preventivatore AI</span>
-          <span class="pg-benefit">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale.</span>
-          <span class="pg-cost">Costo API: pochi centesimi a preventivo</span>
-          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-prev');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Versione completa</a></div>
-        </span>
-      </a>
-      <a class="progetto" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">
-        <span class="icon">📱</span>
-        <span>
-          <span class="pg-name">Rapportino intervento</span>
-          <span class="pg-benefit">Il tecnico chiude il rapportino sul campo. Niente carta, niente trascrizione in ufficio.</span>
-          <span class="pg-cost">Costo API: pochi centesimi a rapportino</span>
-          <div class="btn-pair"><button class="btn-demo-open" onclick="openModal('modal-rapp');event.preventDefault();">Prova la demo</button><a class="btn-demo-open btn-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a></div>
-        </span>
-      </a>
-    </div>
-
-    <!-- CTA SECONDARIA -->
-    <a class="btn btn-ghost btn-block"
-       href="https://alessandrodardi-1982.github.io/portfolio/"
-       target="_blank">
-      Tutti i 12 progetti
-    </a>
-
   </div>
 </section>
 
+<!-- CHI SONO -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-text" style="text-align:center;">
+      <span class="section-label">Chi sono</span>
+      <h2>Ingegneria gestionale. Otto anni in operations. Poi l'automazione.</h2>
+      <p style="text-align:justify;hyphens:auto;">Laurea in Ingegneria Gestionale a Bologna, otto anni nelle operations industriali: aria compressa, refrigerazione, impianti. Ho coordinato tecnici, gestito fornitori, seguito clienti dalla preventivazione alla chiusura intervento. Ho imparato a leggere i problemi prima che diventino emergenze e a tenere insieme persone, dati e scadenze.</p>
+      <p style="text-align:justify;hyphens:auto;">Negli ultimi anni ho aggiunto un layer diverso: automazione dei processi, analisi dati, AI applicata. Non per cambiare mestiere, ma per fare meglio quello che so già fare e per portare quella mentalità in contesti che ne hanno bisogno.</p>
+      <p style="text-align:justify;hyphens:auto;">I problemi che ho imparato a gestire nell'industria (coordinamento, priorità, dati dispersi, persone da tenere allineate) li ritrovo ovunque. Il settore cambia, il metodo no.</p>
+    </div>
+  </div>
+</section>
 
+<!-- STAT ROW -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat">
+      <span class="stat-num">12</span>
+      <span class="stat-label">Strumenti costruiti</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">8</span>
+      <span class="stat-label">Anni in operations</span>
+    </div>
+    <div class="stat">
+      <span class="stat-num">ER</span>
+      <span class="stat-label">Emilia-Romagna</span>
+    </div>
+  </div>
+</section>
 
-<script>
-  const hamburger = document.getElementById('hamburger');
-  const navlinks = document.getElementById('navlinks');
-  hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    navlinks.classList.toggle('open');
-  });
-  navlinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger.classList.remove('open');
-      navlinks.classList.remove('open');
-    });
-  });
-</script>
+<!-- PROGETTI -->
+<section class="projects" id="progetti">
+  <div class="projects-inner">
+    <span class="section-label">Progetti</span>
+    <h2>Le aziende industriali hanno i dati. Manca chi sa trasformarli in decisioni.</h2>
+    <p class="projects-intro">Quattro strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
 
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="card-icon">🤖</div>
+        <span class="card-name">Agente triage</span>
+        <span class="card-desc">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti. L'AI analizza urgenza, causa probabile e suggerisce il tecnico — il responsabile decide.</span>
+        <span class="card-cost">Costo API: pochi centesimi a richiesta</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-triage')">Prova la demo</button>
+          <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">Versione completa</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-icon">📋</div>
+        <span class="card-name">CRM per PMI</span>
+        <span class="card-desc">Centralizza clienti e interventi in un posto solo, zero abbonamenti software. Gira nel browser, dati sempre in locale.</span>
+        <span class="card-cost">Costo: zero — nessun server</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-crm')">Prova la demo</button>
+          <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">Versione completa</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-icon">💶</div>
+        <span class="card-name">Preventivatore AI</span>
+        <span class="card-desc">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale. Descrivi la richiesta in linguaggio naturale, l'AI struttura le voci.</span>
+        <span class="card-cost">Costo API: pochi centesimi a preventivo</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-prev')">Prova la demo</button>
+          <a class="btn-card-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Versione completa</a>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="card-icon">📱</div>
+        <span class="card-name">Rapportino intervento</span>
+        <span class="card-desc">Il tecnico chiude il rapportino sul campo. Timer automatico, firma cliente su canvas, generazione AI del testo. Niente carta, niente trascrizione in ufficio.</span>
+        <span class="card-cost">Costo API: pochi centesimi a rapportino</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-rapp')">Prova la demo</button>
+          <a class="btn-card-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a>
+        </div>
+      </div>
+    </div>
 
-<!-- BOTTOM BAR FISSA -->
-<div class="bottom-bar">
-  <nav class="contacts">
-    <a href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn</a>
-    <a href="mailto:alessandro.dardi@gmail.com">alessandro.dardi@gmail.com</a>
-    <a href="tel:+393357057649">+39 335 705 7649</a>
-  </nav>
-</div>
+    <div class="projects-cta-row">
+      <a class="btn-outline" href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Tutti i 12 progetti nel portfolio →</a>
+    </div>
+  </div>
+</section>
 
-<footer>
-  <div class="wrap">
-    <span class="mono">© 2026 Alessandro Dardi · Bologna</span>
-    <span class="mono">Le prove, non le promesse</span>
+<!-- FOOTER -->
+<footer class="footer" id="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Alessandro Dardi</h4>
+      <p>Operations & AI applicata</p>
+      <p>Bologna, Emilia-Romagna</p>
+    </div>
+    <div class="footer-col">
+      <h4>Contatti</h4>
+      <a href="mailto:alessandro.dardi@gmail.com">alessandro.dardi@gmail.com</a>
+      <a href="tel:+393357057649">+39 335 705 7649</a>
+    </div>
+    <div class="footer-col">
+      <h4>Link</h4>
+      <a href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn</a>
+      <a href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Portfolio completo</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Alessandro Dardi · Bologna</span>
+    <span>Le prove, non le promesse.</span>
   </div>
 </footer>
 
@@ -544,7 +563,7 @@
       <option value="media">Media — degrado prestazioni</option>
       <option value="bassa">Bassa — manutenzione programmata</option>
     </select>
-    <button class="btn-demo" onclick="runTriage()">Analizza richiesta</button>
+    <button class="btn-modal-run" onclick="runTriage()">Analizza richiesta</button>
     <div class="demo-output" id="triage-output">
       <span class="out-label">Analisi AI</span>
       <div id="triage-result"></div>
@@ -562,27 +581,27 @@
     <div style="overflow-x:auto;margin-bottom:16px;">
       <table style="width:100%;border-collapse:collapse;font-size:.83rem;">
         <thead>
-          <tr style="border-bottom:1px solid var(--line);">
-            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Cliente</th>
-            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Ultimo intervento</th>
-            <th style="text-align:left;padding:8px 6px;color:var(--ink-soft);font-weight:500;">Stato</th>
+          <tr style="border-bottom:1.5px solid #e8e8ee;">
+            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Cliente</th>
+            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Ultimo intervento</th>
+            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Stato</th>
           </tr>
         </thead>
-        <tbody id="crm-table">
-          <tr onclick="showCrmDetail('Termoflex Srl','Revisione compressore','Chiuso','Marco F.','12/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;color:var(--ink);">Termoflex Srl</td>
-            <td style="padding:10px 6px;color:var(--ink-soft);">12/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#4ade80;font-size:.75rem;font-family:'JetBrains Mono',monospace;">CHIUSO</span></td>
+        <tbody>
+          <tr onclick="showCrmDetail('Termoflex Srl','Revisione compressore','Chiuso','Marco F.','12/09/2026')" style="cursor:pointer;border-bottom:1px solid #f0f0f5;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;font-weight:500;">Termoflex Srl</td>
+            <td style="padding:10px 6px;color:#888;">12/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#16a34a;font-size:.75rem;font-weight:700;">CHIUSO</span></td>
           </tr>
-          <tr onclick="showCrmDetail('Pneumatec Srl','Perdita circuito frigo','Aperto','Luca B.','10/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;color:var(--ink);">Pneumatec Srl</td>
-            <td style="padding:10px 6px;color:var(--ink-soft);">10/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#fbbf24;font-size:.75rem;font-family:'JetBrains Mono',monospace;">APERTO</span></td>
+          <tr onclick="showCrmDetail('Pneumatec Srl','Perdita circuito frigo','Aperto','Luca B.','10/09/2026')" style="cursor:pointer;border-bottom:1px solid #f0f0f5;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;font-weight:500;">Pneumatec Srl</td>
+            <td style="padding:10px 6px;color:#888;">10/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#d97706;font-size:.75rem;font-weight:700;">APERTO</span></td>
           </tr>
-          <tr onclick="showCrmDetail('Fluidotech Italia','Sostituzione valvola','In lavorazione','Sara M.','08/09/2026')" style="cursor:pointer;border-bottom:1px solid var(--line);transition:background .15s;" onmouseover="this.style.background='rgba(46,155,236,.07)'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;color:var(--ink);">Fluidotech Italia</td>
-            <td style="padding:10px 6px;color:var(--ink-soft);">08/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#60a5fa;font-size:.75rem;font-family:'JetBrains Mono',monospace;">IN LAVORAZIONE</span></td>
+          <tr onclick="showCrmDetail('Fluidotech Italia','Sostituzione valvola','In lavorazione','Sara M.','08/09/2026')" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
+            <td style="padding:10px 6px;font-weight:500;">Fluidotech Italia</td>
+            <td style="padding:10px 6px;color:#888;">08/09/2026</td>
+            <td style="padding:10px 6px;"><span style="color:#2563eb;font-size:.75rem;font-weight:700;">IN LAVORAZIONE</span></td>
           </tr>
         </tbody>
       </table>
@@ -602,7 +621,7 @@
     <span class="modal-sub">Demo simulata — dati fittizi</span>
     <label>Descrivi la richiesta del cliente</label>
     <textarea id="prev-input" placeholder="Es: intervento urgente su compressore fermo, sostituzione valvola di sicurezza e verifica impianto"></textarea>
-    <button class="btn-demo" onclick="runPreventivo()">Genera bozza preventivo</button>
+    <button class="btn-modal-run" onclick="runPreventivo()">Genera bozza preventivo</button>
     <div class="demo-output" id="prev-output">
       <span class="out-label">Bozza preventivo</span>
       <div id="prev-result"></div>
@@ -622,7 +641,7 @@
     <textarea id="rapp-note" placeholder="Es: sostituzione filtro separatore, verifica pressioni, test ciclo completo"></textarea>
     <label>Ore lavorate</label>
     <input type="number" id="rapp-ore" placeholder="Es: 2.5" min="0.5" step="0.5">
-    <button class="btn-demo" onclick="runRapportino()">Genera rapportino</button>
+    <button class="btn-modal-run" onclick="runRapportino()">Genera rapportino</button>
     <div class="demo-output" id="rapp-output">
       <span class="out-label">Rapportino generato</span>
       <div id="rapp-result"></div>
@@ -631,103 +650,95 @@
 </div>
 
 <script>
-  // Modal open/close
-  function openModal(id){
-    document.getElementById(id).classList.add('open');
-    document.body.style.overflow='hidden';
-  }
-  function closeModal(id){
-    document.getElementById(id).classList.remove('open');
-    document.body.style.overflow='';
-  }
-  // Chiudi cliccando overlay
-  document.querySelectorAll('.modal-overlay').forEach(el=>{
-    el.addEventListener('click',function(e){
-      if(e.target===this) closeModal(this.id);
-    });
+// Navbar
+const hamburger=document.getElementById('hamburger');
+const navlinks=document.getElementById('navlinks');
+hamburger.addEventListener('click',()=>{
+  hamburger.classList.toggle('open');
+  navlinks.classList.toggle('open');
+});
+navlinks.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    hamburger.classList.remove('open');
+    navlinks.classList.remove('open');
   });
+});
 
-  // DEMO TRIAGE
-  function runTriage(){
-    const input = document.getElementById('triage-input').value.trim();
-    const prio = document.getElementById('triage-prio').value;
-    if(!input){alert('Inserisci una descrizione del guasto.');return;}
-    const urgenza = prio==='alta'?'Alta':'Media';
-    const badge = prio==='alta'?'badge-alta':'badge-media';
-    const tecnici = {
-      'compressore':'Marco Ferretti (compressori)',
-      'frigo':'Luca Bernardini (refrigerazione)',
-      'valvola':'Marco Ferretti (compressori)',
-      'elettr':'Sara Monti (quadri elettrici)',
-      'pompa':'Roberto Ansaloni (meccanica)'
-    };
-    let tecnico = 'Marco Ferretti (compressori)';
-    const inp = input.toLowerCase();
-    for(const [k,v] of Object.entries(tecnici)){
-      if(inp.includes(k)){tecnico=v;break;}
-    }
-    document.getElementById('triage-result').innerHTML = `
-      <span class="badge-urgenza ${badge}">Urgenza ${urgenza}</span>
-      <div class="out-row"><span class="key">Causa probabile</span><span class="val">Guasto meccanico/pneumatico</span></div>
-      <div class="out-row"><span class="key">Prima azione</span><span class="val">Verifica pressioni e allarmi attivi</span></div>
-      <div class="out-row"><span class="key">Tecnico suggerito</span><span class="val">${tecnico}</span></div>
-      <div class="out-row"><span class="key">Tempo stimato</span><span class="val">2-3 ore</span></div>
-      <p style="margin-top:12px;font-size:.78rem;color:var(--ink-soft);">Il responsabile rivede e conferma prima dell'invio al tecnico.</p>
-    `;
-    document.getElementById('triage-output').classList.add('visible');
-  }
+// Modal
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden'}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click',function(e){if(e.target===this)closeModal(this.id)})
+});
 
-  // DEMO CRM
-  function showCrmDetail(cliente,intervento,stato,tecnico,data){
-    document.getElementById('crm-result').innerHTML = `
-      <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
-      <div class="out-row"><span class="key">Ultimo intervento</span><span class="val">${intervento}</span></div>
-      <div class="out-row"><span class="key">Data</span><span class="val">${data}</span></div>
-      <div class="out-row"><span class="key">Tecnico</span><span class="val">${tecnico}</span></div>
-      <div class="out-row"><span class="key">Stato</span><span class="val">${stato}</span></div>
-    `;
-    document.getElementById('crm-output').classList.add('visible');
-  }
+// Demo triage
+function runTriage(){
+  const input=document.getElementById('triage-input').value.trim();
+  const prio=document.getElementById('triage-prio').value;
+  if(!input){alert('Inserisci una descrizione del guasto.');return}
+  const urgenza=prio==='alta'?'Alta':'Media';
+  const badge=prio==='alta'?'badge-alta':'badge-media';
+  const tecnici={compressore:'Marco Ferretti (compressori)',frigo:'Luca Bernardini (refrigerazione)',valvola:'Marco Ferretti (compressori)',elettr:'Sara Monti (quadri elettrici)',pompa:'Roberto Ansaloni (meccanica)'};
+  let tecnico='Marco Ferretti (compressori)';
+  const inp=input.toLowerCase();
+  for(const[k,v] of Object.entries(tecnici)){if(inp.includes(k)){tecnico=v;break}}
+  document.getElementById('triage-result').innerHTML=`
+    <span class="badge-urgenza ${badge}">Urgenza ${urgenza}</span>
+    <div class="out-row"><span class="key">Causa probabile</span><span class="val">Guasto meccanico/pneumatico</span></div>
+    <div class="out-row"><span class="key">Prima azione</span><span class="val">Verifica pressioni e allarmi attivi</span></div>
+    <div class="out-row"><span class="key">Tecnico suggerito</span><span class="val">${tecnico}</span></div>
+    <div class="out-row"><span class="key">Tempo stimato</span><span class="val">2–3 ore</span></div>
+    <p style="margin-top:12px;font-size:.8rem;color:#888;">Il responsabile rivede e conferma prima dell'invio al tecnico.</p>`;
+  document.getElementById('triage-output').classList.add('visible');
+}
 
-  // DEMO PREVENTIVATORE
-  function runPreventivo(){
-    const input = document.getElementById('prev-input').value.trim();
-    if(!input){alert('Inserisci la descrizione della richiesta.');return;}
-    const urgente = input.toLowerCase().includes('urgent');
-    const num = 'PRV-' + String(Math.floor(Math.random()*900)+100);
-    document.getElementById('prev-result').innerHTML = `
-      <p style="margin-bottom:12px;"><strong>${num}</strong> — bozza generata in automatico</p>
-      <div class="out-row"><span class="key">Manodopera (2h)</span><span class="val">120,00 €</span></div>
-      <div class="out-row"><span class="key">Maggiorazione urgenza</span><span class="val">30,00 €</span></div>
-      <div class="out-row"><span class="key">Ricambi stimati</span><span class="val">85,00 €</span></div>
-      <div class="out-row"><span class="key">Trasferta</span><span class="val">25,00 €</span></div>
-      <div class="out-row" style="border-top:2px solid var(--line);margin-top:4px;padding-top:12px;">
-        <span class="key" style="font-weight:600;color:var(--ink);">Totale + IVA 22%</span>
-        <span class="val" style="color:var(--accent);font-size:1rem;">317,00 €</span>
-      </div>
-      <p style="margin-top:12px;font-size:.78rem;color:var(--ink-soft);">Bozza da rivedere prima dell'invio al cliente.</p>
-    `;
-    document.getElementById('prev-output').classList.add('visible');
-  }
+// Demo CRM
+function showCrmDetail(cliente,intervento,stato,tecnico,data){
+  document.getElementById('crm-result').innerHTML=`
+    <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
+    <div class="out-row"><span class="key">Ultimo intervento</span><span class="val">${intervento}</span></div>
+    <div class="out-row"><span class="key">Data</span><span class="val">${data}</span></div>
+    <div class="out-row"><span class="key">Tecnico</span><span class="val">${tecnico}</span></div>
+    <div class="out-row"><span class="key">Stato</span><span class="val">${stato}</span></div>`;
+  document.getElementById('crm-output').classList.add('visible');
+}
 
-  // DEMO RAPPORTINO
-  function runRapportino(){
-    const cliente = document.getElementById('rapp-cliente').value.trim() || 'Cliente non specificato';
-    const note = document.getElementById('rapp-note').value.trim();
-    const ore = document.getElementById('rapp-ore').value || '2';
-    if(!note){alert('Inserisci la descrizione del lavoro svolto.');return;}
-    const oggi = new Date().toLocaleDateString('it-IT');
-    const fatturate = Math.ceil(parseFloat(ore));
-    document.getElementById('rapp-result').innerHTML = `
-      <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
-      <div class="out-row"><span class="key">Data intervento</span><span class="val">${oggi}</span></div>
-      <div class="out-row"><span class="key">Ore lavorate</span><span class="val">${ore}h</span></div>
-      <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
-      <p style="margin-top:14px;font-size:.85rem;color:var(--ink-soft);line-height:1.6;"><strong style="color:var(--ink);">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
-      <p style="margin-top:10px;font-size:.78rem;color:var(--ink-soft);">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>
-    `;
-    document.getElementById('rapp-output').classList.add('visible');
-  }
+// Demo preventivatore
+function runPreventivo(){
+  const input=document.getElementById('prev-input').value.trim();
+  if(!input){alert('Inserisci la descrizione della richiesta.');return}
+  const num='PRV-'+String(Math.floor(Math.random()*900)+100);
+  document.getElementById('prev-result').innerHTML=`
+    <p style="margin-bottom:12px;font-weight:600;">${num} — bozza generata in automatico</p>
+    <div class="out-row"><span class="key">Manodopera (2h)</span><span class="val">120,00 €</span></div>
+    <div class="out-row"><span class="key">Maggiorazione urgenza</span><span class="val">30,00 €</span></div>
+    <div class="out-row"><span class="key">Ricambi stimati</span><span class="val">85,00 €</span></div>
+    <div class="out-row"><span class="key">Trasferta</span><span class="val">25,00 €</span></div>
+    <div class="out-row" style="border-top:2px solid #e8e8ee;margin-top:4px;padding-top:12px;">
+      <span class="key" style="font-weight:700;color:#1a1a2e;">Totale + IVA 22%</span>
+      <span class="val" style="font-size:1.05rem;">317,00 €</span>
+    </div>
+    <p style="margin-top:12px;font-size:.8rem;color:#888;">Bozza da rivedere prima dell'invio al cliente.</p>`;
+  document.getElementById('prev-output').classList.add('visible');
+}
+
+// Demo rapportino
+function runRapportino(){
+  const cliente=document.getElementById('rapp-cliente').value.trim()||'Cliente non specificato';
+  const note=document.getElementById('rapp-note').value.trim();
+  const ore=document.getElementById('rapp-ore').value||'2';
+  if(!note){alert('Inserisci la descrizione del lavoro svolto.');return}
+  const oggi=new Date().toLocaleDateString('it-IT');
+  const fatturate=Math.ceil(parseFloat(ore));
+  document.getElementById('rapp-result').innerHTML=`
+    <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
+    <div class="out-row"><span class="key">Data intervento</span><span class="val">${oggi}</span></div>
+    <div class="out-row"><span class="key">Ore lavorate</span><span class="val">${ore}h</span></div>
+    <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
+    <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
+    <p style="margin-top:10px;font-size:.78rem;color:#888;">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>`;
+  document.getElementById('rapp-output').classList.add('visible');
+}
 </script>
 </body>
 </html>
