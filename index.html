@@ -59,7 +59,7 @@ h1, h2, h3 {
   color: var(--text-main);
   line-height: 1.2;
 }
-h1 { font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; }
+h1 { font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.15; }
 h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; }
 h3 { font-size: 1.15rem; font-weight: 600; }
 
@@ -162,7 +162,11 @@ nav .inner {
 .hamburger.open span:nth-child(2) { opacity: 0; }
 .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-@media (max-width: 1100px) {
+/* voci extra: nascoste su desktop, visibili solo nel menu mobile */
+.nav-extra { display: none; }
+
+@media (max-width: 768px) {
+  .nav-extra { display: block; }
   .navlinks {
     display: none;
     flex-direction: column;
@@ -193,34 +197,35 @@ nav .inner {
 }
 .hero-grid {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 1fr 280px;
   align-items: center;
-  gap: 40px;
+  gap: 72px;
 }
-.hero-text { max-width: 600px; }
-.hero h1 { margin-bottom: 18px; }
+.hero-text { max-width: 580px; }
+.hero h1 { margin-bottom: 20px; }
 .hero h1 em {
   font-style: italic;
   color: var(--text-soft);
 }
 .hero-lead {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text-mid);
-  max-width: 540px;
+  max-width: 520px;
   line-height: 1.75;
-  margin-bottom: 30px;
+  margin-bottom: 32px;
 }
 .hero-lead strong { color: var(--text-main); font-weight: 600; }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-photo {
-  width: 180px;
-  height: 180px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
   border: 4px solid var(--border-light);
   flex-shrink: 0;
   display: block;
+  justify-self: center;
 }
 @media (max-width: 768px) {
   .hero { padding: 100px 0 60px; }
@@ -888,13 +893,14 @@ footer {
     <div class="navlinks" id="navlinks">
       <a href="#chi-sono">Chi sono</a>
       <a href="#lavori">Lavori</a>
-      <a href="#analisi-dati">Analisi Dati</a>
-      <a href="#applicativi">Applicativi</a>
-      <a href="#agente-ai">Agente AI</a>
       <a href="#ai-assessment">AI Assessment</a>
-      <a href="#strumenti">Strumenti</a>
-      <a href="#formazione">Formazione</a>
       <a href="#contatti">Contatti</a>
+      <!-- voci aggiuntive nel menu mobile -->
+      <a href="#analisi-dati" class="nav-extra">Analisi Dati</a>
+      <a href="#applicativi" class="nav-extra">Applicativi</a>
+      <a href="#agente-ai" class="nav-extra">Agente AI</a>
+      <a href="#strumenti" class="nav-extra">Strumenti</a>
+      <a href="#formazione" class="nav-extra">Formazione</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -907,7 +913,7 @@ footer {
   <div class="inner">
     <div class="hero-grid">
       <div class="hero-text">
-        <h1>Il vero <em>collo di bottiglia</em> dell'AI in azienda non è la tecnologia.</h1>
+        <h1>Il vero <em>collo di bottiglia</em><br>dell'AI non è la tecnologia.</h1>
         <p class="hero-lead">È trovare chi sa tradurla nei processi che già esistono. Vengo dalle operations industriali, non dallo sviluppo software: <strong>qui sotto non trovi un curriculum, trovi le prove.</strong></p>
         <div class="hero-cta">
           <a class="btn-dark" href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank">LinkedIn →</a>
