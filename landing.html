@@ -320,6 +320,25 @@ nav{
   padding:16px;margin-top:4px;
 }
 .demo-output.visible{display:block}
+.triage-loading{
+  display:none;text-align:center;padding:20px 0;
+}
+.triage-loading.visible{display:block}
+.triage-loading-dots{
+  display:inline-flex;gap:6px;align-items:center;
+  font-size:.85rem;color:#888;font-weight:500;
+}
+.triage-loading-dots span{
+  width:7px;height:7px;border-radius:50%;
+  background:#1a1a2e;opacity:.2;
+  animation:dotpulse 1.2s infinite ease-in-out;
+}
+.triage-loading-dots span:nth-child(2){animation-delay:.2s}
+.triage-loading-dots span:nth-child(3){animation-delay:.4s}
+@keyframes dotpulse{
+  0%,80%,100%{opacity:.2;transform:scale(.85)}
+  40%{opacity:1;transform:scale(1)}
+}
 .out-label{
   font-size:.7rem;font-weight:700;
   letter-spacing:.1em;text-transform:uppercase;
@@ -489,7 +508,7 @@ nav{
         <span class="card-desc">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti. L'AI analizza urgenza, causa probabile e suggerisce il tecnico — il responsabile decide.</span>
         <span class="card-cost">Costo API: pochi centesimi a richiesta</span>
         <div class="card-actions">
-          <button class="btn-card-demo" onclick="openModal('modal-triage')">Prova la demo</button>
+          <button class="btn-card-demo" onclick="openModal('modal-triage')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">Versione completa</a>
         </div>
       </div>
@@ -499,7 +518,7 @@ nav{
         <span class="card-desc">Centralizza clienti e interventi in un posto solo, zero abbonamenti software. Gira nel browser, dati sempre in locale.</span>
         <span class="card-cost">Costo: zero — nessun server</span>
         <div class="card-actions">
-          <button class="btn-card-demo" onclick="openModal('modal-crm')">Prova la demo</button>
+          <button class="btn-card-demo" onclick="openModal('modal-crm')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">Versione completa</a>
         </div>
       </div>
@@ -509,7 +528,7 @@ nav{
         <span class="card-desc">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale. Descrivi la richiesta in linguaggio naturale, l'AI struttura le voci.</span>
         <span class="card-cost">Costo API: pochi centesimi a preventivo</span>
         <div class="card-actions">
-          <button class="btn-card-demo" onclick="openModal('modal-prev')">Prova la demo</button>
+          <button class="btn-card-demo" onclick="openModal('modal-prev')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Versione completa</a>
         </div>
       </div>
@@ -519,7 +538,7 @@ nav{
         <span class="card-desc">Il tecnico chiude il rapportino sul campo. Timer automatico, firma cliente su canvas, generazione AI del testo. Niente carta, niente trascrizione in ufficio.</span>
         <span class="card-cost">Costo API: pochi centesimi a rapportino</span>
         <div class="card-actions">
-          <button class="btn-card-demo" onclick="openModal('modal-rapp')">Prova la demo</button>
+          <button class="btn-card-demo" onclick="openModal('modal-rapp')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a>
         </div>
       </div>
@@ -570,7 +589,13 @@ nav{
       <option value="media">Media — degrado prestazioni</option>
       <option value="bassa">Bassa — manutenzione programmata</option>
     </select>
-    <button class="btn-modal-run" onclick="runTriage()">Analizza richiesta</button>
+    <button class="btn-modal-run" id="triage-btn" onclick="runTriage()">Analizza richiesta</button>
+    <div class="triage-loading" id="triage-loading">
+      <div class="triage-loading-dots">
+        <span></span><span></span><span></span>
+        &nbsp;Analisi in corso…
+      </div>
+    </div>
     <div class="demo-output" id="triage-output">
       <span class="out-label">Analisi AI</span>
       <div id="triage-result"></div>
@@ -584,37 +609,14 @@ nav{
     <button class="modal-close" onclick="closeModal('modal-crm')">✕</button>
     <h3>CRM per PMI</h3>
     <span class="modal-sub">Demo simulata — dati fittizi</span>
-    <label>Clienti attivi</label>
-    <div style="overflow-x:auto;margin-bottom:16px;">
-      <table style="width:100%;border-collapse:collapse;font-size:.83rem;">
-        <thead>
-          <tr style="border-bottom:1.5px solid #e8e8ee;">
-            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Cliente</th>
-            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Ultimo intervento</th>
-            <th style="text-align:left;padding:8px 6px;color:#888;font-weight:600;">Stato</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr onclick="showCrmDetail('Termoflex Srl','Revisione compressore','Chiuso','Marco F.','12/09/2026')" style="cursor:pointer;border-bottom:1px solid #f0f0f5;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;font-weight:500;">Termoflex Srl</td>
-            <td style="padding:10px 6px;color:#888;">12/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#16a34a;font-size:.75rem;font-weight:700;">CHIUSO</span></td>
-          </tr>
-          <tr onclick="showCrmDetail('Pneumatec Srl','Perdita circuito frigo','Aperto','Luca B.','10/09/2026')" style="cursor:pointer;border-bottom:1px solid #f0f0f5;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;font-weight:500;">Pneumatec Srl</td>
-            <td style="padding:10px 6px;color:#888;">10/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#d97706;font-size:.75rem;font-weight:700;">APERTO</span></td>
-          </tr>
-          <tr onclick="showCrmDetail('Fluidotech Italia','Sostituzione valvola','In lavorazione','Sara M.','08/09/2026')" style="cursor:pointer;transition:background .15s;" onmouseover="this.style.background='#f7f7fb'" onmouseout="this.style.background=''">
-            <td style="padding:10px 6px;font-weight:500;">Fluidotech Italia</td>
-            <td style="padding:10px 6px;color:#888;">08/09/2026</td>
-            <td style="padding:10px 6px;"><span style="color:#2563eb;font-size:.75rem;font-weight:700;">IN LAVORAZIONE</span></td>
-          </tr>
-        </tbody>
-      </table>
+    <label>Cerca un cliente</label>
+    <input type="text" id="crm-input" placeholder="Es: Termoflex, Pneumatec, Fluidotech…">
+    <button class="btn-modal-run" id="crm-btn" onclick="runCrm()">Cerca nel CRM</button>
+    <div class="triage-loading" id="crm-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Ricerca in corso…</div>
     </div>
     <div class="demo-output" id="crm-output">
-      <span class="out-label">Dettaglio cliente</span>
+      <span class="out-label">Scheda cliente</span>
       <div id="crm-result"></div>
     </div>
   </div>
@@ -628,7 +630,10 @@ nav{
     <span class="modal-sub">Demo simulata — dati fittizi</span>
     <label>Descrivi la richiesta del cliente</label>
     <textarea id="prev-input" placeholder="Es: intervento urgente su compressore fermo, sostituzione valvola di sicurezza e verifica impianto"></textarea>
-    <button class="btn-modal-run" onclick="runPreventivo()">Genera bozza preventivo</button>
+    <button class="btn-modal-run" id="prev-btn" onclick="runPreventivo()">Genera bozza preventivo</button>
+    <div class="triage-loading" id="prev-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Elaborazione in corso…</div>
+    </div>
     <div class="demo-output" id="prev-output">
       <span class="out-label">Bozza preventivo</span>
       <div id="prev-result"></div>
@@ -648,7 +653,10 @@ nav{
     <textarea id="rapp-note" placeholder="Es: sostituzione filtro separatore, verifica pressioni, test ciclo completo"></textarea>
     <label>Ore lavorate</label>
     <input type="number" id="rapp-ore" placeholder="Es: 2.5" min="0.5" step="0.5">
-    <button class="btn-modal-run" onclick="runRapportino()">Genera rapportino</button>
+    <button class="btn-modal-run" id="rapp-btn" onclick="runRapportino()">Genera rapportino</button>
+    <div class="triage-loading" id="rapp-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Generazione in corso…</div>
+    </div>
     <div class="demo-output" id="rapp-output">
       <span class="out-label">Rapportino generato</span>
       <div id="rapp-result"></div>
@@ -683,50 +691,98 @@ function runTriage(){
   const input=document.getElementById('triage-input').value.trim();
   const prio=document.getElementById('triage-prio').value;
   if(!input){alert('Inserisci una descrizione del guasto.');return}
-  const urgenza=prio==='alta'?'Alta':'Media';
-  const badge=prio==='alta'?'badge-alta':'badge-media';
-  const tecnici={compressore:'Marco Ferretti (compressori)',frigo:'Luca Bernardini (refrigerazione)',valvola:'Marco Ferretti (compressori)',elettr:'Sara Monti (quadri elettrici)',pompa:'Roberto Ansaloni (meccanica)'};
-  let tecnico='Marco Ferretti (compressori)';
-  const inp=input.toLowerCase();
-  for(const[k,v] of Object.entries(tecnici)){if(inp.includes(k)){tecnico=v;break}}
-  document.getElementById('triage-result').innerHTML=`
-    <span class="badge-urgenza ${badge}">Urgenza ${urgenza}</span>
-    <div class="out-row"><span class="key">Causa probabile</span><span class="val">Guasto meccanico/pneumatico</span></div>
-    <div class="out-row"><span class="key">Prima azione</span><span class="val">Verifica pressioni e allarmi attivi</span></div>
-    <div class="out-row"><span class="key">Tecnico suggerito</span><span class="val">${tecnico}</span></div>
-    <div class="out-row"><span class="key">Tempo stimato</span><span class="val">2–3 ore</span></div>
-    <p style="margin-top:12px;font-size:.8rem;color:#888;">Il responsabile rivede e conferma prima dell'invio al tecnico.</p>`;
-  document.getElementById('triage-output').classList.add('visible');
+  const btn=document.getElementById('triage-btn');
+  const loading=document.getElementById('triage-loading');
+  const output=document.getElementById('triage-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const urgenza=prio==='alta'?'Alta':'Media';
+    const badge=prio==='alta'?'badge-alta':'badge-media';
+    const tecnici={compressore:'Marco Ferretti (compressori)',frigo:'Luca Bernardini (refrigerazione)',valvola:'Marco Ferretti (compressori)',elettr:'Sara Monti (quadri elettrici)',pompa:'Roberto Ansaloni (meccanica)'};
+    let tecnico='Marco Ferretti (compressori)';
+    const inp=input.toLowerCase();
+    for(const[k,v] of Object.entries(tecnici)){if(inp.includes(k)){tecnico=v;break}}
+    document.getElementById('triage-result').innerHTML=`
+      <span class="badge-urgenza ${badge}">Urgenza ${urgenza}</span>
+      <div class="out-row"><span class="key">Causa probabile</span><span class="val">Guasto meccanico/pneumatico</span></div>
+      <div class="out-row"><span class="key">Prima azione</span><span class="val">Verifica pressioni e allarmi attivi</span></div>
+      <div class="out-row"><span class="key">Tecnico suggerito</span><span class="val">${tecnico}</span></div>
+      <div class="out-row"><span class="key">Tempo stimato</span><span class="val">2–3 ore</span></div>
+      <p style="margin-top:12px;font-size:.8rem;color:#888;">Il responsabile rivede e conferma prima dell'invio al tecnico.</p>`;
+    output.classList.add('visible');
+  },2000);
 }
 
 // Demo CRM
-function showCrmDetail(cliente,intervento,stato,tecnico,data){
-  document.getElementById('crm-result').innerHTML=`
-    <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
-    <div class="out-row"><span class="key">Ultimo intervento</span><span class="val">${intervento}</span></div>
-    <div class="out-row"><span class="key">Data</span><span class="val">${data}</span></div>
-    <div class="out-row"><span class="key">Tecnico</span><span class="val">${tecnico}</span></div>
-    <div class="out-row"><span class="key">Stato</span><span class="val">${stato}</span></div>`;
-  document.getElementById('crm-output').classList.add('visible');
+const crmDB={
+  'termoflex':{nome:'Termoflex Srl',settore:'Aria compressa',referente:'Ing. Rossi',telefono:'051 234 5678',interventi:14,ultimo:'Revisione compressore Atlas Copco GA55',data:'12/09/2026',tecnico:'Marco F.',stato:'CHIUSO',statoColor:'#16a34a',note:'Cliente fidelizzato, contratto manutenzione annuale. Prossima revisione: marzo 2027.'},
+  'pneumatec':{nome:'Pneumatec Srl',settore:'Sistemi pneumatici',referente:'Sig. Bianchi',telefono:'051 876 5432',interventi:7,ultimo:'Perdita circuito frigo — reparto produzione',data:'10/09/2026',tecnico:'Luca B.',stato:'APERTO',statoColor:'#d97706',note:'Intervento urgente in corso. Attesa ricambio valvola termostatica.'},
+  'fluidotech':{nome:'Fluidotech Italia Srl',settore:'Impianti idraulici',referente:'Dott.ssa Verdi',telefono:'051 345 6789',interventi:3,ultimo:'Sostituzione valvola di sicurezza linea 3',data:'08/09/2026',tecnico:'Sara M.',stato:'IN LAVORAZIONE',statoColor:'#2563eb',note:'Nuovo cliente da giugno 2026. Impianto datato, valutare contratto manutenzione.'}
+};
+function runCrm(){
+  const input=document.getElementById('crm-input').value.trim().toLowerCase();
+  if(!input){alert('Inserisci il nome di un cliente.');return}
+  const btn=document.getElementById('crm-btn');
+  const loading=document.getElementById('crm-loading');
+  const output=document.getElementById('crm-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    let found=null;
+    for(const[k,v] of Object.entries(crmDB)){if(input.includes(k)||k.includes(input)){found=v;break}}
+    if(!found){
+      document.getElementById('crm-result').innerHTML=`<p style="color:#888;font-size:.88rem;">Nessun cliente trovato per "<strong>${input}</strong>". Prova con: Termoflex, Pneumatec o Fluidotech.</p>`;
+    } else {
+      document.getElementById('crm-result').innerHTML=`
+        <div class="out-row"><span class="key">Cliente</span><span class="val">${found.nome}</span></div>
+        <div class="out-row"><span class="key">Settore</span><span class="val">${found.settore}</span></div>
+        <div class="out-row"><span class="key">Referente</span><span class="val">${found.referente}</span></div>
+        <div class="out-row"><span class="key">Telefono</span><span class="val">${found.telefono}</span></div>
+        <div class="out-row"><span class="key">Interventi totali</span><span class="val">${found.interventi}</span></div>
+        <div class="out-row"><span class="key">Ultimo intervento</span><span class="val" style="max-width:55%;text-align:right;">${found.ultimo}</span></div>
+        <div class="out-row"><span class="key">Data</span><span class="val">${found.data}</span></div>
+        <div class="out-row"><span class="key">Tecnico</span><span class="val">${found.tecnico}</span></div>
+        <div class="out-row" style="border-bottom:none;"><span class="key">Stato ticket</span><span class="val" style="color:${found.statoColor};font-weight:700;">${found.stato}</span></div>
+        <p style="margin-top:12px;font-size:.8rem;color:#666;line-height:1.55;border-top:1px solid #e8e8ee;padding-top:10px;">${found.note}</p>`;
+    }
+    output.classList.add('visible');
+  },2000);
 }
 
 // Demo preventivatore
 function runPreventivo(){
   const input=document.getElementById('prev-input').value.trim();
   if(!input){alert('Inserisci la descrizione della richiesta.');return}
-  const num='PRV-'+String(Math.floor(Math.random()*900)+100);
-  document.getElementById('prev-result').innerHTML=`
-    <p style="margin-bottom:12px;font-weight:600;">${num} — bozza generata in automatico</p>
-    <div class="out-row"><span class="key">Manodopera (2h)</span><span class="val">120,00 €</span></div>
-    <div class="out-row"><span class="key">Maggiorazione urgenza</span><span class="val">30,00 €</span></div>
-    <div class="out-row"><span class="key">Ricambi stimati</span><span class="val">85,00 €</span></div>
-    <div class="out-row"><span class="key">Trasferta</span><span class="val">25,00 €</span></div>
-    <div class="out-row" style="border-top:2px solid #e8e8ee;margin-top:4px;padding-top:12px;">
-      <span class="key" style="font-weight:700;color:#1a1a2e;">Totale + IVA 22%</span>
-      <span class="val" style="font-size:1.05rem;">317,00 €</span>
-    </div>
-    <p style="margin-top:12px;font-size:.8rem;color:#888;">Bozza da rivedere prima dell'invio al cliente.</p>`;
-  document.getElementById('prev-output').classList.add('visible');
+  const btn=document.getElementById('prev-btn');
+  const loading=document.getElementById('prev-loading');
+  const output=document.getElementById('prev-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const num='PRV-'+String(Math.floor(Math.random()*900)+100);
+    document.getElementById('prev-result').innerHTML=`
+      <p style="margin-bottom:12px;font-weight:600;">${num} — bozza generata in automatico</p>
+      <div class="out-row"><span class="key">Manodopera (2h)</span><span class="val">120,00 €</span></div>
+      <div class="out-row"><span class="key">Maggiorazione urgenza</span><span class="val">30,00 €</span></div>
+      <div class="out-row"><span class="key">Ricambi stimati</span><span class="val">85,00 €</span></div>
+      <div class="out-row"><span class="key">Trasferta</span><span class="val">25,00 €</span></div>
+      <div class="out-row" style="border-top:2px solid #e8e8ee;margin-top:4px;padding-top:12px;">
+        <span class="key" style="font-weight:700;color:#1a1a2e;">Totale + IVA 22%</span>
+        <span class="val" style="font-size:1.05rem;">317,00 €</span>
+      </div>
+      <p style="margin-top:12px;font-size:.8rem;color:#888;">Bozza da rivedere prima dell'invio al cliente.</p>`;
+    output.classList.add('visible');
+  },2000);
 }
 
 // Demo rapportino
@@ -735,16 +791,26 @@ function runRapportino(){
   const note=document.getElementById('rapp-note').value.trim();
   const ore=document.getElementById('rapp-ore').value||'2';
   if(!note){alert('Inserisci la descrizione del lavoro svolto.');return}
-  const oggi=new Date().toLocaleDateString('it-IT');
-  const fatturate=Math.ceil(parseFloat(ore));
-  document.getElementById('rapp-result').innerHTML=`
-    <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
-    <div class="out-row"><span class="key">Data intervento</span><span class="val">${oggi}</span></div>
-    <div class="out-row"><span class="key">Ore lavorate</span><span class="val">${ore}h</span></div>
-    <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
-    <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
-    <p style="margin-top:10px;font-size:.78rem;color:#888;">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>`;
-  document.getElementById('rapp-output').classList.add('visible');
+  const btn=document.getElementById('rapp-btn');
+  const loading=document.getElementById('rapp-loading');
+  const output=document.getElementById('rapp-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const oggi=new Date().toLocaleDateString('it-IT');
+    const fatturate=Math.ceil(parseFloat(ore));
+    document.getElementById('rapp-result').innerHTML=`
+      <div class="out-row"><span class="key">Cliente</span><span class="val">${cliente}</span></div>
+      <div class="out-row"><span class="key">Data intervento</span><span class="val">${oggi}</span></div>
+      <div class="out-row"><span class="key">Ore lavorate</span><span class="val">${ore}h</span></div>
+      <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
+      <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
+      <p style="margin-top:10px;font-size:.78rem;color:#888;">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>`;
+    output.classList.add('visible');
+  },2000);
 }
 </script>
 </body>
