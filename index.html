@@ -59,7 +59,7 @@ h1, h2, h3 {
   color: var(--text-main);
   line-height: 1.2;
 }
-h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; letter-spacing: -0.03em; }
+h1 { font-size: clamp(1.9rem, 3.2vw, 2.8rem); font-weight: 700; letter-spacing: -0.03em; }
 h2 { font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 700; letter-spacing: -0.02em; }
 h3 { font-size: 1.15rem; font-weight: 600; }
 
@@ -172,12 +172,15 @@ nav .inner {
     border-bottom: 1px solid var(--border-light);
     padding: 20px 24px 28px;
     gap: 0;
+    overflow-y: auto;
+    max-height: calc(100vh - 68px);
   }
   .navlinks.open { display: flex; }
   .navlinks a {
     font-size: 1rem;
-    padding: 12px 0;
+    padding: 14px 0;
     border-bottom: 1px solid var(--border-light);
+    white-space: nowrap;
   }
   .navlinks a:last-child { border-bottom: none; }
   .hamburger { display: flex; }
@@ -192,26 +195,26 @@ nav .inner {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  gap: 64px;
+  gap: 40px;
 }
-.hero-text { max-width: 620px; }
-.hero h1 { margin-bottom: 22px; }
+.hero-text { max-width: 600px; }
+.hero h1 { margin-bottom: 18px; }
 .hero h1 em {
   font-style: italic;
   color: var(--text-soft);
 }
 .hero-lead {
-  font-size: 1.08rem;
+  font-size: 1rem;
   color: var(--text-mid);
-  max-width: 560px;
+  max-width: 540px;
   line-height: 1.75;
-  margin-bottom: 36px;
+  margin-bottom: 30px;
 }
 .hero-lead strong { color: var(--text-main); font-weight: 600; }
-.hero-cta { display: flex; gap: 14px; flex-wrap: wrap; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-photo {
-  width: 240px;
-  height: 240px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   object-fit: cover;
   object-position: center top;
