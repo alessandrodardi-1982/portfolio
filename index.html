@@ -481,7 +481,7 @@ section.alt { background: var(--gray-bg); }
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 10px 20px;
+  padding: 9px 18px;
   background: transparent;
   border: 1.5px solid var(--border-dark);
   border-radius: 6px;
@@ -490,6 +490,8 @@ section.alt { background: var(--gray-bg); }
   font-size: 0.85rem;
   font-weight: 600;
   transition: border-color 0.2s, background 0.2s;
+  width: fit-content;
+  align-self: flex-start;
 }
 .work-link:hover { border-color: var(--navy); background: var(--gray-bg); }
 .work-links { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
@@ -685,7 +687,7 @@ section.alt { background: var(--gray-bg); }
   flex-wrap: wrap;
   gap: 6px;
 }
-.mini-body .work-link { font-size: 0.82rem; margin-top: 4px; padding: 8px 16px; }
+.mini-body .work-link { font-size: 0.82rem; margin-top: 4px; padding: 8px 16px; width: fit-content; }
 
 /* ── STRUMENTI ────────────────────────────────── */
 .tools-wrap {
@@ -893,14 +895,14 @@ footer {
     <div class="navlinks" id="navlinks">
       <a href="#chi-sono">Chi sono</a>
       <a href="#lavori">Lavori</a>
-      <a href="#ai-assessment">AI Assessment</a>
+      <a href="#analisi-dati">Analisi Dati</a>
+      <a href="#applicativi">Applicativi AI</a>
+      <a href="#formazione">Formazione</a>
       <a href="#contatti">Contatti</a>
-      <!-- voci aggiuntive nel menu mobile -->
-      <a href="#analisi-dati" class="nav-extra">Analisi Dati</a>
-      <a href="#applicativi" class="nav-extra">Applicativi</a>
+      <!-- voci extra solo mobile -->
       <a href="#agente-ai" class="nav-extra">Agente AI</a>
+      <a href="#ai-assessment" class="nav-extra">AI Assessment</a>
       <a href="#strumenti" class="nav-extra">Strumenti</a>
-      <a href="#formazione" class="nav-extra">Formazione</a>
     </div>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
