@@ -247,7 +247,13 @@ nav{
 .card-cost{
   font-size:.75rem;font-weight:600;
   color:#aaa;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:8px;display:block;
+}
+.card-privacy{
+  font-size:.75rem;font-weight:500;
+  color:#6b8f6b;
   margin-bottom:16px;display:block;
+  line-height:1.5;
 }
 .card-actions{display:flex;gap:8px;flex-wrap:wrap}
 .btn-card-demo{
@@ -485,6 +491,7 @@ nav{
       <p style="text-align:justify;hyphens:auto;">Laurea in Ingegneria Gestionale a Bologna, otto anni nelle operations industriali: aria compressa, refrigerazione, impianti. Ho coordinato tecnici, gestito fornitori, seguito clienti dalla preventivazione alla chiusura intervento. Ho imparato a leggere i problemi prima che diventino emergenze e a tenere insieme persone, dati e scadenze.</p>
       <p style="text-align:justify;hyphens:auto;">Negli ultimi anni ho aggiunto un layer diverso: automazione dei processi, analisi dati, AI applicata. Non per cambiare mestiere, ma per fare meglio quello che so già fare e per portare quella mentalità in contesti che ne hanno bisogno.</p>
       <p style="text-align:justify;hyphens:auto;">I problemi che ho imparato a gestire nell'industria (coordinamento, priorità, dati dispersi, persone da tenere allineate) li ritrovo ovunque. Il settore cambia, il metodo no.</p>
+      <p style="text-align:justify;hyphens:auto;">So anche distinguere cosa può girare in locale (senza che un dato esca dall'azienda) e cosa richiede un presidio GDPR o AI Act. Per molte PMI non è un dettaglio: è la differenza tra poter adottare uno strumento e non poterlo fare.</p>
     </div>
   </div>
 </section>
@@ -520,6 +527,7 @@ nav{
         <span class="card-name">Agente triage</span>
         <span class="card-desc">Riduce il tempo di risposta alla prima richiesta cliente da ore a minuti. L'AI analizza urgenza, causa probabile e suggerisce il tecnico — il responsabile decide.</span>
         <span class="card-cost">Costo API: pochi centesimi a richiesta</span>
+        <span class="card-privacy">🔒 API con DPA firmato — nessun dato usato per addestrare modelli</span>
         <div class="card-actions">
           <button class="btn-card-demo" onclick="openModal('modal-triage')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/agente_supporto.html" target="_blank">Versione completa</a>
@@ -530,6 +538,7 @@ nav{
         <span class="card-name">CRM per PMI</span>
         <span class="card-desc">Centralizza clienti e interventi in un posto solo, zero abbonamenti software. Gira nel browser, dati sempre in locale.</span>
         <span class="card-cost">Costo: zero — nessun server</span>
+        <span class="card-privacy">🔒 I dati restano nel browser del cliente — nessuna nuvola, nessun dato che esce dall'azienda. GDPR by design.</span>
         <div class="card-actions">
           <button class="btn-card-demo" onclick="openModal('modal-crm')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://alessandro-dardi.netlify.app/crm_pmi.html" target="_blank">Versione completa</a>
@@ -540,6 +549,7 @@ nav{
         <span class="card-name">Preventivatore AI</span>
         <span class="card-desc">Bozza preventivo in 30 secondi invece di 15-20 minuti di lavoro manuale. Descrivi la richiesta in linguaggio naturale, l'AI struttura le voci.</span>
         <span class="card-cost">Costo API: pochi centesimi a preventivo</span>
+        <span class="card-privacy">🔒 Le descrizioni inviate non vengono memorizzate né usate per addestrare modelli. DPA attivo.</span>
         <div class="card-actions">
           <button class="btn-card-demo" onclick="openModal('modal-prev')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Versione completa</a>
@@ -550,6 +560,7 @@ nav{
         <span class="card-name">Rapportino intervento</span>
         <span class="card-desc">Il tecnico chiude il rapportino sul campo. Timer automatico, firma cliente su canvas, generazione AI del testo. Niente carta, niente trascrizione in ufficio.</span>
         <span class="card-cost">Costo API: pochi centesimi a rapportino</span>
+        <span class="card-privacy">🔒 I dati del rapportino non escono dall'azienda fino all'invio deliberato. Nessuna copia su server terzi.</span>
         <div class="card-actions">
           <button class="btn-card-demo" onclick="openModal('modal-rapp')">Guarda come funziona</button>
           <a class="btn-card-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a>
