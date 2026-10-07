@@ -519,7 +519,7 @@ nav{
   <div class="projects-inner">
     <span class="section-label">Progetti</span>
     <h2>Automatizzo processi, analizzo dati operativi e integro strumenti AI. Per chi vuole lavorare meglio senza cambiare tutto.</h2>
-    <p class="projects-intro">Quattro strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
+    <p class="projects-intro">Cinque strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
 
     <div class="project-grid">
       <div class="project-card">
@@ -566,10 +566,21 @@ nav{
           <a class="btn-card-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a>
         </div>
       </div>
+      <div class="project-card">
+        <div class="card-icon">📊</div>
+        <span class="card-name">Briefing operativo</span>
+        <span class="card-desc">Carica i KPI della settimana (Excel o CSV) e ottieni un briefing strutturato in 30 secondi: executive summary, trend, priorità e azioni concrete.</span>
+        <span class="card-cost">Costo API: frazioni di centesimo a elaborazione</span>
+        <span class="card-privacy">🔒 Il file resta sul tuo dispositivo. Il testo viene inviato solo al momento della generazione — nessun dato salvato su server terzi.</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-brief')">Guarda come funziona</button>
+          <a class="btn-card-full" href="https://teal-sawine-642e88.netlify.app/" target="_blank">Versione completa</a>
+        </div>
+      </div>
     </div>
 
     <div class="projects-cta-row">
-      <a class="btn-outline" href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Tutti i 12 progetti nel portfolio →</a>
+      <a class="btn-outline" href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Tutti i 13 progetti nel portfolio →</a>
     </div>
   </div>
 </section>
@@ -684,6 +695,37 @@ nav{
     <div class="demo-output" id="rapp-output">
       <span class="out-label">Rapportino generato</span>
       <div id="rapp-result"></div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-brief">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-brief')">✕</button>
+    <h3>Briefing operativo</h3>
+    <span class="modal-sub">Demo simulata — dataset fittizio</span>
+    <label>Contesto settimana</label>
+    <select id="brief-contesto">
+      <option value="">— Nessun contesto aggiuntivo —</option>
+      <option value="Settimana con picco interventi nel reparto produzione">Picco interventi — reparto produzione</option>
+      <option value="Un tecnico in ferie, squadra ridotta">Tecnico in ferie — squadra ridotta</option>
+      <option value="Fine mese, rendicontazione KPI verso direzione">Fine mese — rendicontazione direzione</option>
+      <option value="Anomalia ricorrente su linea B, OEE sotto soglia">Anomalia linea B — OEE sotto soglia</option>
+      <option value="Settimana post-fermo impianto, rientro a pieno regime">Post-fermo impianto — rientro a regime</option>
+    </select>
+    <label>Focus del briefing</label>
+    <select id="brief-focus">
+      <option value="generale">Panoramica generale</option>
+      <option value="anomalie">Anomalie e priorità</option>
+      <option value="tecnici">Performance tecnici</option>
+    </select>
+    <button class="btn-modal-run" id="brief-btn" onclick="runBriefing()">Genera briefing</button>
+    <div class="triage-loading" id="brief-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Analisi KPI in corso…</div>
+    </div>
+    <div class="demo-output" id="brief-output">
+      <span class="out-label">Briefing generato</span>
+      <div id="brief-result"></div>
     </div>
   </div>
 </div>
@@ -833,6 +875,32 @@ function runRapportino(){
       <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
       <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
       <p style="margin-top:10px;font-size:.78rem;color:#888;">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>`;
+    output.classList.add('visible');
+  },2000);
+}
+
+// Demo briefing
+function runBriefing(){
+  const contesto=document.getElementById('brief-contesto').value.trim();
+  const focus=document.getElementById('brief-focus').value;
+  const btn=document.getElementById('brief-btn');
+  const loading=document.getElementById('brief-loading');
+  const output=document.getElementById('brief-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const focusLabel={generale:'Panoramica generale',anomalie:'Anomalie e priorità',tecnici:'Performance tecnici'};
+    const ctx=contesto||'Settimana standard — nessun contesto aggiuntivo';
+    document.getElementById('brief-result').innerHTML=`
+      <div class="out-row"><span class="key">Settimana</span><span class="val">KPI W40 — 7 giorni</span></div>
+      <div class="out-row"><span class="key">Focus</span><span class="val">${focusLabel[focus]}</span></div>
+      <div class="out-row"><span class="key">Interventi completati</span><span class="val">34 (↑12% vs settimana precedente)</span></div>
+      <div class="out-row"><span class="key">Anomalia rilevata</span><span class="val">OEE linea B sotto soglia (68% vs target 80%)</span></div>
+      <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Executive summary:</strong><br>Settimana positiva sul volume interventi. Punto critico: linea B con OEE in calo costante da 3 settimane. Priorità: ispezione pianificata entro venerdì.${ctx ? '<br><em style="color:#888;font-size:.8rem;">Contesto applicato: ' + ctx + '</em>' : ''}</p>
+      <p style="margin-top:8px;font-size:.78rem;color:#888;">Dataset dimostrativo — KPI fittizi inclusi nel tool.</p>`;
     output.classList.add('visible');
   },2000);
 }
