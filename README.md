@@ -1,3 +1,4 @@
+[README.md](https://github.com/user-attachments/files/33153216/README.md)
 # Portfolio — Alessandro Dardi
 
 **Operations & Digital Transformation** · Bologna
@@ -21,7 +22,7 @@ Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a saper
 | # | Sezione | Contenuto |
 |---|---|---|
 | 00 | **Chi sono** | Posizionamento: dalle operations industriali agli strumenti digitali |
-| 01 | **Lavori** | 8 progetti end-to-end (automazione, AI, analisi, gestione) |
+| 01 | **Lavori** | 13 progetti end-to-end (automazione, AI, analisi, gestione) |
 | 02 | **Analisi Dati** | 4 dashboard generate con Claude API |
 | 03 | **Applicativi** | CRM per PMI |
 | 04 | **Agente AI** | Agente di triage per supporto tecnico industriale |
@@ -42,6 +43,8 @@ Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a saper
 | A8 | Gestione ricambi & magazzino | Evitare rotture di stock sui ricambi critici, ABC analysis | Chart.js, Claude API |
 | A9 | Preventivatore AI | Tradurre una richiesta cliente in linguaggio naturale in un preventivo strutturato | Claude API, Netlify Functions |
 | A10 | Audit impianti | Guidare un'ispezione tecnica e generare il verbale automaticamente | Claude API, Netlify Functions |
+| A12 | Rapportino Intervento | Compilare il rapportino sul campo con firma cliente e testi generati da AI | Claude API, Netlify Functions, Canvas API |
+| A13 | Briefing Operativo | Trasformare KPI settimanali in un briefing strutturato in 30 secondi | Claude API, Netlify Functions, SheetJS |
 
 **CRM per PMI** (sezione Applicativi): gestione anagrafica clienti, storico interventi e pipeline — single-file HTML, zero dipendenze server.
 
