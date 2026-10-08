@@ -573,7 +573,7 @@ nav{
 <section class="stats">
   <div class="stats-inner">
     <div class="stat">
-      <span class="stat-num">12</span>
+      <span class="stat-num">13</span>
       <span class="stat-label">Strumenti costruiti</span>
     </div>
     <div class="stat">
@@ -592,22 +592,22 @@ nav{
   <div class="projects-inner">
     <span class="section-label">Progetti</span>
     <h2>Automatizzo processi, analizzo dati operativi e integro strumenti AI. Per chi vuole lavorare meglio senza cambiare tutto.</h2>
-    <p class="projects-intro">Cinque strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
+    <p class="projects-intro">Sei strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
 
     <!-- FEATURED — ultimo progetto -->
     <div class="project-featured">
       <span class="badge-nuovo">✦ Nuovo</span>
       <div class="featured-body">
-        <div class="featured-icon">📊</div>
-        <span class="featured-name">Briefing operativo</span>
-        <p class="featured-desc">Carica i KPI della settimana (Excel o CSV) e ottieni un briefing strutturato in 30 secondi: executive summary, trend, priorità e azioni concrete. Niente copia-incolla da tabelle, niente formattazione manuale.</p>
+        <div class="featured-icon">📄</div>
+        <span class="featured-name">Analisi documento</span>
+        <p class="featured-desc">Carica un documento aziendale (preventivo, contratto, email commerciale, bando) e ottieni in 30 secondi una sintesi strutturata in 5 sezioni: cosa include, punti di attenzione, condizioni chiave e domande da fare al fornitore.</p>
         <div class="featured-meta">
           <span class="card-cost">Costo API: frazioni di centesimo a elaborazione</span>
-          <span class="card-privacy">🔒 Il file resta sul tuo dispositivo. Il testo viene inviato solo al momento della generazione — nessun dato salvato su server terzi.</span>
+          <span class="card-privacy">🔒 Il testo è inviato direttamente ad Anthropic API — nessun server intermedio. La chiave API resta nel browser.</span>
         </div>
         <div class="featured-actions">
-          <button class="btn-featured-demo" onclick="openModal('modal-brief')">Guarda come funziona</button>
-          <a class="btn-featured-full" href="https://teal-sawine-642e88.netlify.app/" target="_blank">Prova il tool →</a>
+          <button class="btn-featured-demo" onclick="openModal('modal-analisi')">Guarda come funziona</button>
+          <a class="btn-featured-full" href="https://alessandrodardi-1982.github.io/analisi-documento/" target="_blank">Prova il tool →</a>
         </div>
       </div>
       <div class="featured-kpi">
@@ -616,12 +616,12 @@ nav{
           <span class="kpi-label">Tempo medio</span>
         </div>
         <div class="kpi-item">
-          <span class="kpi-num">~0¢</span>
-          <span class="kpi-label">Costo</span>
+          <span class="kpi-num">5</span>
+          <span class="kpi-label">Sezioni output</span>
         </div>
         <div class="kpi-item">
           <span class="kpi-num">0</span>
-          <span class="kpi-label">Setup richiesto</span>
+          <span class="kpi-label">Server coinvolti</span>
         </div>
       </div>
     </div>
@@ -671,10 +671,21 @@ nav{
           <a class="btn-card-full" href="https://tranquil-scone-513264.netlify.app/rapportino_intervento.html" target="_blank">Versione completa</a>
         </div>
       </div>
+      <div class="project-card">
+        <div class="card-icon">📊</div>
+        <span class="card-name">Briefing operativo</span>
+        <span class="card-desc">Carica i KPI della settimana (Excel o CSV) e ottieni un briefing strutturato in 30 secondi: executive summary, trend, priorità e azioni concrete. Niente copia-incolla da tabelle.</span>
+        <span class="card-cost">Costo API: frazioni di centesimo a elaborazione</span>
+        <span class="card-privacy">🔒 Il file resta sul dispositivo. Il testo viene inviato solo al momento della generazione — nessun dato salvato su server terzi.</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-brief')">Guarda come funziona</button>
+          <a class="btn-card-full" href="https://teal-sawine-642e88.netlify.app/" target="_blank">Versione completa</a>
+        </div>
+      </div>
     </div>
 
     <div class="projects-cta-row">
-      <a class="btn-outline" href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Tutti i 13 progetti nel portfolio →</a>
+      <a class="btn-outline" href="https://alessandrodardi-1982.github.io/portfolio/" target="_blank">Tutti i 14 progetti nel portfolio →</a>
     </div>
   </div>
 </section>
@@ -824,6 +835,29 @@ nav{
   </div>
 </div>
 
+<div class="modal-overlay" id="modal-analisi">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-analisi')">✕</button>
+    <h3>Analisi documento</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>Tipo di documento</label>
+    <select id="analisi-tipo">
+      <option value="preventivo">Preventivo fornitore — scaffalatura industriale</option>
+      <option value="contratto">Contratto di servizio — manutenzione climatizzazione</option>
+      <option value="email">Email commerciale — proposta distribuzione esclusiva</option>
+      <option value="locazione">Contratto di locazione — ufficio uso commerciale</option>
+    </select>
+    <button class="btn-modal-run" id="analisi-btn" onclick="runAnalisi()">Analizza documento</button>
+    <div class="triage-loading" id="analisi-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Analisi in corso…</div>
+    </div>
+    <div class="demo-output" id="analisi-output">
+      <span class="out-label">Analisi documento</span>
+      <div id="analisi-result"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 // Navbar
 const hamburger=document.getElementById('hamburger');
@@ -969,6 +1003,75 @@ function runRapportino(){
       <div class="out-row"><span class="key">Ore fatturabili</span><span class="val">${fatturate}h (arrotondamento automatico)</span></div>
       <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">Testo per il cliente:</strong><br>${note}. Intervento completato in data ${oggi}. Impianto ripristinato e funzionante.</p>
       <p style="margin-top:10px;font-size:.78rem;color:#888;">Rapportino generato sul campo. Firma cliente raccolta digitalmente.</p>`;
+    output.classList.add('visible');
+  },2000);
+}
+
+// Demo analisi documento
+function runAnalisi(){
+  const tipo=document.getElementById('analisi-tipo').value;
+  const btn=document.getElementById('analisi-btn');
+  const loading=document.getElementById('analisi-loading');
+  const output=document.getElementById('analisi-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  const risultati={
+    preventivo:{
+      titolo:'Preventivo scaffalatura industriale',
+      meta:'Preventivo · €12.400 + IVA · 15/09/2026',
+      rischio:'warn',
+      rischioLabel:'Attenzione',
+      include:'Fornitura e installazione scaffalatura metallica 6 moduli, portata 500 kg/ripiano, verniciatura epossidica grigia RAL 7035. Include trasporto e smaltimento imballaggi.',
+      attenzione:'Penale ritardo assente nel preventivo — da richiedere esplicitamente. Garanzia strutturale limitata a 12 mesi (standard di settore è 24). Prezzo IVA esclusa: verificare aliquota applicabile.',
+      condizioni:'Validità offerta: 30 giorni. Acconto richiesto: 30% all\'ordine. Saldo: alla consegna. Tempi di consegna: 6-8 settimane dalla firma.',
+      domande:'La garanzia è estendibile a 24 mesi? Cosa include l\'assistenza post-installazione? Sono previste penali in caso di ritardo nella consegna?'
+    },
+    contratto:{
+      titolo:'Contratto manutenzione climatizzazione',
+      meta:'Contratto di servizio · €3.200/anno · scadenza 31/12/2026',
+      rischio:'ok',
+      rischioLabel:'Nessun rischio critico',
+      include:'Manutenzione preventiva semestrale impianti split (4 unità), pulizia filtri, controllo pressioni e perdite refrigerante, verifica quadro elettrico. Interventi straordinari con priorità entro 24h lavorative.',
+      attenzione:'Interventi straordinari esclusi dal canone (tariffario allegato B non presente nel documento). Copertura solo su unità elencate in allegato A — verificare completezza elenco.',
+      condizioni:'Durata: 12 mesi con rinnovo tacito. Disdetta: 60 giorni prima della scadenza via raccomandata. Foro competente: Bologna.',
+      domande:'Dove si trova l\'allegato B con il tariffario straordinari? L\'allegato A è aggiornato con tutte le unità attuali? Cosa succede in caso di guasto nelle 24h non lavorative?'
+    },
+    email:{
+      titolo:'Proposta distribuzione esclusiva',
+      meta:'Email commerciale · valore stimato €85.000/anno · ottobre 2026',
+      rischio:'risk',
+      rischioLabel:'Rischio elevato',
+      include:'Proposta di esclusiva distributiva per area Emilia-Romagna, prodotti linea industriale. Margine proposto 18%, target minimo garantito 500 unità/anno, durata accordo 3 anni.',
+      attenzione:'Clausola di esclusività unilaterale: il fornitore si riserva il diritto di rientrare direttamente sul mercato con preavviso 90 giorni. Penale per mancato target: 15% del delta — verificare impatto. Nessuna exit clause per il distributore.',
+      condizioni:'Durata: 36 mesi non rinnovabile automaticamente. Target minimo annuale: 500 unità (verificare storici di mercato). Pagamento: 30 giorni data fattura.',
+      domande:'Perché l\'esclusiva non è reciproca? Cosa succede se il mercato non assorbe il target minimo? Sono disponibili dati sulle performance di altri distributori nella stessa area?'
+    },
+    locazione:{
+      titolo:'Contratto locazione ufficio — uso commerciale',
+      meta:'Contratto locazione · €1.450/mese · decorrenza 01/11/2026',
+      rischio:'warn',
+      rischioLabel:'Verificare clausole',
+      include:'Locazione ufficio di 85 mq, piano 2°, Bologna zona Navile. Inclusi: 2 posti auto coperti, riscaldamento centralizzato. Esclusi: spese condominiali variabili, utenze.',
+      attenzione:'Deposito cauzionale pari a 3 mensilità (€4.350) — verificare modalità di restituzione. Clausola aggiornamento ISTAT annuale senza cap massimo. Divieto sublocazione anche parziale.',
+      condizioni:'Durata: 6+6 anni (legge 392/78). Canone mensile: €1.450 + oneri accessori. Aggiornamento: 100% variazione ISTAT annuale. Recesso anticipato: preavviso 6 mesi.',
+      domande:'Le spese condominiali variabili sono stimate in quanto? L\'aggiornamento ISTAT è applicabile dal 1° o 2° anno? Sono previsti lavori di adeguamento a carico del locatario?'
+    }
+  };
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const r=risultati[tipo];
+    const rColor=r.rischio==='ok'?'#16a34a':r.rischio==='warn'?'#d97706':'#dc2626';
+    document.getElementById('analisi-result').innerHTML=`
+      <div class="out-row"><span class="key">Documento</span><span class="val">${r.titolo}</span></div>
+      <div class="out-row"><span class="key">Info</span><span class="val">${r.meta}</span></div>
+      <div class="out-row"><span class="key">Livello rischio</span><span class="val" style="color:${rColor};font-weight:600;">${r.rischioLabel}</span></div>
+      <p style="margin-top:14px;font-size:.85rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">📋 Cosa include:</strong><br>${r.include}</p>
+      <p style="margin-top:10px;font-size:.85rem;color:#555;line-height:1.6;"><strong style="color:#d97706;">⚠ Punti di attenzione:</strong><br>${r.attenzione}</p>
+      <p style="margin-top:10px;font-size:.85rem;color:#555;line-height:1.6;"><strong style="color:#1a1a2e;">📌 Condizioni chiave:</strong><br>${r.condizioni}</p>
+      <p style="margin-top:10px;font-size:.85rem;color:#555;line-height:1.6;"><strong style="color:#2563eb;">❓ Domande da fare:</strong><br>${r.domande}</p>
+      <p style="margin-top:10px;font-size:.75rem;color:#888;">Analisi dimostrativa — documento fittizio incluso nel tool.</p>`;
     output.classList.add('visible');
   },2000);
 }
