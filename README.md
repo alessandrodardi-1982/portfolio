@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/33153216/README.md)
+[README (1).md](https://github.com/user-attachments/files/33204662/README.1.md)
 # Portfolio — Alessandro Dardi
 
 **Operations & Digital Transformation** · Bologna
@@ -11,7 +11,7 @@
 
 Questo non è un sito che elenca competenze. È una raccolta di problemi operativi reali — vissuti in 8 anni di service management industriale — trasformati in strumenti digitali funzionanti.
 
-Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a sapere chi ho disponibile vicino a quel cliente? Come riduco il tempo per fare un preventivo? Come trasformo dati grezzi in una decisione?* La risposta non è una riga sul CV, è uno strumento che si può apr ire, usare, testare.
+Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a sapere chi ho disponibile vicino a quel cliente? Come riduco il tempo per fare un preventivo? Come trasformo dati grezzi in una decisione?* La risposta non è una riga sul CV, è uno strumento che si può aprire, usare, testare.
 
 **Principio guida:** non dichiaro competenze, le dimostro.
 
@@ -22,7 +22,7 @@ Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a saper
 | # | Sezione | Contenuto |
 |---|---|---|
 | 00 | **Chi sono** | Posizionamento: dalle operations industriali agli strumenti digitali |
-| 01 | **Lavori** | 13 progetti end-to-end (automazione, AI, analisi, gestione) |
+| 01 | **Lavori** | 14 progetti end-to-end (automazione, AI, analisi, gestione) |
 | 02 | **Analisi Dati** | 4 dashboard generate con Claude API |
 | 03 | **Applicativi** | CRM per PMI |
 | 04 | **Agente AI** | Agente di triage per supporto tecnico industriale |
@@ -45,6 +45,7 @@ Ogni progetto nasce da una domanda concreta nata sul campo: *come faccio a saper
 | A10 | Audit impianti | Guidare un'ispezione tecnica e generare il verbale automaticamente | Claude API, Netlify Functions |
 | A12 | Rapportino Intervento | Compilare il rapportino sul campo con firma cliente e testi generati da AI | Claude API, Netlify Functions, Canvas API |
 | A13 | Briefing Operativo | Trasformare KPI settimanali in un briefing strutturato in 30 secondi | Claude API, Netlify Functions, SheetJS |
+| A14 | Analisi documento | Analizzare preventivi, contratti ed email e restituire una sintesi strutturata in 5 sezioni | Claude API, GitHub Pages, HTML/CSS/JS |
 
 **CRM per PMI** (sezione Applicativi): gestione anagrafica clienti, storico interventi e pipeline — single-file HTML, zero dipendenze server.
 
@@ -79,6 +80,7 @@ I badge "base" o "nuovo per me" nel sito indicano onestamente il livello reale d
 
 - **Hosting principale:** GitHub Pages (statico, gratuito)
 - **Hosting con AI:** Netlify, solo per i progetti che richiedono una funzione serverless come proxy verso Claude API (mai chiave API esposta nel browser)
+- **Chiamata AI diretta da browser:** alcuni progetti (es. Analisi documento) chiamano Claude API direttamente dal browser dell'utente, senza server intermedio, usando la chiave API fornita dall'utente — nessun dato transita per server di terze parti
 - **Generazione contenuti AI:** Claude API (`claude-sonnet-4-6`) via chiamata diretta o tramite proxy Netlify (`netlify/functions/claude-proxy.js`)
 - **Metodo di lavoro:** ogni modifica passa prima da una repo/ambiente di test prima di arrivare in produzione
 
