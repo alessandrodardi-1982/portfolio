@@ -39,9 +39,12 @@ Quando si aggiunge un nuovo tool:
   1. Il NUOVO tool diventa la FEATURED CARD (sostituisce la precedente)
   2. Il PRECEDENTE featured scende come PRIMO elemento della GRIGLIA
   3. Gli altri card in griglia scalano di una posizione (mantengono ordine)
-  4. Aggiornare: stat "Strumenti costruiti", testo intro ("Cinque/Sei/Sette…"),
-     CTA ("Tutti i N progetti nel portfolio →")
-  5. Aggiungere modal + funzione JS per il demo del nuovo tool
+  4. Aggiornare 4 stringhe:
+       <span class="stat-num">13</span>          → numero +1
+       "Sei strumenti AI funzionanti"             → numero in lettere +1
+       "Tutti i 14 progetti nel portfolio →"      → numero +1
+       (intro conta i tool nella landing, CTA conta tutti i progetti in index)
+  5. Aggiungere modal-XXX + funzione runXXX() per il demo
 
 --------------------------------------------------------------------------------
 STATO ATTUALE — ORDINE TOOL (ottobre 2026)
@@ -59,15 +62,15 @@ FEATURED (ultimo):
 GRIGLIA (ordine dall'alto, da sinistra):
   1. A13 · Briefing operativo        📊  modal-brief      runBriefing()
      URL: https://teal-sawine-642e88.netlify.app/
-  2. A12 · CRM per PMI               📋  modal-crm        runCrm()
+  2.      · CRM per PMI              📋  modal-crm        runCrm()
      URL: https://alessandro-dardi.netlify.app/crm_pmi.html
   3. A9  · Preventivatore AI         💶  modal-prev       runPreventivo()
      URL: https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html
-  4. A10 · Rapportino intervento     📱  modal-rapp       runRapportino()
+  4. A12 · Rapportino intervento     📱  modal-rapp       runRapportino()
      URL: https://tranquil-scone-513264.netlify.app/rapportino_intervento.html
 
 NON in griglia (presenti in index.html ma non nella landing):
-  - Agente triage (A?): https://alessandro-dardi.netlify.app/agente_supporto.html
+  - Agente triage: https://alessandro-dardi.netlify.app/agente_supporto.html
 
 --------------------------------------------------------------------------------
 DESIGN SYSTEM
@@ -85,8 +88,8 @@ Palette:
   --blue:      #2563eb
   --red:       #dc2626
 
-Layout:     max-width non fisso per hero/stats; .projects-inner per la sezione tool
-Mobile:     griglia 2col → 1col sotto ~640px; featured card: 2col → 1col
+Layout:     .projects-inner per la sezione tool
+Mobile:     griglia 2col → 1col sotto ~640px; featured: 2col → 1col
 
 Classi chiave:
   .project-featured       ← card featured (unica, full-width)
@@ -109,7 +112,7 @@ ARCHITETTURA TECH
 - Single file HTML (tutto inline: CSS + JS)
 - Zero librerie JS esterne
 - Zero backend: chiamate API demo sono simulate (setTimeout 2000ms)
-- Modali: funzione openModal(id) / closeModal(id)
+- Modali: openModal(id) / closeModal(id) già presenti nel file
 - Demo simulate: ogni tool ha runXXX() con dati pre-scritti
 - Dark mode: non implementata in landing (solo in index.html e nei tool)
 - Analytics: Umami (script asincrono in <head>)
@@ -118,9 +121,133 @@ ARCHITETTURA TECH
 CONTATORI — VALORI CORRENTI
 --------------------------------------------------------------------------------
 
-stat "Strumenti costruiti":    13
-Intro testo numero (lettere):  Sei
-CTA numero:                    14   ← si riferisce a index.html che ha tutti i progetti
+  stat "Strumenti costruiti":   13   (tool mostrati nella landing)
+  Intro numero in lettere:      Sei
+  CTA "N progetti":             14   (tutti i progetti in index.html)
+
+  Sequenza lettere: Uno/Due/Tre/Quattro/Cinque/Sei/Sette/Otto/Nove/Dieci…
+
+--------------------------------------------------------------------------------
+TEMPLATE — FEATURED CARD (nuovo tool)
+--------------------------------------------------------------------------------
+
+Sostituisce l'intero blocco <!-- FEATURED — ultimo progetto --> in landing.html.
+Inserire prima della <div class="project-grid">
+
+    <!-- FEATURED — ultimo progetto -->
+    <div class="project-featured">
+      <span class="badge-nuovo">✦ Nuovo</span>
+      <div class="featured-body">
+        <div class="featured-icon">EMOJI</div>
+        <span class="featured-name">NOME TOOL</span>
+        <p class="featured-desc">DESCRIZIONE 2-3 righe: problema, cosa fa, output.</p>
+        <div class="featured-meta">
+          <span class="card-cost">Costo API: frazioni di centesimo a elaborazione</span>
+          <span class="card-privacy">🔒 NOTA PRIVACY</span>
+        </div>
+        <div class="featured-actions">
+          <button class="btn-featured-demo" onclick="openModal('modal-XXX')">Guarda come funziona</button>
+          <a class="btn-featured-full" href="URL_TOOL" target="_blank">Prova il tool →</a>
+        </div>
+      </div>
+      <div class="featured-kpi">
+        <div class="kpi-item"><span class="kpi-num">KPI1</span><span class="kpi-label">Label 1</span></div>
+        <div class="kpi-item"><span class="kpi-num">KPI2</span><span class="kpi-label">Label 2</span></div>
+        <div class="kpi-item"><span class="kpi-num">KPI3</span><span class="kpi-label">Label 3</span></div>
+      </div>
+    </div>
+
+--------------------------------------------------------------------------------
+TEMPLATE — CARD IN GRIGLIA (precedente featured che scende)
+--------------------------------------------------------------------------------
+
+Inserire come PRIMO <div class="project-card"> dentro <div class="project-grid">
+
+      <div class="project-card">
+        <div class="card-icon">EMOJI</div>
+        <span class="card-name">NOME TOOL</span>
+        <span class="card-desc">DESCRIZIONE breve (2-3 righe).</span>
+        <span class="card-cost">Costo API: frazioni di centesimo a elaborazione</span>
+        <span class="card-privacy">🔒 NOTA PRIVACY BREVE</span>
+        <div class="card-actions">
+          <button class="btn-card-demo" onclick="openModal('modal-XXX')">Guarda come funziona</button>
+          <a class="btn-card-full" href="URL_TOOL" target="_blank">Versione completa</a>
+        </div>
+      </div>
+
+--------------------------------------------------------------------------------
+TEMPLATE — MODAL DEMO
+--------------------------------------------------------------------------------
+
+Inserire prima del tag <script> (dopo l'ultimo </div> del modal precedente).
+Sostituire XXX con l'id del tool (es. "analisi", "brief", "prev").
+
+<div class="modal-overlay" id="modal-XXX">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-XXX')">✕</button>
+    <h3>NOME TOOL</h3>
+    <span class="modal-sub">Demo simulata — dati fittizi</span>
+    <label>LABEL SELECT</label>
+    <select id="XXX-scenario">
+      <option value="scenario1">Scenario 1</option>
+      <option value="scenario2">Scenario 2</option>
+      <option value="scenario3">Scenario 3</option>
+    </select>
+    <button class="btn-modal-run" id="XXX-btn" onclick="runXXX()">TESTO BOTTONE</button>
+    <div class="triage-loading" id="XXX-loading">
+      <div class="triage-loading-dots"><span></span><span></span><span></span>&nbsp;Elaborazione in corso…</div>
+    </div>
+    <div class="demo-output" id="XXX-output">
+      <span class="out-label">OUTPUT LABEL</span>
+      <div id="XXX-result"></div>
+    </div>
+  </div>
+</div>
+
+--------------------------------------------------------------------------------
+TEMPLATE — FUNZIONE JS DEMO
+--------------------------------------------------------------------------------
+
+Inserire dentro il blocco <script>, prima della funzione runBriefing().
+Sostituire XXX con l'id del tool.
+
+function runXXX(){
+  const scenario=document.getElementById('XXX-scenario').value;
+  const btn=document.getElementById('XXX-btn');
+  const loading=document.getElementById('XXX-loading');
+  const output=document.getElementById('XXX-output');
+  btn.disabled=true;btn.style.opacity='.5';
+  output.classList.remove('visible');
+  loading.classList.add('visible');
+  const risultati={
+    scenario1:{
+      campo1:'Valore 1',
+      campo2:'Valore 2',
+      testo:'Testo descrittivo del risultato scenario 1.'
+    },
+    scenario2:{
+      campo1:'Valore A',
+      campo2:'Valore B',
+      testo:'Testo descrittivo del risultato scenario 2.'
+    },
+    scenario3:{
+      campo1:'Valore X',
+      campo2:'Valore Y',
+      testo:'Testo descrittivo del risultato scenario 3.'
+    }
+  };
+  setTimeout(()=>{
+    loading.classList.remove('visible');
+    btn.disabled=false;btn.style.opacity='1';
+    const r=risultati[scenario];
+    document.getElementById('XXX-result').innerHTML=`
+      <div class="out-row"><span class="key">Campo 1</span><span class="val">${r.campo1}</span></div>
+      <div class="out-row"><span class="key">Campo 2</span><span class="val">${r.campo2}</span></div>
+      <p style="margin-top:14px;font-size:.88rem;color:#555;line-height:1.6;">${r.testo}</p>
+      <p style="margin-top:8px;font-size:.75rem;color:#888;">Dataset dimostrativo — dati fittizi.</p>`;
+    output.classList.add('visible');
+  },2000);
+}
 
 --------------------------------------------------------------------------------
 FILE CORRELATI (stessa repo)
@@ -130,13 +257,15 @@ index.html    ← portfolio completo (A1–A14), sezione #lavori con work-group
 README.md     ← tabella progetti con stack
 landing.html  ← questo file (tool AI funzionanti, versione pubblica/showcase)
 
+Per aggiungere un nuovo tool serve aggiornare anche index.html (work-group A15)
+e README.md (nuova riga in tabella). Vedi PROGETTO.txt dei singoli tool per dettagli.
+
 --------------------------------------------------------------------------------
-COMANDI UTILI (da cartella locale del repo)
+COMANDI GIT (da cartella locale del repo)
 --------------------------------------------------------------------------------
 
-Aggiornare e pushare:
   git add landing.html
-  git commit -m "feat: descrizione modifica"
+  git commit -m "feat: aggiungi A15 NOME — featured card in landing.html"
   git push origin main
 
 GitHub Pages si aggiorna in ~1-2 minuti dopo il push.
