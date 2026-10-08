@@ -1,0 +1,145 @@
+================================================================================
+CONTESTO: landing.html — Portfolio Alessandro Dardi
+================================================================================
+
+FILE:    alessandrodardi-1982/portfolio → landing.html
+URL:     https://alessandrodardi-1982.github.io/portfolio/landing.html
+REPO:    https://github.com/alessandrodardi-1982/portfolio
+
+--------------------------------------------------------------------------------
+STRUTTURA PAGINA
+--------------------------------------------------------------------------------
+
+1. HEADER (sticky)
+   - Logo "Alessandro Dardi" + link ancora (#progetti, #chi-sono)
+   - Hamburger menu su mobile
+
+2. HERO
+   - Titolo / tagline
+   - CTA bottoni
+
+3. STATS (3 colonne)
+   - Strumenti costruiti: 13   ← aggiornare a ogni nuovo tool
+   - Anni in operations: 8
+   - Emilia-Romagna: ER
+
+4. SEZIONE PROGETTI
+   - Intro: "Sei strumenti AI funzionanti…"   ← aggiornare a ogni nuovo tool
+   - FEATURED CARD (1 sola — sempre l'ultimo tool)
+   - GRIGLIA 2×N (tool precedenti in ordine cronologico discendente)
+   - CTA: "Tutti i 14 progetti nel portfolio →"   ← aggiornare a ogni nuovo tool
+
+5. FOOTER
+
+--------------------------------------------------------------------------------
+REGOLA AGGIORNAMENTO — DA SEGUIRE SEMPRE
+--------------------------------------------------------------------------------
+
+Quando si aggiunge un nuovo tool:
+  1. Il NUOVO tool diventa la FEATURED CARD (sostituisce la precedente)
+  2. Il PRECEDENTE featured scende come PRIMO elemento della GRIGLIA
+  3. Gli altri card in griglia scalano di una posizione (mantengono ordine)
+  4. Aggiornare: stat "Strumenti costruiti", testo intro ("Cinque/Sei/Sette…"),
+     CTA ("Tutti i N progetti nel portfolio →")
+  5. Aggiungere modal + funzione JS per il demo del nuovo tool
+
+--------------------------------------------------------------------------------
+STATO ATTUALE — ORDINE TOOL (ottobre 2026)
+--------------------------------------------------------------------------------
+
+FEATURED (ultimo):
+  A14 · Analisi documento
+  Icona: 📄
+  URL tool: https://alessandrodardi-1982.github.io/analisi-documento/
+  Modal: modal-analisi · JS: runAnalisi()
+  KPI: 30s / 5 sezioni output / 0 server coinvolti
+  Privacy: chiamata API diretta dal browser, nessun server intermedio,
+           chiave API dell'utente salvata in localStorage
+
+GRIGLIA (ordine dall'alto, da sinistra):
+  1. A13 · Briefing operativo        📊  modal-brief      runBriefing()
+     URL: https://teal-sawine-642e88.netlify.app/
+  2. A12 · CRM per PMI               📋  modal-crm        runCrm()
+     URL: https://alessandro-dardi.netlify.app/crm_pmi.html
+  3. A9  · Preventivatore AI         💶  modal-prev       runPreventivo()
+     URL: https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html
+  4. A10 · Rapportino intervento     📱  modal-rapp       runRapportino()
+     URL: https://tranquil-scone-513264.netlify.app/rapportino_intervento.html
+
+NON in griglia (presenti in index.html ma non nella landing):
+  - Agente triage (A?): https://alessandro-dardi.netlify.app/agente_supporto.html
+
+--------------------------------------------------------------------------------
+DESIGN SYSTEM
+--------------------------------------------------------------------------------
+
+Font:       Playfair Display (titoli) + Inter (corpo)
+Palette:
+  --navy:      #1a1a2e   (primario, testi, sfondi scuri)
+  --navy-mid:  #2d2d4e
+  --white:     #ffffff
+  --gray-bg:   #f7f7fb
+  --border:    #e0e0ea
+  --green:     #16a34a
+  --amber:     #d97706
+  --blue:      #2563eb
+  --red:       #dc2626
+
+Layout:     max-width non fisso per hero/stats; .projects-inner per la sezione tool
+Mobile:     griglia 2col → 1col sotto ~640px; featured card: 2col → 1col
+
+Classi chiave:
+  .project-featured       ← card featured (unica, full-width)
+  .badge-nuovo            ← badge "✦ Nuovo" in alto a sinistra del featured
+  .featured-body          ← colonna sinistra: icona, nome, desc, meta, CTA
+  .featured-kpi           ← colonna destra: 3 KPI numerici
+  .project-grid           ← griglia card secondari
+  .project-card           ← singola card in griglia
+  .modal-overlay          ← wrapper modale (id="modal-XXX")
+  .modal                  ← contenuto modale
+  .triage-loading         ← spinner durante demo (id="XXX-loading")
+  .demo-output            ← area output demo (id="XXX-output")
+  .out-row                ← riga chiave/valore nell'output demo
+  .out-label              ← etichetta sopra l'output
+
+--------------------------------------------------------------------------------
+ARCHITETTURA TECH
+--------------------------------------------------------------------------------
+
+- Single file HTML (tutto inline: CSS + JS)
+- Zero librerie JS esterne
+- Zero backend: chiamate API demo sono simulate (setTimeout 2000ms)
+- Modali: funzione openModal(id) / closeModal(id)
+- Demo simulate: ogni tool ha runXXX() con dati pre-scritti
+- Dark mode: non implementata in landing (solo in index.html e nei tool)
+- Analytics: Umami (script asincrono in <head>)
+
+--------------------------------------------------------------------------------
+CONTATORI — VALORI CORRENTI
+--------------------------------------------------------------------------------
+
+stat "Strumenti costruiti":    13
+Intro testo numero (lettere):  Sei
+CTA numero:                    14   ← si riferisce a index.html che ha tutti i progetti
+
+--------------------------------------------------------------------------------
+FILE CORRELATI (stessa repo)
+--------------------------------------------------------------------------------
+
+index.html    ← portfolio completo (A1–A14), sezione #lavori con work-group
+README.md     ← tabella progetti con stack
+landing.html  ← questo file (tool AI funzionanti, versione pubblica/showcase)
+
+--------------------------------------------------------------------------------
+COMANDI UTILI (da cartella locale del repo)
+--------------------------------------------------------------------------------
+
+Aggiornare e pushare:
+  git add landing.html
+  git commit -m "feat: descrizione modifica"
+  git push origin main
+
+GitHub Pages si aggiorna in ~1-2 minuti dopo il push.
+Se la pagina non si aggiorna: Ctrl+Shift+R per svuotare la cache del browser.
+
+================================================================================
