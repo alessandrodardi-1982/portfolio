@@ -492,6 +492,67 @@ nav{
   .footer-inner{grid-template-columns:1fr;gap:32px}
   .footer-bottom{flex-direction:column;gap:4px}
 }
+
+/* ——— ENHANCEMENTS ——— */
+
+/* Navbar shadow on scroll */
+nav.scrolled {
+  box-shadow: 0 2px 24px rgba(26,26,46,.10);
+  border-bottom-color: transparent;
+}
+
+/* Fade-in on scroll — enabled only once JS is ready */
+.js-ready .fade-section {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+.js-ready .fade-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger for logo-band inner elements */
+.js-ready .fade-section .fade-child {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.js-ready .fade-section.visible .fade-child {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Enhanced project card hover */
+.project-card {
+  transition: border-color .25s, box-shadow .25s, transform .25s !important;
+}
+.project-card:hover {
+  border-color: #1a1a2e !important;
+  box-shadow: 0 8px 32px rgba(26,26,46,.13) !important;
+  transform: translateY(-4px);
+}
+
+/* Enhanced featured card hover */
+.project-featured {
+  transition: box-shadow .25s, transform .25s !important;
+}
+.project-featured:hover {
+  box-shadow: 0 12px 44px rgba(26,26,46,.15) !important;
+  transform: translateY(-3px);
+}
+
+/* Pills staggered animation */
+@keyframes pillPop {
+  from { opacity: 0; transform: translateY(8px) scale(.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.js-ready .pill {
+  opacity: 0;
+}
+.js-ready .pill.pill-visible {
+  animation: pillPop 0.38s cubic-bezier(.34,1.56,.64,1) forwards;
+}
 </style>
 </head>
 <body>
@@ -530,7 +591,7 @@ nav{
 </section>
 
 <!-- LOGO BAND — stack usati -->
-<section class="logo-band">
+<section class="logo-band fade-section">
   <div class="logo-band-inner">
     <h3>Tecnologie e strumenti</h3>
     <div class="pill-row">
@@ -570,14 +631,14 @@ nav{
 </section>
 
 <!-- STAT ROW -->
-<section class="stats">
+<section class="stats fade-section">
   <div class="stats-inner">
     <div class="stat">
-      <span class="stat-num">13</span>
+      <span class="stat-num" data-count="13">13</span>
       <span class="stat-label">Strumenti costruiti</span>
     </div>
     <div class="stat">
-      <span class="stat-num">8</span>
+      <span class="stat-num" data-count="8">8</span>
       <span class="stat-label">Anni in operations</span>
     </div>
     <div class="stat">
@@ -1090,6 +1151,62 @@ function runBriefing(){
     output.classList.add('visible');
   },2000);
 }
+
+// ——— ENHANCEMENTS ——— 
+
+// Navbar shadow on scroll
+;(function() {
+  var nav = document.querySelector('nav');
+  window.addEventListener('scroll', function() {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+})();
+
+// Fade-in on scroll + counters + pill stagger
+;(function() {
+  document.body.classList.add('js-ready');
+
+  // Counter animation
+  function animateCount(el) {
+    var target = parseInt(el.dataset.count, 10);
+    var duration = 1100;
+    var start = performance.now();
+    function step(now) {
+      var elapsed = now - start;
+      var p = Math.min(elapsed / duration, 1);
+      var eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+      el.textContent = Math.round(eased * target);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  // Pill stagger on logo-band visible
+  function activatePills(section) {
+    section.querySelectorAll('.pill').forEach(function(pill, i) {
+      pill.style.animationDelay = (i * 0.045 + 0.05) + 's';
+      pill.classList.add('pill-visible');
+    });
+  }
+
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      el.classList.add('visible');
+      // Animate counters if this section has them
+      el.querySelectorAll('.stat-num[data-count]').forEach(animateCount);
+      // Stagger pills if this is the logo band
+      if (el.classList.contains('logo-band')) activatePills(el);
+      io.unobserve(el);
+    });
+  }, { threshold: 0.10 });
+
+  document.querySelectorAll('.fade-section').forEach(function(el) {
+    io.observe(el);
+  });
+})();
+
 </script>
 </body>
 </html>
