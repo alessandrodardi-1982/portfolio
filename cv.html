@@ -53,6 +53,15 @@ nav{
   transition:background .2s;
 }
 .btn-dark:hover{background:#2d2d4e}
+.btn-cv-nav{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#fff;color:#1a1a2e;
+  padding:9px 20px;border-radius:6px;
+  font-family:'Inter',sans-serif;font-weight:600;font-size:.875rem;
+  text-decoration:none;border:2px solid #1a1a2e;
+  transition:background .2s,color .2s;
+}
+.btn-cv-nav:hover{background:#1a1a2e;color:#fff}
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px}
 .hamburger span{display:block;height:2px;width:24px;background:#1a1a2e;border-radius:2px;transition:transform .25s,opacity .25s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -342,7 +351,7 @@ nav{
       <li class="nav-hide-mobile"><a href="#esperienze">Esperienze</a></li>
       <li class="nav-hide-mobile"><a href="#competenze">Competenze</a></li>
       <li class="nav-hide-mobile"><a href="#formazione">Formazione</a></li>
-      <li><a class="btn-dark" href="CV_Alessandro_Dardi.pdf" download>&#8595; Scarica CV</a></li>
+      <li><a class="btn-cv-nav" href="CV_Alessandro_Dardi.pdf" download>&#8595; Scarica CV</a></li>
     </ul>
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
