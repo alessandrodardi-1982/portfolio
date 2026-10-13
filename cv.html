@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="description" content="Curriculum Vitae di Alessandro Dardi">
 <title>CV — Alessandro Dardi</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -237,7 +231,7 @@ nav{
   font-size:.875rem;color:#555;line-height:1.65;
   padding-left:18px;position:relative;
 }
-.tl-bullets li::before{content:'2';position:absolute;left:0;color:#bbb}
+.tl-bullets li::before{content:'\2022';position:absolute;left:0;color:#1a1a2e;font-size:.7rem;top:5px}
 @media(max-width:768px){
   .tl-item{grid-template-columns:1fr;gap:6px}
   .tl-meta{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline}
@@ -328,9 +322,6 @@ nav{
   .tl-item,.edu-item{page-break-inside:avoid}
 }
 </style>
-</head>
-<body>
-
 
 <!-- NAV -->
 <nav>
@@ -665,6 +656,3 @@ window.addEventListener('scroll', function(){
   document.querySelector('nav').style.boxShadow = window.scrollY > 10 ? '0 2px 24px rgba(26,26,46,.10)' : '';
 });
 </script>
-
-</body>
-</html>
