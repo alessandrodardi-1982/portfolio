@@ -728,7 +728,6 @@ nav.scrolled {
         <span class="card-privacy">🔒 Le descrizioni inviate non vengono memorizzate né usate per addestrare modelli. DPA attivo.</span>
         <div class="card-actions">
           <button class="btn-card-demo" onclick="openModal('modal-prev')">Guarda come funziona</button>
-          <a class="btn-card-full" href="https://magenta-daffodil-07f9ec.netlify.app/preventivatore_ai.html" target="_blank">Prova il tool</a>
         </div>
       </div>
       <div class="project-card">
@@ -856,7 +855,10 @@ nav.scrolled {
     <button class="modal-close" onclick="closeModal('modal-prev')">✕</button>
     <h3>Preventivatore AI</h3>
     <span class="modal-sub">Demo simulata — dati fittizi</span>
-    <label>Descrivi la richiesta del cliente</label>
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;">
+      <label style="margin-bottom:0;">Descrivi la richiesta del cliente</label>
+      <button type="button" onclick="prevCaricaEsempio()" style="background:none;border:none;font-size:.8rem;color:#2563eb;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;padding:0;">Carica esempio →</button>
+    </div>
     <textarea id="prev-input" placeholder="Es: intervento urgente su compressore fermo, sostituzione valvola di sicurezza e verifica impianto"></textarea>
     <button class="btn-modal-run" id="prev-btn" onclick="runPreventivo()">Genera bozza preventivo</button>
     <div class="triage-loading" id="prev-loading">
@@ -1052,6 +1054,10 @@ function runCrm(){
 }
 
 // Demo preventivatore
+function prevCaricaEsempio(){
+  document.getElementById('prev-input').value='Intervento urgente su compressore Atlas Copco GA15 fermo in produzione. Valvola di sicurezza da sostituire, verifica generale impianto pneumatico e test ciclo completo. Cliente: Termoflex Srl — linea B ferma da 3 ore.';
+}
+
 function runPreventivo(){
   const input=document.getElementById('prev-input').value.trim();
   if(!input){alert('Inserisci la descrizione della richiesta.');return}
