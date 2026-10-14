@@ -353,11 +353,14 @@ nav{
 
 /* ——— MODAL ——— */
 .modal-overlay{
-  display:none;position:fixed;inset:0;z-index:500;
-  background:rgba(26,26,46,.5);
-  backdrop-filter:blur(4px);
+  display:none;
+  position:fixed;
+  top:0;left:0;width:100%;height:100%;
+  z-index:9999;
+  background:rgba(26,26,46,.6);
   align-items:center;justify-content:center;
   padding:20px;
+  box-sizing:border-box;
 }
 .modal-overlay.open{display:flex}
 .modal{
@@ -663,7 +666,7 @@ nav.scrolled {
     <span class="section-label">Progetti</span>
     <h2 style="text-align:justify;hyphens:auto;">Automatizzo processi, analizzo dati operativi e integro strumenti AI. Per chi vuole lavorare meglio senza cambiare tutto.</h2>
     <!-- CONTATORE STRUMENTI AI: attualmente 5. Aggiornare questo numero ogni volta che si pubblica un nuovo strumento. -->
-    <p class="projects-intro" style="white-space:nowrap;">Cinque strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
+    <p class="projects-intro">Cinque strumenti AI funzionanti, costruiti su problemi reali del service industriale. Clicca per provarli.</p>
 
     <!-- FEATURED — ultimo progetto -->
     <div class="project-featured">
