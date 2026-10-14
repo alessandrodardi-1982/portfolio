@@ -581,7 +581,8 @@ nav.scrolled {
       <div class="hero-cta">
         <a class="btn-dark" href="#progetti">Guarda i miei progetti</a>
         <a class="btn-outline" href="cv.html">Visualizza CV</a>
-        <a class="btn-outline" href="#footer">Contattami</a>
+        <button class="btn-outline" onclick="openModal('modal-contatti')">Contattami</button>
+        <a class="btn-outline" href="https://www.linkedin.com/in/alessandro-dardi/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </div>
     <div class="hero-photo">
@@ -737,6 +738,38 @@ nav.scrolled {
 
   </div>
 </section>
+
+<!-- MODAL CONTATTI -->
+<div class="modal-overlay" id="modal-contatti">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-contatti')">✕</button>
+    <h3>Contattami</h3>
+    <span class="modal-sub">Scegli come preferisci scrivermi</span>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px;">
+      <a href="mailto:alessandro.dardi@gmail.com" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1.5px solid #e0e0ea;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:border-color .2s;" onmouseover="this.style.borderColor='#1a1a2e'" onmouseout="this.style.borderColor='#e0e0ea'">
+        <span style="font-size:1.4rem;">📧</span>
+        <div>
+          <div style="font-weight:700;font-size:.9rem;">Email</div>
+          <div style="color:#888;font-size:.82rem;">alessandro.dardi@gmail.com</div>
+        </div>
+      </a>
+      <a href="tel:+393357057649" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1.5px solid #e0e0ea;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:border-color .2s;" onmouseover="this.style.borderColor='#1a1a2e'" onmouseout="this.style.borderColor='#e0e0ea'">
+        <span style="font-size:1.4rem;">📞</span>
+        <div>
+          <div style="font-weight:700;font-size:.9rem;">Telefono</div>
+          <div style="color:#888;font-size:.82rem;">+39 335 705 7649</div>
+        </div>
+      </a>
+      <a href="https://wa.me/393357057649?text=Ciao%20Alessandro%2C%20ho%20visto%20il%20tuo%20profilo%20e%20vorrei%20contattarti." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:14px;padding:16px 18px;border:1.5px solid #e0e0ea;border-radius:8px;text-decoration:none;color:#1a1a2e;transition:border-color .2s;" onmouseover="this.style.borderColor='#1a1a2e'" onmouseout="this.style.borderColor='#e0e0ea'">
+        <span style="font-size:1.4rem;">💬</span>
+        <div>
+          <div style="font-weight:700;font-size:.9rem;">WhatsApp</div>
+          <div style="color:#888;font-size:.82rem;">Scrivi un messaggio diretto</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer class="footer" id="footer">
